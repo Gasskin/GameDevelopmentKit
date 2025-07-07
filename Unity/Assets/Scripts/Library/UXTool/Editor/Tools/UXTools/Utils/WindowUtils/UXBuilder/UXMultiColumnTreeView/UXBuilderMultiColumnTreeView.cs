@@ -12,7 +12,7 @@ namespace ThunderFireUITool
         public const string ClassName = "UXMultiColumnTreeView";
         public readonly UXStyle Style = new UXStyle();
         public readonly Columns Columns = new Columns();
-        public const ColumnSortingMode SortingEnabled = ColumnSortingMode.None;
+        public const UnityEngine.UIElements.ColumnSortingMode SortingEnabled = ColumnSortingMode.None;
         public readonly Action SortAction = null;
     }
 
