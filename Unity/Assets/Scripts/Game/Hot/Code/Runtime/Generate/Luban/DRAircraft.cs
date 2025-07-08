@@ -58,12 +58,6 @@ public sealed partial class DRAircraft : Luban.BeanBase
 
     public  void ResolveRef(Tables tables)
     {
-        
-        
-        
-        
-        
-        
         PostResolveRef();
     }
 

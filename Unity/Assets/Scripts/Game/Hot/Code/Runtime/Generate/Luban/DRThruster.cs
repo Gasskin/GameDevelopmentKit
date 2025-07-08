@@ -38,8 +38,6 @@ public sealed partial class DRThruster : Luban.BeanBase
 
     public  void ResolveRef(Tables tables)
     {
-        
-        
         PostResolveRef();
     }
 

@@ -58,12 +58,6 @@ public sealed partial class DRWeapon : Luban.BeanBase
 
     public  void ResolveRef(Tables tables)
     {
-        
-        
-        
-        
-        
-        
         PostResolveRef();
     }
 

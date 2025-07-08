@@ -63,13 +63,6 @@ public sealed partial class DRAsteroid : Luban.BeanBase
 
     public  void ResolveRef(Tables tables)
     {
-        
-        
-        
-        
-        
-        
-        
         PostResolveRef();
     }
 

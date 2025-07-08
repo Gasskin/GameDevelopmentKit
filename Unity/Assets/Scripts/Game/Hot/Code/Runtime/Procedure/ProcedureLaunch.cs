@@ -1,3 +1,4 @@
+using System.Net;
 using GameFramework.Fsm;
 using UnityGameFramework.Runtime;
 
@@ -14,6 +15,9 @@ namespace Game.Hot
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
             GameEntry.Network.CreateNetworkChannel("Socket", GameFramework.Network.ServiceType.Tcp, new NetworkChannelHelperHot());
+            var net = GameEntry.Network.GetNetworkChannel("Socket");
+            net.Connect(IPAddress.Parse("127.0.0.1"), 9000);
+            Log.Debug("Connect to server");
             ChangeState<ProcedurePreload>(procedureOwner);
         }
     }

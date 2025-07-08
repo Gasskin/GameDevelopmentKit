@@ -32,7 +32,7 @@ public partial class DTWeapon : IDataTable
         for(int n = _buf.ReadSize() ; n > 0 ; --n)
         {
             DRWeapon _v;
-            _v = DRWeapon.DeserializeDRWeapon(_buf);
+            _v = global::Game.Hot.DRWeapon.DeserializeDRWeapon(_buf);
             _dataList.Add(_v);
             _dataMap.Add(_v.Id, _v);
         }

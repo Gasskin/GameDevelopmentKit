@@ -43,9 +43,6 @@ public sealed partial class DRArmor : Luban.BeanBase
 
     public  void ResolveRef(Tables tables)
     {
-        
-        
-        
         PostResolveRef();
     }
 

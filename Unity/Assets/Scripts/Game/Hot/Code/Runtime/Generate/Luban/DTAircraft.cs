@@ -32,7 +32,7 @@ public partial class DTAircraft : IDataTable
         for(int n = _buf.ReadSize() ; n > 0 ; --n)
         {
             DRAircraft _v;
-            _v = DRAircraft.DeserializeDRAircraft(_buf);
+            _v = global::Game.Hot.DRAircraft.DeserializeDRAircraft(_buf);
             _dataList.Add(_v);
             _dataMap.Add(_v.Id, _v);
         }
