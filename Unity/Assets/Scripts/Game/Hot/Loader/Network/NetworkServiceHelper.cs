@@ -7,7 +7,9 @@ namespace Game
     public class ServiceNetworkHelper : INetworkServiceHelper
     {
         private IWebSocketChannel m_WebSocketChannel;
-        
+
+        // private NetworkChannelBase m_NetworkChannel;
+
         public bool Connected
         {
             get
@@ -22,7 +24,7 @@ namespace Game
 
         public bool IsChannel(object channel)
         {
-            if(channel == null)
+            if (channel == null)
             {
                 return false;
             }
@@ -47,27 +49,27 @@ namespace Game
 
         public void OnConnected()
         {
-            
+
         }
 
         public void OnDisconnected()
         {
-            
+
         }
 
         public void OnMissHeartBeat()
         {
-            
+
         }
 
         public void OnError(string errorMessage)
         {
-            
+
         }
 
         public void OnCustomError(string customErrorData)
         {
-            
+
         }
     }
 }

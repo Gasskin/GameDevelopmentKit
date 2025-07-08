@@ -1,4 +1,5 @@
 using GameFramework.Fsm;
+using UnityGameFramework.Runtime;
 
 namespace Game.Hot
 {
@@ -12,6 +13,7 @@ namespace Game.Hot
         protected override void OnUpdate(IFsm<ProcedureComponent> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
+            GameEntry.Network.CreateNetworkChannel("Socket", GameFramework.Network.ServiceType.Tcp, new NetworkChannelHelperHot());
             ChangeState<ProcedurePreload>(procedureOwner);
         }
     }
