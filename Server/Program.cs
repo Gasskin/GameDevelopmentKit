@@ -6,7 +6,7 @@ class Program
 {
     static void Main()
     {
-        var server = new Server();
-        server.Init();
+        Server.Instance.Init();
+        Battle.Instance.Init();
     }
 }

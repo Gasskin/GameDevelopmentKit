@@ -4,4 +4,5 @@ internal class ClientState
 {
     public Socket socket;
     public byte[] buff = new byte[1024];
+    public MemoryStream receiveStream = new MemoryStream();
 }

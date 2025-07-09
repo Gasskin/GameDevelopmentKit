@@ -1,11 +1,13 @@
 ﻿using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using Game.Hot;
 using ProtoBuf;
 
-internal class Server : IDisposable
+public class Server
 {
+    public static Server Instance { get; } = new();
+
+
     // IP地址
     private const string IP = "127.0.0.1";
 
@@ -67,90 +69,104 @@ internal class Server : IDisposable
         clients.Add(client, state);
 
         Console.WriteLine($"[客户端登录]{client.RemoteEndPoint}");
-
-        // SendTestMessage(client);
-        SendMsg(client, new SCHeartBeatTest()
-        {
-            A = [1, 2, 3, 4, 5]
-        });
     }
 
     //读取Clientfd
-    public bool ReadClientfd(Socket clientfd)
+    public bool ReadClient(Socket client)
     {
-        ClientState state = clients[clientfd];
-        //接收
-        int count = 0;
+        ClientState state = clients[client];
+
         try
         {
-            count = clientfd.Receive(state.buff);
+            int count = client.Receive(state.buff);
+            if (count == 0)
+            {
+                Console.WriteLine($"[客户端关闭]{client.RemoteEndPoint}");
+                client.Close();
+                clients.Remove(client);
+                return false;
+            }
+
+            // 把收到的数据追加进 MemoryStream
+            state.receiveStream.Position = state.receiveStream.Length;
+            state.receiveStream.Write(state.buff, 0, count);
+            state.receiveStream.Position = 0;
+
+            // 处理所有完整包
+            while (true)
+            {
+                // 检查是否能读出头（8字节）
+                if (state.receiveStream.Length - state.receiveStream.Position < 8)
+                {
+                    break; // 等待更多数据
+                }
+
+                // 读取头
+                byte[] headBuf = new byte[8];
+                state.receiveStream.Read(headBuf, 0, 8);
+                int bodyLength = BitConverter.ToInt32(headBuf, 0);
+                int msgId = BitConverter.ToInt32(headBuf, 4);
+
+                // 检查是否收到了完整 body
+                if (state.receiveStream.Length - state.receiveStream.Position < bodyLength)
+                {
+                    // 回退 8 字节（头）等待下次完整 body
+                    state.receiveStream.Position -= 8;
+                    break;
+                }
+
+                // 读取 body
+                byte[] bodyBuf = new byte[bodyLength];
+                state.receiveStream.Read(bodyBuf, 0, bodyLength);
+
+                // 处理协议
+                HandleMessage(client, msgId, bodyBuf);
+            }
+
+            // 清理已读数据
+            if (state.receiveStream.Position == state.receiveStream.Length)
+            {
+                state.receiveStream.SetLength(0); // 全部读完了
+            }
+            else
+            {
+                // 剩下没读完的内容前移
+                byte[] remain = state.receiveStream.ToArray()[(int)state.receiveStream.Position..];
+                state.receiveStream.SetLength(0);
+                state.receiveStream.Write(remain, 0, remain.Length);
+            }
+
+            return true;
         }
-        catch (SocketException ex)
+        catch (Exception ex)
         {
-            clientfd.Close();
-            clients.Remove(clientfd);
+            Console.WriteLine($"[异常] {ex.Message}");
+            client.Close();
+            clients.Remove(client);
             return false;
         }
-        //客户端关闭
-        if (count == 0)
-        {
-            Console.WriteLine($"[客户端关闭]{clientfd.LocalEndPoint}");
-            clientfd.Close();
-            clients.Remove(clientfd);
-            return false;
-        }
-        //广播
-        string recvStr = Encoding.UTF8.GetString(state.buff, 0, count);
-        Console.WriteLine($"[接受客户端消息]{recvStr}");
-        byte[] sendBytes = Encoding.UTF8.GetBytes(recvStr);
-        foreach (ClientState cs in clients.Values)
-        {
-            cs.socket.Send(sendBytes);
-        }
-        return true;
     }
 
-    public void Dispose()
+    private void HandleMessage(Socket client, int msgId, byte[] bodyBuf)
     {
-        if (server != null)
+        using var ms = new MemoryStream(bodyBuf);
+        switch (msgId)
         {
-            Console.WriteLine("[服务器]关闭");
-            server.Dispose();
+            case 30001:
+                var msg = Serializer.Deserialize<CSHeartBeatTest>(ms);
+                break;
+
+            default:
+                Console.WriteLine($"[未知消息] Id={msgId}");
+                break;
         }
     }
-
-    // void SendTestMessage(Socket client)
-    // {
-    //     var msg = new SCHeartBeatTest
-    //     {
-    //         A = new List<int> { 121, 122, 123, 124, 125 },
-    //     };
-    //
-    //     // 使用 protobuf-net 序列化
-    //     byte[] body;
-    //     using (var ms = new MemoryStream())
-    //     {
-    //         Serializer.Serialize(ms, msg);
-    //         body = ms.ToArray();
-    //     }
-    //     Console.WriteLine("发送字节：" + BitConverter.ToString(body));
-    //
-    //     int bodyLength = body.Length;
-    //     int messageType = msg.Id; // 👈 你客户端必须注册过的协议ID
-    //
-    //     byte[] header = new byte[8];
-    //     Array.Copy(BitConverter.GetBytes(bodyLength), 0, header, 0, 4);
-    //     Array.Copy(BitConverter.GetBytes(messageType), 0, header, 4, 4);
-    //
-    //     client.Send(header); // 👈 只发头，不带消息体
-    //     client.Send(body);
-    // }
 
 
     /// <summary>
     /// 发送一个 SCPacketBase 协议对象，封装消息头并通过 TCP 发送。
     /// </summary>
-    public static void SendMsg(Socket client, SCPacketBase packet)
+    public void SendMsg(Socket client, SCPacketBase packet)
     {
         // 1. 序列化 proto 消息体
         byte[] body;
