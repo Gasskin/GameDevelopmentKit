@@ -16,18 +16,20 @@ namespace Game.Hot
             GameEntry.Event.Subscribe(NetworkConnectedEventArgs.EventId,((sender, args) =>
             {
                 Log.Error("Connected");
-                var net = GameEntry.Network.GetNetworkChannel("Socket");
-                net.Send(new CSHeartBeatTest()
-                {
-                    A = new List<int>(){1,2,3},
-                    B = "123",
-                });
+                // var net = GameEntry.Network.GetNetworkChannel("Socket");
+                // net.Send(new CSHeartBeatTest()
+                // {
+                //     A = new List<int>(){1,2,3},
+                //     B = "123",
+                // });
             }));
             
-            GameEntry.Network.CreateNetworkChannel("Socket", GameFramework.Network.ServiceType.Tcp, new NetworkChannelHelper());
+            GameEntry.Network.CreateNetworkChannel("Socket", GameFramework.Network.ServiceType.Tcp, new NetworkChannelHelperHot());
             var net = GameEntry.Network.GetNetworkChannel("Socket");
-            net.Connect(IPAddress.Parse("127.0.0.1"), 9000);
+            net.Connect(IPAddress.Parse("127.0.0.1"), 12388);
             Log.Error("Start Connect");
+            Log.Warning("Start Connec11t");
+            Log.Debug("Start Connecdeb");
         }
 
         protected override void OnUpdate(IFsm<ProcedureComponent> procedureOwner, float elapseSeconds, float realElapseSeconds)

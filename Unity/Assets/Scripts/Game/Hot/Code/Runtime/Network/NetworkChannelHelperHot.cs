@@ -18,15 +18,9 @@ namespace Game.Hot
         private INetworkChannel m_NetworkChannel = null;
 
         /// <summary>
-        /// 获取消息包头长度。
+        /// 约定消息头包含2个int，第一个代表消息体的长度，第二个代表消息体的类型
         /// </summary>
-        public int PacketHeaderLength
-        {
-            get
-            {
-                return sizeof(int);
-            }
-        }
+        public int PacketHeaderLength => sizeof(int) * 2;
 
         /// <summary>
         /// 初始化网络频道辅助器。
@@ -153,7 +147,17 @@ namespace Game.Hot
         {
             // 注意：此函数并不在主线程调用！
             customErrorData = null;
-            return (IPacketHeader)RuntimeTypeModel.Default.Deserialize(source, ReferencePool.Acquire<SCPacketHeader>(), typeof(SCPacketHeader));
+
+            // 约定消息头包含2个int，第一个代表消息体的长度，第二个代表消息体的类型
+            using BinaryReader reader = new BinaryReader(source, System.Text.Encoding.UTF8, leaveOpen: true);
+            int packetLength = reader.ReadInt32(); // 消息体长度
+            int packetId = reader.ReadInt32();     // 消息类型 Id
+
+            // 构造 SCPacketHeader
+            var header = ReferencePool.Acquire<SCPacketHeader>();
+            header.PacketLength = packetLength;
+            header.Id = packetId;
+            return header;
         }
 
         /// <summary>

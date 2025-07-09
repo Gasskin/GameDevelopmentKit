@@ -12,3 +12,10 @@ message SCHeartBeatTest
 {
 	repeated int32 A = 1;
 }
+
+/// C->S 消息头
+message CSPacketHeader
+{
+
+}
+

@@ -25,19 +25,19 @@ namespace UnityGameFramework.Runtime
             switch (level)
             {
                 case GameFrameworkLogLevel.Debug:
-                    Debug.Log(Utility.Text.Format("<color=#888888>DEBUG▶\t</color>{0}", message));
+                    Debug.Log(Utility.Text.Format("<color=#888888>DEBUG▶</color>{0}", message));
                     break;
 
                 case GameFrameworkLogLevel.Info:
-                    Debug.Log(Utility.Text.Format("<color=#FFFFFF>INFO▶\t</color>{0}", message));
+                    Debug.Log(Utility.Text.Format("<color=#FFFFFF>INFO▶</color>{0}", message));
                     break;
 
                 case GameFrameworkLogLevel.Warning:
-                    Debug.LogWarning(Utility.Text.Format("<color=#FFDA00>WARNING▶\t</color>{0}", message));
+                    Debug.LogWarning(Utility.Text.Format("<color=#FFDA00>WARN▶</color>{0}", message));
                     break;
 
                 case GameFrameworkLogLevel.Error:
-                    Debug.LogError(Utility.Text.Format("<color=#FF2A00>ERROR▶\t</color>{0}", message));
+                    Debug.LogError(Utility.Text.Format("<color=#FF2A00>ERROR▶</color>{0}", message));
                     break;
 
                 default:

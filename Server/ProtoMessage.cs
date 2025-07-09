@@ -1,0 +1,79 @@
+﻿// This is an automatically generated class by Share.Tool. Please do not modify it.
+
+using ProtoBuf;
+using System;
+using System.Collections.Generic;
+    /// <summary>
+    /// 心跳测试
+    /// </summary>
+    // proto file : GameHot/Base.proto (line:4)
+    [Serializable, ProtoContract(Name = @"CSHeartBeatTest")]
+    public partial class CSHeartBeatTest
+    {
+        /// <summary>
+        /// 测试A
+        /// </summary>
+        [ProtoMember(1)]
+        public List<int> A { get; set; } = new List<int>();
+        /// <summary>
+        /// 测试B
+        /// </summary>
+        [ProtoMember(2)]
+        public string B { get; set; }
+        [ProtoMember(3)]
+        public Dictionary<int, long> C { get; set; } = new Dictionary<int, long>();
+    }
+
+    // proto file : GameHot/Base.proto (line:11)
+    [Serializable, ProtoContract(Name = @"SCHeartBeatTest")]
+    public partial class SCHeartBeatTest 
+    {
+        [ProtoMember(1)]
+        public List<int> A { get; set; } = new List<int>();
+    }
+
+    /// <summary>
+    /// S-C 消息头
+    /// </summary>
+    // // proto file : GameHot/Base.proto (line:23)
+    // [Serializable, ProtoContract(Name = @"SCPacketHeader")]
+    // public partial class SCPacketHeader : SCPacketBase
+    // {
+    //     public override int Id => 30004;
+    //     public override void Clear()
+    //     {
+    //     }
+    // }
+
+    // proto file : GameHot/GameHot2.proto (line:3)
+    [Serializable, ProtoContract(Name = @"CSHeartBeatTest22")]
+    public partial class CSHeartBeatTest22 
+    {
+        public int Id => 30005;
+        /// <summary>
+        /// 测试A
+        /// </summary>
+        [ProtoMember(1)]
+        public List<int> A { get; set; } = new List<int>();
+        [ProtoMember(1)]
+        public List<string> B { get; set; } = new List<string>();
+    }
+
+    // proto file : GameHot/GameHot2.proto (line:10)
+    [Serializable, ProtoContract(Name = @"SCHeartBeatTest22")]
+    public partial class SCHeartBeatTest22 
+    {
+        [ProtoMember(1)]
+        public List<int> A { get; set; } = new List<int>();
+    }
+
+    // 测试枚举
+    // proto file : GameHot/GameHot2.proto (line:16)
+    public enum TestEnum   
+    {
+        /// <summary>
+        /// 测试A
+        /// </summary>
+        A = 1,
+        B = 2,
+    }

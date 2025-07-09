@@ -9,7 +9,7 @@ namespace Game.Hot
     /// <summary>
     /// 心跳测试
     /// </summary>
-    // proto file : GameHot/GameHot.proto (line:4)
+    // proto file : GameHot/Base.proto (line:4)
     [Serializable, ProtoContract(Name = @"CSHeartBeatTest")]
     public partial class CSHeartBeatTest : CSPacketBase
     {
@@ -34,7 +34,7 @@ namespace Game.Hot
         }
     }
 
-    // proto file : GameHot/GameHot.proto (line:11)
+    // proto file : GameHot/Base.proto (line:11)
     [Serializable, ProtoContract(Name = @"SCHeartBeatTest")]
     public partial class SCHeartBeatTest : SCPacketBase
     {
@@ -47,11 +47,37 @@ namespace Game.Hot
         }
     }
 
+    /// <summary>
+    /// C->S 消息头
+    /// </summary>
+    // proto file : GameHot/Base.proto (line:17)
+    [Serializable, ProtoContract(Name = @"CSPacketHeader")]
+    public partial class CSPacketHeader : CSPacketBase
+    {
+        public override int Id => 30003;
+        public override void Clear()
+        {
+        }
+    }
+
+    /// <summary>
+    /// S-C 消息头
+    /// </summary>
+    // // proto file : GameHot/Base.proto (line:23)
+    // [Serializable, ProtoContract(Name = @"SCPacketHeader")]
+    // public partial class SCPacketHeader : SCPacketBase
+    // {
+    //     public override int Id => 30004;
+    //     public override void Clear()
+    //     {
+    //     }
+    // }
+
     // proto file : GameHot/GameHot2.proto (line:3)
     [Serializable, ProtoContract(Name = @"CSHeartBeatTest22")]
     public partial class CSHeartBeatTest22 : CSPacketBase
     {
-        public override int Id => 30003;
+        public override int Id => 30005;
         /// <summary>
         /// 测试A
         /// </summary>
@@ -70,7 +96,7 @@ namespace Game.Hot
     [Serializable, ProtoContract(Name = @"SCHeartBeatTest22")]
     public partial class SCHeartBeatTest22 : SCPacketBase
     {
-        public override int Id => 30004;
+        public override int Id => 30006;
         [ProtoMember(1)]
         public List<int> A { get; set; } = new List<int>();
         public override void Clear()
