@@ -1,18 +1,23 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using Game.Hot;
+using ProtoBuf;
 
 internal class Server : IDisposable
 {
     // IP地址
     private const string IP = "127.0.0.1";
+
     // 端口号
     private const int HOST = 12388;
 
     // 服务器Socket
     private Socket server;
+
     // 客户端Socket及状态信息
     private Dictionary<Socket, ClientState> clients = new Dictionary<Socket, ClientState>();
+
     // 多路复用
     List<Socket> checkRead = new List<Socket>();
 
@@ -29,7 +34,7 @@ internal class Server : IDisposable
         Console.WriteLine("[服务器]启动成功");
 
         //主循环
-        while (true) 
+        while (true)
         {
             //填充checkRead列表
             checkRead.Clear();
@@ -47,7 +52,7 @@ internal class Server : IDisposable
                 }
                 else
                 {
-                    ReadClientfd(socket);
+                    // ReadClientfd(socket);
                 }
             }
         }
@@ -56,12 +61,18 @@ internal class Server : IDisposable
     //读取Listenfd
     public void AcceptClient(Socket server)
     {
-        var clientfd = server.Accept();
+        var client = server.Accept();
         var state = new ClientState();
-        state.socket = clientfd;
-        clients.Add(clientfd, state);
+        state.socket = client;
+        clients.Add(client, state);
 
-        Console.WriteLine($"[客户端登录]{clientfd.RemoteEndPoint}");
+        Console.WriteLine($"[客户端登录]{client.RemoteEndPoint}");
+
+        // SendTestMessage(client);
+        SendMsg(client, new SCHeartBeatTest()
+        {
+            A = [1, 2, 3, 4, 5]
+        });
     }
 
     //读取Clientfd
@@ -105,6 +116,69 @@ internal class Server : IDisposable
         {
             Console.WriteLine("[服务器]关闭");
             server.Dispose();
+        }
+    }
+
+    // void SendTestMessage(Socket client)
+    // {
+    //     var msg = new SCHeartBeatTest
+    //     {
+    //         A = new List<int> { 121, 122, 123, 124, 125 },
+    //     };
+    //
+    //     // 使用 protobuf-net 序列化
+    //     byte[] body;
+    //     using (var ms = new MemoryStream())
+    //     {
+    //         Serializer.Serialize(ms, msg);
+    //         body = ms.ToArray();
+    //     }
+    //     Console.WriteLine("发送字节：" + BitConverter.ToString(body));
+    //
+    //     int bodyLength = body.Length;
+    //     int messageType = msg.Id; // 👈 你客户端必须注册过的协议ID
+    //
+    //     byte[] header = new byte[8];
+    //     Array.Copy(BitConverter.GetBytes(bodyLength), 0, header, 0, 4);
+    //     Array.Copy(BitConverter.GetBytes(messageType), 0, header, 4, 4);
+    //
+    //     client.Send(header); // 👈 只发头，不带消息体
+    //     client.Send(body);
+    // }
+
+
+    /// <summary>
+    /// 发送一个 SCPacketBase 协议对象，封装消息头并通过 TCP 发送。
+    /// </summary>
+    public static void SendMsg(Socket client, SCPacketBase packet)
+    {
+        // 1. 序列化 proto 消息体
+        byte[] body;
+        using (var ms = new MemoryStream())
+        {
+            Serializer.Serialize(ms, packet);
+            body = ms.ToArray();
+        }
+
+        int bodyLength = body.Length;
+        int messageType = packet.Id;
+
+        // 2. 构造 8 字节消息头：[4字节长度][4字节协议Id]
+        byte[] header = new byte[8];
+        Array.Copy(BitConverter.GetBytes(bodyLength), 0, header, 0, 4);
+        Array.Copy(BitConverter.GetBytes(messageType), 0, header, 4, 4);
+
+        try
+        {
+            // 3. 发送头 + 体
+            client.Send(header);
+            client.Send(body);
+
+            Console.WriteLine($"[发送] Id={messageType}, Len={bodyLength}, Type={packet.GetType().Name}");
+        }
+        catch (SocketException ex)
+        {
+            Console.WriteLine($"[发送失败] Socket错误: {ex.Message}");
         }
     }
 }

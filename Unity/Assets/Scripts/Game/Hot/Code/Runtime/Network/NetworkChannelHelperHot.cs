@@ -178,6 +178,16 @@ namespace Game.Hot
                 Log.Warning("Packet header is invalid.");
                 return null;
             }
+            
+            // byte[] ReadStreamToByteArray(Stream stream)
+            // {
+            //     long originalPosition = stream.Position;
+            //     byte[] buffer = new byte[stream.Length - stream.Position];
+            //     stream.Read(buffer, 0, buffer.Length);
+            //     stream.Position = originalPosition; // 恢复指针位置
+            //     return buffer;
+            // }
+
 
             Packet packet = null;
             if (scPacketHeader.IsValid)
@@ -185,7 +195,9 @@ namespace Game.Hot
                 Type packetType = GetServerToClientPacketType(scPacketHeader.Id);
                 if (packetType != null)
                 {
-                    packet = (Packet)RuntimeTypeModel.Default.DeserializeWithLengthPrefix(source, ReferencePool.Acquire(packetType), packetType, PrefixStyle.Fixed32, 0);
+                    // byte[] rawBytes = ReadStreamToByteArray(source);
+                    // Log.Info("【调试】收到原始字节：{0}" , BitConverter.ToString(rawBytes));
+                    packet = (Packet)RuntimeTypeModel.Default.Deserialize(source, ReferencePool.Acquire(packetType), packetType);
                 }
                 else
                 {
