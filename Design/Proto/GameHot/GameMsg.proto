@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+message CS_PingReq
+{
+
+}
+
+message SC_PingAck
+{
+
+}
+
+
+message CS_JoinRoomReq
+{
+	int32 accountId = 1;
+}
+
+message SC_JoinRoomAck
+{
+	repeated int32 roomPlayers = 1;
+}
+
+message SC_JoinRoomNtf
+{
+	int32 accountId = 1;
+}

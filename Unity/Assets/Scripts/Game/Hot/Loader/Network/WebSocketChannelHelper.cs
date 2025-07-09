@@ -105,10 +105,10 @@ namespace Game
             m_CachedStream.SetLength(m_CachedStream.Capacity); // 此行防止 Array.Copy 的数据无法写入
             m_CachedStream.Position = 0L;
 
-            CSPacketHeader packetHeader = ReferencePool.Acquire<CSPacketHeader>();
-            Serializer.Serialize(m_CachedStream, packetHeader);
-            ReferencePool.Release(packetHeader);
-
+            // CSPacketHeader packetHeader = ReferencePool.Acquire<CSPacketHeader>();
+            // Serializer.Serialize(m_CachedStream, packetHeader);
+            // ReferencePool.Release(packetHeader);
+            
             Serializer.SerializeWithLengthPrefix(m_CachedStream, packet, PrefixStyle.Fixed32);
             ReferencePool.Release((IReference)packet);
 

@@ -6,113 +6,63 @@ using System.Collections.Generic;
 
 namespace Game.Hot
 {
-    /// <summary>
-    /// 心跳测试
-    /// </summary>
-    // proto file : GameHot/Base.proto (line:4)
-    [Serializable, ProtoContract(Name = @"CSHeartBeatTest")]
-    public partial class CSHeartBeatTest : CSPacketBase
+    // proto file : GameHot/GameMsg.proto (line:3)
+    [Serializable, ProtoContract(Name = @"CS_PingReq")]
+    public partial class CS_PingReq : CSPacketBase
     {
         public override int Id => 30001;
-        /// <summary>
-        /// 测试A
-        /// </summary>
-        [ProtoMember(1)]
-        public List<int> A { get; set; } = new List<int>();
-        /// <summary>
-        /// 测试B
-        /// </summary>
-        [ProtoMember(2)]
-        public string B { get; set; }
-        [ProtoMember(3)]
-        public Dictionary<int, long> C { get; set; } = new Dictionary<int, long>();
         public override void Clear()
         {
-            this.A.Clear();
-            this.B = default;
-            this.C.Clear();
         }
     }
 
-    // proto file : GameHot/Base.proto (line:11)
-    [Serializable, ProtoContract(Name = @"SCHeartBeatTest")]
-    public partial class SCHeartBeatTest : SCPacketBase
+    // proto file : GameHot/GameMsg.proto (line:8)
+    [Serializable, ProtoContract(Name = @"SC_PingAck")]
+    public partial class SC_PingAck : SCPacketBase
     {
         public override int Id => 30002;
-        [ProtoMember(1)]
-        public List<int> A { get; set; } = new List<int>();
         public override void Clear()
         {
-            this.A.Clear();
         }
     }
 
-    /// <summary>
-    /// C->S 消息头
-    /// </summary>
-    // proto file : GameHot/Base.proto (line:17)
-    [Serializable, ProtoContract(Name = @"CSPacketHeader")]
-    public partial class CSPacketHeader : CSPacketBase
+    // proto file : GameHot/GameMsg.proto (line:14)
+    [Serializable, ProtoContract(Name = @"CS_JoinRoomReq")]
+    public partial class CS_JoinRoomReq : CSPacketBase
     {
         public override int Id => 30003;
+        [ProtoMember(1)]
+        public int accountId { get; set; }
         public override void Clear()
         {
+            this.accountId = default;
         }
     }
 
-    /// <summary>
-    /// S-C 消息头
-    /// </summary>
-    // // proto file : GameHot/Base.proto (line:23)
-    // [Serializable, ProtoContract(Name = @"SCPacketHeader")]
-    // public partial class SCPacketHeader : SCPacketBase
-    // {
-    //     public override int Id => 30004;
-    //     public override void Clear()
-    //     {
-    //     }
-    // }
+    // proto file : GameHot/GameMsg.proto (line:19)
+    [Serializable, ProtoContract(Name = @"SC_JoinRoomAck")]
+    public partial class SC_JoinRoomAck : SCPacketBase
+    {
+        public override int Id => 30004;
+        [ProtoMember(1)]
+        public List<int> roomPlayers { get; set; } = new List<int>();
+        public override void Clear()
+        {
+            this.roomPlayers.Clear();
+        }
+    }
 
-    // proto file : GameHot/GameHot2.proto (line:3)
-    [Serializable, ProtoContract(Name = @"CSHeartBeatTest22")]
-    public partial class CSHeartBeatTest22 : CSPacketBase
+    // proto file : GameHot/GameMsg.proto (line:24)
+    [Serializable, ProtoContract(Name = @"SC_JoinRoomNtf")]
+    public partial class SC_JoinRoomNtf : SCPacketBase
     {
         public override int Id => 30005;
-        /// <summary>
-        /// 测试A
-        /// </summary>
         [ProtoMember(1)]
-        public List<int> A { get; set; } = new List<int>();
-        [ProtoMember(1)]
-        public List<string> B { get; set; } = new List<string>();
+        public int accountId { get; set; }
         public override void Clear()
         {
-            this.A.Clear();
-            this.B.Clear();
+            this.accountId = default;
         }
-    }
-
-    // proto file : GameHot/GameHot2.proto (line:10)
-    [Serializable, ProtoContract(Name = @"SCHeartBeatTest22")]
-    public partial class SCHeartBeatTest22 : SCPacketBase
-    {
-        public override int Id => 30006;
-        [ProtoMember(1)]
-        public List<int> A { get; set; } = new List<int>();
-        public override void Clear()
-        {
-            this.A.Clear();
-        }
-    }
-
-    // 测试枚举
-    // proto file : GameHot/GameHot2.proto (line:16)
-    public enum TestEnum    {
-        /// <summary>
-        /// 测试A
-        /// </summary>
-        A = 1,
-        B = 2,
     }
 
 }

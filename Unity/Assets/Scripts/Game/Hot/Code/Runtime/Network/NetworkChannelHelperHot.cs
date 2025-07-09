@@ -97,7 +97,7 @@ namespace Game.Hot
         /// <returns>是否发送心跳消息包成功。</returns>
         public bool SendHeartBeat()
         {
-            m_NetworkChannel.Send(ReferencePool.Acquire<CSHeartBeatTest>());
+            m_NetworkChannel.Send(ReferencePool.Acquire<CS_PingReq>());
             return true;
         }
 
@@ -126,14 +126,24 @@ namespace Game.Hot
             m_CachedStream.SetLength(m_CachedStream.Capacity); // 此行防止 Array.Copy 的数据无法写入
             m_CachedStream.Position = 0L;
 
-            CSPacketHeader packetHeader = ReferencePool.Acquire<CSPacketHeader>();
-            Serializer.Serialize(m_CachedStream, packetHeader);
-            ReferencePool.Release(packetHeader);
-
-            Serializer.SerializeWithLengthPrefix(m_CachedStream, packet, PrefixStyle.Fixed32);
-            ReferencePool.Release((IReference)packet);
-
+            byte[] body;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Serializer.Serialize(ms, packet);
+                body = ms.ToArray();
+            }
+            
+            byte[] header = new byte[8];
+            Array.Copy(BitConverter.GetBytes(body.Length), 0, header, 0, 4);
+            Array.Copy(BitConverter.GetBytes(packetImpl.Id), 0, header, 4, 4);
+            m_CachedStream.Write(header, 0, header.Length);
+            m_CachedStream.Write(body, 0, body.Length);
             m_CachedStream.WriteTo(destination);
+            Log.Debug($"{packetImpl.GetType().Name}:{Utility.Json.ToJson(packetImpl)}");
+
+            ReferencePool.Release((IReference)packet);
+            
+            
             return true;
         }
 

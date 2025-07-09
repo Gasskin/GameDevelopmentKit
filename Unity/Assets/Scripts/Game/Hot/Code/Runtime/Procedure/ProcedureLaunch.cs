@@ -12,18 +12,16 @@ namespace Game.Hot
         protected override void OnEnter(IFsm<ProcedureComponent> procedureOwner)
         {
             base.OnEnter(procedureOwner);
-            
-            GameEntry.Event.Subscribe(NetworkConnectedEventArgs.EventId,((sender, args) =>
+
+            GameEntry.Event.Subscribe(NetworkConnectedEventArgs.EventId, ((sender, args) =>
             {
-                Log.Error("Connected");
-                // var net = GameEntry.Network.GetNetworkChannel("Socket");
-                // net.Send(new CSHeartBeatTest()
-                // {
-                //     A = new List<int>(){1,2,3},
-                //     B = "123",
-                // });
+                var net = GameEntry.Network.GetNetworkChannel("Socket");
+                net.Send(new CS_JoinRoomReq()
+                {
+                    accountId = Random.Range(1, int.MaxValue),
+                });
             }));
-            
+
             GameEntry.Network.CreateNetworkChannel("Socket", GameFramework.Network.ServiceType.Tcp, new NetworkChannelHelperHot());
             var net = GameEntry.Network.GetNetworkChannel("Socket");
             net.Connect(IPAddress.Parse("127.0.0.1"), 12388);

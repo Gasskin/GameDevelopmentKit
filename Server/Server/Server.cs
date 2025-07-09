@@ -54,7 +54,7 @@ public class Server
                 }
                 else
                 {
-                    // ReadClientfd(socket);
+                    ReadClient(socket);
                 }
             }
         }
@@ -152,8 +152,8 @@ public class Server
         using var ms = new MemoryStream(bodyBuf);
         switch (msgId)
         {
-            case 30001:
-                var msg = Serializer.Deserialize<CSHeartBeatTest>(ms);
+            case 30003:
+                Room.Instance.JoinRoomReq(client, Serializer.Deserialize<CS_JoinRoomReq>(ms));
                 break;
 
             default:
@@ -166,7 +166,7 @@ public class Server
     /// <summary>
     /// 发送一个 SCPacketBase 协议对象，封装消息头并通过 TCP 发送。
     /// </summary>
-    public void SendMsg(Socket client, SCPacketBase packet)
+    public void Send(Socket client, SCPacketBase packet)
     {
         // 1. 序列化 proto 消息体
         byte[] body;
