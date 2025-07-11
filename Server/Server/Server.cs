@@ -149,6 +149,7 @@ public class Server
 
     private void HandleMessage(Socket client, int msgId, byte[] bodyBuf)
     {
+        Console.WriteLine($"[接收] Id={msgId}, From={client.RemoteEndPoint}");
         using var ms = new MemoryStream(bodyBuf);
         switch (msgId)
         {
