@@ -7,50 +7,40 @@ public class Server
 {
     public static Server Instance { get; } = new();
 
-
-    // IP地址
     private const string IP = "127.0.0.1";
-
-    // 端口号
     private const int HOST = 12388;
 
-    // 服务器Socket
     private Socket server;
-
-    // 客户端Socket及状态信息
-    private Dictionary<Socket, ClientState> clients = new Dictionary<Socket, ClientState>();
-
-    // 多路复用
-    List<Socket> checkRead = new List<Socket>();
+    private Dictionary<Socket, ClientState> clients = new();
+    private List<Socket> checkRead = new();
 
     public void Init()
     {
-        //Socket
         server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        //Bind
-        var ipAdr = IPAddress.Parse(IP);
-        var ipEp = new IPEndPoint(ipAdr, HOST);
-        server.Bind(ipEp);
-        //Listen
+        server.Bind(new IPEndPoint(IPAddress.Parse(IP), HOST));
         server.Listen(8);
-        Console.WriteLine("[服务器]启动成功");
 
-        //主循环
+        Console.WriteLine("[日志]启动成功");
+
         while (true)
         {
-            //填充checkRead列表
             checkRead.Clear();
             checkRead.Add(server);
-            foreach (var state in clients.Values)
-                checkRead.Add(state.socket);
-            //select
+
+            // 只添加连接有效的客户端
+            foreach (var state in clients.Values.ToList())
+            {
+                if (state.socket != null && state.socket.Connected)
+                    checkRead.Add(state.socket);
+            }
+
             Socket.Select(checkRead, null, null, 1000);
-            //检查可读对象
+
             foreach (var socket in checkRead)
             {
                 if (socket == server)
                 {
-                    AcceptClient(socket);
+                    AcceptClient();
                 }
                 else
                 {
@@ -60,77 +50,77 @@ public class Server
         }
     }
 
-    //读取Listenfd
-    public void AcceptClient(Socket server)
+    private void AcceptClient()
     {
         var client = server.Accept();
-        var state = new ClientState();
-        state.socket = client;
-        clients.Add(client, state);
+        var state = new ClientState
+        {
+            socket = client
+        };
+        clients[client] = state;
 
-        Console.WriteLine($"[客户端登录]{client.RemoteEndPoint}");
+        Console.WriteLine($"[日志]客户端登录{client.RemoteEndPoint}");
     }
 
-    //读取Clientfd
     public bool ReadClient(Socket client)
     {
-        ClientState state = clients[client];
+        if (!clients.TryGetValue(client, out var state))
+            return false;
+
+        if (client == null || !client.Connected)
+        {
+            DisconnectClient(client);
+            return false;
+        }
 
         try
         {
             int count = client.Receive(state.buff);
             if (count == 0)
             {
-                Console.WriteLine($"[客户端关闭]{client.RemoteEndPoint}");
-                client.Close();
-                clients.Remove(client);
+                DisconnectClient(client);
                 return false;
             }
 
-            // 把收到的数据追加进 MemoryStream
             state.receiveStream.Position = state.receiveStream.Length;
             state.receiveStream.Write(state.buff, 0, count);
             state.receiveStream.Position = 0;
 
-            // 处理所有完整包
             while (true)
             {
-                // 检查是否能读出头（8字节）
                 if (state.receiveStream.Length - state.receiveStream.Position < 8)
-                {
-                    break; // 等待更多数据
-                }
+                    break;
 
-                // 读取头
                 byte[] headBuf = new byte[8];
                 state.receiveStream.Read(headBuf, 0, 8);
                 int bodyLength = BitConverter.ToInt32(headBuf, 0);
                 int msgId = BitConverter.ToInt32(headBuf, 4);
 
-                // 检查是否收到了完整 body
+                if (bodyLength <= 0 || bodyLength > 10_000_000)
+                {
+                    Console.WriteLine($"[日志]非法数据 Id={msgId}, Length={bodyLength}, From={client.RemoteEndPoint}");
+                    DisconnectClient(client);
+                    return false;
+                }
+
                 if (state.receiveStream.Length - state.receiveStream.Position < bodyLength)
                 {
-                    // 回退 8 字节（头）等待下次完整 body
                     state.receiveStream.Position -= 8;
                     break;
                 }
 
-                // 读取 body
                 byte[] bodyBuf = new byte[bodyLength];
                 state.receiveStream.Read(bodyBuf, 0, bodyLength);
 
-                // 处理协议
                 HandleMessage(client, msgId, bodyBuf);
             }
 
-            // 清理已读数据
             if (state.receiveStream.Position == state.receiveStream.Length)
             {
-                state.receiveStream.SetLength(0); // 全部读完了
+                state.receiveStream.SetLength(0);
             }
             else
             {
-                // 剩下没读完的内容前移
                 byte[] remain = state.receiveStream.ToArray()[(int)state.receiveStream.Position..];
                 state.receiveStream.SetLength(0);
                 state.receiveStream.Write(remain, 0, remain.Length);
@@ -138,38 +128,55 @@ public class Server
 
             return true;
         }
+        catch (ObjectDisposedException)
+        {
+            Console.WriteLine("[日志]已释放连接 读取中止");
+            DisconnectClient(client);
+            return false;
+        }
         catch (Exception ex)
         {
-            Console.WriteLine($"[异常] {ex.Message}");
-            client.Close();
-            clients.Remove(client);
+            Console.WriteLine($"[日志]异常 {ex.Message}");
+            DisconnectClient(client);
             return false;
         }
     }
 
     private void HandleMessage(Socket client, int msgId, byte[] bodyBuf)
     {
-        Console.WriteLine($"[接收] Id={msgId}, From={client.RemoteEndPoint}");
+        Console.WriteLine($"[日志]接收 Id={msgId}, From={client.RemoteEndPoint}");
         using var ms = new MemoryStream(bodyBuf);
-        switch (msgId)
-        {
-            case 30003:
-                Room.Instance.JoinRoomReq(client, Serializer.Deserialize<CS_JoinRoomReq>(ms));
-                break;
 
-            default:
-                Console.WriteLine($"[未知消息] Id={msgId}");
-                break;
+        try
+        {
+            switch (msgId)
+            {
+                case 30003:
+                    var req = Serializer.Deserialize<CS_JoinRoomReq>(ms);
+                    Room.Instance.JoinRoomReq(client, req);
+                    break;
+
+                default:
+                    Console.WriteLine($"[日志]未知消息 Id={msgId}");
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[日志]反序列化异常 Id={msgId}, 异常={ex.Message}");
         }
     }
 
-
-    /// <summary>
-    /// 发送一个 SCPacketBase 协议对象，封装消息头并通过 TCP 发送。
-    /// </summary>
     public void Send(Socket client, SCPacketBase packet)
     {
-        // 1. 序列化 proto 消息体
+        if (client == null)
+        {
+            Console.WriteLine("[日志]发送失败 Socket为空");
+            return;
+        }
+
+        // 不再检查 client.Connected
+
         byte[] body;
         using (var ms = new MemoryStream())
         {
@@ -180,22 +187,49 @@ public class Server
         int bodyLength = body.Length;
         int messageType = packet.Id;
 
-        // 2. 构造 8 字节消息头：[4字节长度][4字节协议Id]
         byte[] header = new byte[8];
         Array.Copy(BitConverter.GetBytes(bodyLength), 0, header, 0, 4);
         Array.Copy(BitConverter.GetBytes(messageType), 0, header, 4, 4);
 
         try
         {
-            // 3. 发送头 + 体
             client.Send(header);
             client.Send(body);
-
-            Console.WriteLine($"[发送] Id={messageType}, Type={packet.GetType().Name}, To={client.RemoteEndPoint}");
+            Console.WriteLine($"[日志]发送 Id={messageType}, Type={packet.GetType().Name}, To={client.RemoteEndPoint}");
         }
         catch (SocketException ex)
         {
-            Console.WriteLine($"[发送失败] Socket错误: {ex.Message}");
+            Console.WriteLine($"[日志]发送失败 Socket错误: {ex.Message}");
+            DisconnectClient(client);
+        }
+        catch (ObjectDisposedException)
+        {
+            Console.WriteLine("[日志]发送失败 客户端已关闭");
+            DisconnectClient(client);
         }
     }
+
+
+    private void DisconnectClient(Socket client)
+    {
+        if (clients.TryGetValue(client, out var state))
+        {
+            Console.WriteLine($"[日志]客户端断开 {client.RemoteEndPoint}");
+
+            Room.Instance.OnDisconnect(client); // ✅ 清理房间玩家
+
+            try
+            {
+                client.Shutdown(SocketShutdown.Both);
+            }
+            catch
+            {
+                // 忽略已关闭的 socket
+            }
+
+            client.Close();
+            clients.Remove(client);
+        }
+    }
+
 }

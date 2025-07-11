@@ -18,7 +18,7 @@ public class Room
             });
         }
         _roomPlayer.Add(msg.accountId, client);
-        Console.WriteLine($"{msg.accountId}加入房间");
+        Console.WriteLine($"[房间]{msg.accountId}加入房间");
         var ack = new SC_JoinRoomAck();
         foreach (var player in _roomPlayer)
         {
@@ -26,4 +26,24 @@ public class Room
         }
         Server.Instance.Send(client, ack);
     }
+    
+    public void OnDisconnect(Socket client)
+    {
+        int? targetId = null;
+        foreach (var kv in _roomPlayer)
+        {
+            if (kv.Value == client)
+            {
+                targetId = kv.Key;
+                break;
+            }
+        }
+
+        if (targetId.HasValue)
+        {
+            Console.WriteLine($"[房间]{targetId.Value}离开房间");
+            _roomPlayer.Remove(targetId.Value);
+        }
+    }
+
 }
