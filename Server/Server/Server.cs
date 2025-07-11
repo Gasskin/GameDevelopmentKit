@@ -190,7 +190,7 @@ public class Server
             client.Send(header);
             client.Send(body);
 
-            Console.WriteLine($"[发送] Id={messageType}, Len={bodyLength}, Type={packet.GetType().Name}");
+            Console.WriteLine($"[发送] Id={messageType}, Type={packet.GetType().Name}, To={client.RemoteEndPoint}");
         }
         catch (SocketException ex)
         {
