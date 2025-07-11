@@ -139,7 +139,6 @@ namespace Game.Hot
             m_CachedStream.Write(header, 0, header.Length);
             m_CachedStream.Write(body, 0, body.Length);
             m_CachedStream.WriteTo(destination);
-            Log.Debug($"{packetImpl.GetType().Name}:{Utility.Json.ToJson(packetImpl)}");
 
             ReferencePool.Release((IReference)packet);
             
