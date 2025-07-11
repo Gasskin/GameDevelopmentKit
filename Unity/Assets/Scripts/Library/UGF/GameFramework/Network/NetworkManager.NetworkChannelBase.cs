@@ -80,7 +80,10 @@ namespace GameFramework.Network
             /// </summary>
             public string Name
             {
-                get { return m_Name; }
+                get
+                {
+                    return m_Name;
+                }
             }
 
             /// <summary>
@@ -88,7 +91,10 @@ namespace GameFramework.Network
             /// </summary>
             public Socket Socket
             {
-                get { return m_Socket; }
+                get
+                {
+                    return m_Socket;
+                }
             }
 
             /// <summary>
@@ -110,14 +116,20 @@ namespace GameFramework.Network
             /// <summary>
             /// 获取网络服务类型。
             /// </summary>
-            public abstract ServiceType ServiceType { get; }
+            public abstract ServiceType ServiceType
+            {
+                get;
+            }
 
             /// <summary>
             /// 获取网络地址类型。
             /// </summary>
             public AddressFamily AddressFamily
             {
-                get { return m_AddressFamily; }
+                get
+                {
+                    return m_AddressFamily;
+                }
             }
 
             /// <summary>
@@ -125,7 +137,10 @@ namespace GameFramework.Network
             /// </summary>
             public int SendPacketCount
             {
-                get { return m_SendPacketPool.Count; }
+                get
+                {
+                    return m_SendPacketPool.Count;
+                }
             }
 
             /// <summary>
@@ -133,7 +148,10 @@ namespace GameFramework.Network
             /// </summary>
             public int SentPacketCount
             {
-                get { return m_SentPacketCount; }
+                get
+                {
+                    return m_SentPacketCount;
+                }
             }
 
             /// <summary>
@@ -141,7 +159,10 @@ namespace GameFramework.Network
             /// </summary>
             public int ReceivePacketCount
             {
-                get { return m_ReceivePacketPool.EventCount; }
+                get
+                {
+                    return m_ReceivePacketPool.EventCount;
+                }
             }
 
             /// <summary>
@@ -149,7 +170,10 @@ namespace GameFramework.Network
             /// </summary>
             public int ReceivedPacketCount
             {
-                get { return m_ReceivedPacketCount; }
+                get
+                {
+                    return m_ReceivedPacketCount;
+                }
             }
 
             /// <summary>
@@ -157,8 +181,14 @@ namespace GameFramework.Network
             /// </summary>
             public bool ResetHeartBeatElapseSecondsWhenReceivePacket
             {
-                get { return m_ResetHeartBeatElapseSecondsWhenReceivePacket; }
-                set { m_ResetHeartBeatElapseSecondsWhenReceivePacket = value; }
+                get
+                {
+                    return m_ResetHeartBeatElapseSecondsWhenReceivePacket;
+                }
+                set
+                {
+                    m_ResetHeartBeatElapseSecondsWhenReceivePacket = value;
+                }
             }
 
             /// <summary>
@@ -166,7 +196,10 @@ namespace GameFramework.Network
             /// </summary>
             public int MissHeartBeatCount
             {
-                get { return m_HeartBeatState.MissHeartBeatCount; }
+                get
+                {
+                    return m_HeartBeatState.MissHeartBeatCount;
+                }
             }
 
             /// <summary>
@@ -174,8 +207,14 @@ namespace GameFramework.Network
             /// </summary>
             public float HeartBeatInterval
             {
-                get { return m_HeartBeatInterval; }
-                set { m_HeartBeatInterval = value; }
+                get
+                {
+                    return m_HeartBeatInterval;
+                }
+                set
+                {
+                    m_HeartBeatInterval = value;
+                }
             }
 
             /// <summary>
@@ -183,7 +222,10 @@ namespace GameFramework.Network
             /// </summary>
             public float HeartBeatElapseSeconds
             {
-                get { return m_HeartBeatState.HeartBeatElapseSeconds; }
+                get
+                {
+                    return m_HeartBeatState.HeartBeatElapseSeconds;
+                }
             }
 
             /// <summary>
@@ -467,12 +509,6 @@ namespace GameFramework.Network
                     try
                     {
                         serializeResult = m_NetworkChannelHelper.Serialize(packet, m_SendState.Stream);
-#if UNITY_EDITOR
-                        if (serializeResult)
-                        {
-                            GameFrameworkLog.Debug($"[即将发送]{packet.GetType().Name}{Utility.Json.ToJson(packet)}");
-                        }
-#endif
                     }
                     catch (Exception exception)
                     {
@@ -575,9 +611,6 @@ namespace GameFramework.Network
 
                     if (packet != null)
                     {
-#if UNITY_EDITOR
-                        GameFrameworkLog.Debug($"[接收]{packet.GetType().Name}{Utility.Json.ToJson(packet)}");
-#endif
                         m_ReceivePacketPool.Fire(this, packet);
                     }
 

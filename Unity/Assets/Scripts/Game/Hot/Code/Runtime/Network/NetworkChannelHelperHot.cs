@@ -97,7 +97,7 @@ namespace Game.Hot
         /// <returns>是否发送心跳消息包成功。</returns>
         public bool SendHeartBeat()
         {
-            // m_NetworkChannel.Send(ReferencePool.Acquire<CS_PingReq>());
+            m_NetworkChannel.Send(ReferencePool.Acquire<CS_PingReq>());
             return true;
         }
 
@@ -139,18 +139,9 @@ namespace Game.Hot
             m_CachedStream.Write(header, 0, header.Length);
             m_CachedStream.Write(body, 0, body.Length);
             m_CachedStream.WriteTo(destination);
-            
-            using (var tempStream = new MemoryStream())
-            {
-                m_CachedStream.Position = 0;
-                m_CachedStream.CopyTo(tempStream);
-
-                byte[] data = tempStream.ToArray();
-                Log.Error($"[调试发送数据] {BitConverter.ToString(data)}");
-            }
+            Log.Debug($"{packetImpl.GetType().Name}:{Utility.Json.ToJson(packetImpl)}");
 
             ReferencePool.Release((IReference)packet);
-            
             
             
             return true;
