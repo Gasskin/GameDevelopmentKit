@@ -123,7 +123,7 @@ namespace Game.Hot
                 return false;
             }
 
-            m_CachedStream.SetLength(m_CachedStream.Capacity); // 此行防止 Array.Copy 的数据无法写入
+            m_CachedStream.SetLength(0); // 此行防止 Array.Copy 的数据无法写入
             m_CachedStream.Position = 0L;
 
             byte[] body;
