@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Net;
+using GameFramework;
 using GameFramework.Fsm;
 using UnityEngine;
 using UnityGameFramework.Runtime;
@@ -15,15 +16,13 @@ namespace Game.Hot
 
             GameEntry.Event.Subscribe(NetworkConnectedEventArgs.EventId, ((sender, args) =>
             {
-                var net = GameEntry.Network.GetNetworkChannel("Socket");
-                net.Send(new CS_JoinRoomReq()
-                {
-                    accountId = Random.Range(1, int.MaxValue),
-                });
+                var packet = ReferencePool.Acquire<CS_JoinRoomReq>();
+                packet.accountId = Utility.Random.GetRandom(1, int.MaxValue);
+                GameEntry.Network.SendTcp(packet);
             }));
 
-            GameEntry.Network.CreateNetworkChannel("Socket", GameFramework.Network.ServiceType.Tcp, new NetworkChannelHelperHot());
-            var net = GameEntry.Network.GetNetworkChannel("Socket");
+            GameEntry.Network.CreateNetworkChannel("TcpChannel", GameFramework.Network.ServiceType.Tcp, new NetworkChannelHelperHot());
+            var net = GameEntry.Network.GetNetworkChannel("TcpChannel");
             net.Connect(IPAddress.Parse("127.0.0.1"), 12388);
         }
 

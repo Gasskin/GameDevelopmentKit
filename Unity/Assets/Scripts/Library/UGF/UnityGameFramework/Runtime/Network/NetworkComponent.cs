@@ -114,6 +114,12 @@ namespace UnityGameFramework.Runtime
             return m_NetworkManager.CreateNetworkChannel(name, serviceType, networkChannelHelper);
         }
 
+        public void SendTcp(Packet packet)
+        {
+            var tcp = GetNetworkChannel("TcpChannel");
+            tcp?.Send(packet);
+        }
+
         /// <summary>
         /// 销毁网络频道。
         /// </summary>

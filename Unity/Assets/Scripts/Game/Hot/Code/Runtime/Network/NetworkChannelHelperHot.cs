@@ -29,6 +29,8 @@ namespace Game.Hot
         public void Initialize(INetworkChannel networkChannel)
         {
             m_NetworkChannel = networkChannel;
+            
+            networkChannel.HeartBeatInterval = 60;
 
             // 反射注册包和包处理函数。
             Type packetBaseType = typeof(SCPacketBase);
@@ -97,7 +99,7 @@ namespace Game.Hot
         /// <returns>是否发送心跳消息包成功。</returns>
         public bool SendHeartBeat()
         {
-            // m_NetworkChannel.Send(ReferencePool.Acquire<CS_PingReq>());
+            m_NetworkChannel.Send(ReferencePool.Acquire<CS_PingReq>());
             return true;
         }
 

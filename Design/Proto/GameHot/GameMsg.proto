@@ -7,7 +7,7 @@ message CS_PingReq
 
 message SC_PingAck
 {
-
+	int64 timeStamp = 1;
 }
 
 

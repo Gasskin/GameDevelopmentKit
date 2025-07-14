@@ -96,7 +96,7 @@ public class Server
                 int bodyLength = BitConverter.ToInt32(headBuf, 0);
                 int msgId = BitConverter.ToInt32(headBuf, 4);
 
-                if (bodyLength <= 0 || bodyLength > 10_000_000)
+                if (bodyLength < 0 || msgId <= 0)
                 {
                     Console.WriteLine($"[日志]非法数据 Id={msgId}, Length={bodyLength}, From={client.RemoteEndPoint}");
                     DisconnectClient(client);
@@ -151,11 +151,16 @@ public class Server
         {
             switch (msgId)
             {
+                case 30001:
+                    Send(client, new SC_PingAck()
+                    {
+                        timeStamp = (long)(DateTime.UtcNow.AddHours(8) - new DateTime(1970, 1, 1)).TotalMilliseconds
+                    });
+                    break;
                 case 30003:
                     var req = Serializer.Deserialize<CS_JoinRoomReq>(ms);
                     Room.Instance.JoinRoomReq(client, req);
                     break;
-
                 default:
                     Console.WriteLine($"[日志]未知消息 Id={msgId}");
                     break;
@@ -231,5 +236,4 @@ public class Server
             clients.Remove(client);
         }
     }
-
 }

@@ -21,8 +21,11 @@ namespace Game.Hot
     public partial class SC_PingAck : SCPacketBase
     {
         public override int Id => 30002;
+        [ProtoMember(1)]
+        public long timeStamp { get; set; }
         public override void Clear()
         {
+            this.timeStamp = default;
         }
     }
 
