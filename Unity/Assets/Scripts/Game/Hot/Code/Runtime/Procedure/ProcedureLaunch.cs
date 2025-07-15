@@ -1,4 +1,5 @@
 using System.Net;
+using GameFramework.Event;
 using GameFramework.Fsm;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<Game.Hot.ProcedureComponent>;
@@ -11,18 +12,9 @@ namespace Game.Hot
         {
             base.OnEnter(procedureOwner);
 
-            GameEntry.Event.Subscribe(NetworkConnectedEventArgs.EventId, ((sender, args) =>
-            {
-                // var packet = ReferencePool.Acquire<CS_JoinRoomReq>();
-                // packet.accountId = Utility.Random.GetRandom(1, int.MaxValue);
-                // GameEntry.Network.SendTcp(packet);
-                GameEntry.UI.OpenUIForm(UIFormId.LoginForm);
-            }));
-            Log.Error(111);
+            GameEntry.Event.Subscribe(NetworkConnectedEventArgs.EventId, OnNetworkConnected);
             GameEntry.Network.CreateNetworkChannel("TcpChannel", GameFramework.Network.ServiceType.Tcp, new NetworkChannelHelperHot());
-            // var net = GameEntry.Network.GetNetworkChannel("TcpChannel");
-            // net.Connect(IPAddress.Parse("127.0.0.1"), 12388);
-            GameEntry.UI.OpenUIForm(UIFormId.LoginForm);
+            GameEntry.Network.GetNetworkChannel("TcpChannel").Connect(IPAddress.Parse("127.0.0.1"), 12388);
         }
 
         protected override void OnUpdate(IFsm<ProcedureComponent> procedureOwner, float elapseSeconds, float realElapseSeconds)
@@ -34,6 +26,12 @@ namespace Game.Hot
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
+            GameEntry.Event.Unsubscribe(NetworkConnectedEventArgs.EventId, OnNetworkConnected);
+        }
+
+        private void OnNetworkConnected(object sender, GameEventArgs e)
+        {
+            GameEntry.UI.OpenUIForm(UIFormId.LoginForm);
         }
     }
 }

@@ -466,8 +466,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UIRootCanvasScaler: {fileID: 1576232205}
-  m_DefaultStandardWidth: 1080
-  m_DefaultStandardHeight: 1920
+  m_DefaultStandardWidth: 1920
+  m_DefaultStandardHeight: 1080
 --- !u!1001 &343730742
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -677,6 +677,10 @@ PrefabInstance:
     - target: {fileID: 11431030, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
       propertyPath: m_NetworkChannels.Array.data[0].m_ResetHeartBeatElapseSecondsWhenReceivePacket
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11447244, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11454530, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
       propertyPath: m_InstanceRoot
@@ -1399,7 +1403,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1080, y: 1920}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1502,7 +1506,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1736182281
 Transform:
   m_ObjectHideFlags: 0
@@ -1525,7 +1529,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1736182280}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8c50ea4ac099464d97ddb67ac523254, type: 3}
   m_Name: 
