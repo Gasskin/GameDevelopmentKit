@@ -23,5 +23,6 @@ message SC_JoinRoomAck
 
 message SC_JoinRoomNtf
 {
-	int32 accountId = 1;
+	int32 newAccountId			= 1;
+	repeated int32 roomPlayers	= 2;
 }

@@ -30,9 +30,12 @@ namespace Game.Hot
 
         public static ProcedureComponent Procedure { get; private set; }
         
+        public static ModelComponent Model { get; private set; }
+        
         private void InitComponents()
         {
             Procedure = HotComponentEntry.GetComponent<ProcedureComponent>();
+            Model = HotComponentEntry.GetComponent<ModelComponent>();
         }
     }
 }

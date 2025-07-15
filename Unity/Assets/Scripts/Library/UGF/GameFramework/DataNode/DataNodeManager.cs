@@ -6,6 +6,7 @@
 //------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 
 namespace GameFramework.DataNode
 {
@@ -19,6 +20,12 @@ namespace GameFramework.DataNode
 
         private const string RootName = "<Root>";
         private DataNode m_Root;
+        
+        /// <summary>
+        /// 路径分段缓存，提升性能，避免频繁 Split 字符串。
+        /// </summary>
+        private Dictionary<string, string[]> m_PathCache = new();
+
 
         /// <summary>
         /// 初始化数据结点管理器的新实例。
@@ -55,6 +62,7 @@ namespace GameFramework.DataNode
         {
             ReferencePool.Release(m_Root);
             m_Root = null;
+            m_PathCache = null;
         }
 
         /// <summary>
@@ -267,14 +275,22 @@ namespace GameFramework.DataNode
         /// </summary>
         /// <param name="path">要切分的数据结点路径。</param>
         /// <returns>切分后的字符串数组。</returns>
-        private static string[] GetSplitedPath(string path)
+        private string[] GetSplitedPath(string path)
         {
             if (string.IsNullOrEmpty(path))
             {
                 return EmptyStringArray;
             }
 
-            return path.Split(PathSplitSeparator, StringSplitOptions.RemoveEmptyEntries);
+            if (m_PathCache.TryGetValue(path, out var result))
+            {
+                return result;
+            }
+
+            result = path.Split(PathSplitSeparator, StringSplitOptions.RemoveEmptyEntries);
+            m_PathCache[path] = result;
+            return result;
         }
+
     }
 }

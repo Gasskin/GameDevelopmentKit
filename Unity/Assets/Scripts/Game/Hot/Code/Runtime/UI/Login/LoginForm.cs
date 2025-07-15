@@ -26,12 +26,13 @@ namespace Game.Hot
         protected override void OnRecycle()
         {
             base.OnRecycle();
-            GameEntry.DataNode.SetData();
             sureButton.onClick.RemoveListener(OnSureButtonClick);
         }
 
+
         private void OnSureButtonClick()
         {
+            HotEntry.Model.Account.SetAccountId(_accountId);
             var packet = ReferencePool.Acquire<CS_JoinRoomReq>();
             packet.accountId = _accountId;
             GameEntry.Network.SendTcp(packet);
