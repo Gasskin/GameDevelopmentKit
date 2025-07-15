@@ -82,11 +82,11 @@ namespace Game.Hot
 
             if (m_ChangeToMenu)
             {
-                ChangeState<ProcedureMenu>(procedureOwner);
+                // ChangeState<ProcedureMenu>(procedureOwner);
             }
             else
             {
-                ChangeState<ProcedureMain>(procedureOwner);
+                // ChangeState<ProcedureMain>(procedureOwner);
             }
         }
 

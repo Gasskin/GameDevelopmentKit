@@ -13,7 +13,6 @@ namespace Game
         
         private UIWidgetContainer m_UIWidgetContainer;
         private EventContainer m_EventContainer;
-        private EntityContainer m_EntityContainer;
         private ResourceContainer m_ResourceContainer;
 
         private void ClearUIForm()
@@ -22,11 +21,6 @@ namespace Game
             {
                 ReferencePool.Release(m_EventContainer);
                 m_EventContainer = null;
-            }
-            if (m_EntityContainer != null)
-            {
-                ReferencePool.Release(m_EntityContainer);
-                m_EntityContainer = null;
             }
             if (m_UIWidgetContainer != null)
             {
@@ -55,7 +49,6 @@ namespace Game
         protected override void OnClose(bool isShutdown, object userData)
         {
             m_UIWidgetContainer?.OnClose(isShutdown, userData);
-            HideAllEntity();
             UnsubscribeAll();
             UnloadAllAssets();
             CloseAllUIWidgets(userData, isShutdown);
@@ -201,81 +194,6 @@ namespace Game
             if (m_EventContainer == null)
                 return;
             m_EventContainer.UnsubscribeAll();
-        }
-
-        public int? ShowEntity<T>(int entityTypeId, Action<Entity> onShowSuccess, Action onShowFailure = null) where T : EntityLogic
-        {
-            if (m_EntityContainer == null)
-            {
-                m_EntityContainer = EntityContainer.Create(this);
-            }
-            return m_EntityContainer.ShowEntity<T>(entityTypeId, onShowSuccess, onShowFailure);
-        }
-
-        public int? ShowEntity(int entityTypeId, Type logicType, Action<Entity> onShowSuccess, Action onShowFailure = null)
-        {
-            if (m_EntityContainer == null)
-            {
-                m_EntityContainer = EntityContainer.Create(this);
-            }
-            return m_EntityContainer.ShowEntity(entityTypeId, logicType, onShowSuccess, onShowFailure);
-        }
-
-        public int? ShowEntity<T>(int entityTypeId, object userData) where T : EntityLogic
-        {
-            if (m_EntityContainer == null)
-            {
-                m_EntityContainer = EntityContainer.Create(this);
-            }
-            return m_EntityContainer.ShowEntity<T>(entityTypeId, userData);
-        }
-
-        public int? ShowEntity(int entityTypeId, Type logicType, object userData)
-        {
-            if (m_EntityContainer == null)
-            {
-                m_EntityContainer = EntityContainer.Create(this);
-            }
-            return m_EntityContainer.ShowEntity(entityTypeId, logicType, userData);
-        }
-
-        public UniTask<Entity> ShowEntityAsync<T>(int entityTypeId, object userData) where T : EntityLogic
-        {
-            if (m_EntityContainer == null)
-            {
-                m_EntityContainer = EntityContainer.Create(this);
-            }
-            return m_EntityContainer.ShowEntityAsync(entityTypeId, typeof(T), userData);
-        }
-
-        public UniTask<Entity> ShowEntityAsync(int entityTypeId, Type logicType, object userData)
-        {
-            if (m_EntityContainer == null)
-            {
-                m_EntityContainer = EntityContainer.Create(this);
-            }
-            return m_EntityContainer.ShowEntityAsync(entityTypeId, logicType, userData);
-        }
-
-        public void HideAllEntity()
-        {
-            if (m_EntityContainer == null)
-                return;
-            m_EntityContainer.HideAllEntity();
-        }
-
-        public void HideEntity(int serialId)
-        {
-            if (m_EntityContainer == null)
-                return;
-            m_EntityContainer.HideEntity(serialId);
-        }
-
-        public void HideEntity(Entity entity)
-        {
-            if (m_EntityContainer == null)
-                return;
-            m_EntityContainer.HideEntity(entity);
         }
 
         public void LoadAsset<T>(string assetName, Action<T> onLoadSuccess, Action onLoadFailure = null, int priority = 0,
