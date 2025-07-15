@@ -1,8 +1,5 @@
-using System.Collections.Generic;
 using System.Net;
-using GameFramework;
 using GameFramework.Fsm;
-using UnityEngine;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<Game.Hot.ProcedureComponent>;
 
@@ -16,14 +13,16 @@ namespace Game.Hot
 
             GameEntry.Event.Subscribe(NetworkConnectedEventArgs.EventId, ((sender, args) =>
             {
-                var packet = ReferencePool.Acquire<CS_JoinRoomReq>();
-                packet.accountId = Utility.Random.GetRandom(1, int.MaxValue);
-                GameEntry.Network.SendTcp(packet);
+                // var packet = ReferencePool.Acquire<CS_JoinRoomReq>();
+                // packet.accountId = Utility.Random.GetRandom(1, int.MaxValue);
+                // GameEntry.Network.SendTcp(packet);
+                GameEntry.UI.OpenUIForm(UIFormId.LoginForm);
             }));
-
+            Log.Error(111);
             GameEntry.Network.CreateNetworkChannel("TcpChannel", GameFramework.Network.ServiceType.Tcp, new NetworkChannelHelperHot());
-            var net = GameEntry.Network.GetNetworkChannel("TcpChannel");
-            net.Connect(IPAddress.Parse("127.0.0.1"), 12388);
+            // var net = GameEntry.Network.GetNetworkChannel("TcpChannel");
+            // net.Connect(IPAddress.Parse("127.0.0.1"), 12388);
+            GameEntry.UI.OpenUIForm(UIFormId.LoginForm);
         }
 
         protected override void OnUpdate(IFsm<ProcedureComponent> procedureOwner, float elapseSeconds, float realElapseSeconds)

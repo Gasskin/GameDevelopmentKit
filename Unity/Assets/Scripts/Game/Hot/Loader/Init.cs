@@ -46,6 +46,7 @@ namespace Game.Hot
 
         private async UniTaskVoid StartAsync()
         {
+            Log.Info("Init.StartAsync");
             //AppDomain.CurrentDomain.UnhandledException += (sender, e) => { Log.Error(e.ExceptionObject.ToString()); };
             if (Define.EnableHotfix && GameEntry.CodeRunner.EnableCodeBytesMode)
             {

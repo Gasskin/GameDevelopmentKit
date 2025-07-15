@@ -480,6 +480,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Builtin
       objectReference: {fileID: 0}
+    - target: {fileID: 126534, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 433714, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1498,7 +1502,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1736182281
 Transform:
   m_ObjectHideFlags: 0

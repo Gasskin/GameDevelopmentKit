@@ -10,6 +10,8 @@ namespace Game
         public static Dictionary<string, Type> BindNameTypeDict = new Dictionary<string, Type>()
         {
             { "UIWidget", typeof(AUIWidget) },
+            // UGUI
+            { "Button", typeof(UnityEngine.UI.Button) },
             // TMP
             { "TMPText", typeof(TMPro.TMP_Text) },
             { "TMPInputField", typeof(TMPro.TMP_InputField) },
