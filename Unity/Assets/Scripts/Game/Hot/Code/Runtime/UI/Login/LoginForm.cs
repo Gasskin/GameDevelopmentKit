@@ -1,3 +1,4 @@
+using System.Net;
 using CodeBind;
 using GameFramework;
 using GameFramework.Event;
@@ -14,19 +15,26 @@ namespace Game.Hot
             base.OnInit(userData);
             InitBind(gameObject.GetComponent<CSCodeBindMono>());
             SureButton.onClick.AddListener(OnSureButtonClick);
+            GameEntry.Event.Subscribe(NetworkConnectedEventArgs.EventId, OnNetworkConnectedEvent);
         }
+
+
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            _accountId = Utility.Random.GetRandom(1, int.MaxValue);
-            AccountIdTMPText.text = Utility.Text.Format("用户名：{0}", _accountId);
+            AccountIdTMPText.text = "等待连接...";
+            SureButton.gameObject.SetActive(false);
+            
+            GameEntry.Network.CreateNetworkChannel("TcpChannel", GameFramework.Network.ServiceType.Tcp, new NetworkChannelHelperHot());
+            GameEntry.Network.GetNetworkChannel("TcpChannel").Connect(IPAddress.Parse("127.0.0.1"), 12388);
         }
 
         protected override void OnRecycle()
         {
             base.OnRecycle();
             SureButton.onClick.RemoveListener(OnSureButtonClick);
+            GameEntry.Event.Unsubscribe(NetworkConnectedEventArgs.EventId, OnNetworkConnectedEvent);
         }
 
 
@@ -36,6 +44,13 @@ namespace Game.Hot
             var packet = ReferencePool.Acquire<CS_JoinRoomReq>();
             packet.accountId = _accountId;
             GameEntry.Network.SendTcp(packet);
+        }
+        
+        private void OnNetworkConnectedEvent(object sender, GameEventArgs e)
+        {
+            _accountId = Utility.Random.GetRandom(1, int.MaxValue);
+            AccountIdTMPText.text = Utility.Text.Format("用户名：{0}", _accountId);
+            SureButton.gameObject.SetActive(true);
         }
     }
 }

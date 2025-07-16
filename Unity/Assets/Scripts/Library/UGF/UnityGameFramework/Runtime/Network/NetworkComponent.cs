@@ -19,6 +19,7 @@ namespace UnityGameFramework.Runtime
     [AddComponentMenu("Game Framework/Network")]
     public sealed class NetworkComponent : GameFrameworkComponent
     {
+        public bool IsConnected { get; private set; }
         private INetworkManager m_NetworkManager = null;
         private EventComponent m_EventComponent = null;
 
@@ -27,10 +28,7 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public int NetworkChannelCount
         {
-            get
-            {
-                return m_NetworkManager.NetworkChannelCount;
-            }
+            get { return m_NetworkManager.NetworkChannelCount; }
         }
 
         /// <summary>
@@ -132,11 +130,13 @@ namespace UnityGameFramework.Runtime
 
         private void OnNetworkConnected(object sender, GameFramework.Network.NetworkConnectedEventArgs e)
         {
+            IsConnected = true;
             m_EventComponent.Fire(this, NetworkConnectedEventArgs.Create(e));
         }
 
         private void OnNetworkClosed(object sender, GameFramework.Network.NetworkClosedEventArgs e)
         {
+            IsConnected = false;
             m_EventComponent.Fire(this, NetworkClosedEventArgs.Create(e));
         }
 

@@ -87,7 +87,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1683478756762867211}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.7753753, b: 0.040880322, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -158,16 +158,16 @@ MonoBehaviour:
   m_LinearToGamma: 0
   m_GammaToLinear: 0
   m_EnableGrey: 0
-  m_EnableRadiusCorner: 0
+  m_EnableRadiusCorner: 1
   m_EnableDistortion: 0
   m_Contrast: 1
   m_Saturation: 0
-  m_CornerRadius: {x: 10, y: 10, z: 10, w: 10}
+  m_CornerRadius: {x: 30, y: 30, z: 30, w: 30}
   m_BottomLeftDistortion: {x: 0, y: 0}
   m_BottomRightDistortion: {x: 1, y: 0}
   m_TopLeftDistortion: {x: 0, y: 1}
   m_TopRightDistortion: {x: 1, y: 1}
-  rect2props: {x: 0, y: 0, z: 0, w: 0}
+  rect2props: {x: 0.000015258789, y: 0, z: 113.13709, w: 113.13709}
   image: {fileID: 0}
   m_OriginFlipMode: 0
   m_FlipMode: 0
