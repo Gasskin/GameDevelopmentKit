@@ -7,24 +7,24 @@ namespace Game.Hot
         public CodeBind.CSCodeBindMono Mono { get; private set; }
         public UnityEngine.Transform Transform { get; private set; }
 
-        public TMPro.TMP_Text accountIdTMPText { get; private set; }
-        public UnityEngine.UI.Button sureButton { get; private set; }
+        public TMPro.TMP_Text AccountIdTMPText { get; private set; }
+        public UnityEngine.UI.Button SureButton { get; private set; }
 
 
         public void InitBind(CodeBind.CSCodeBindMono mono)
         {
             Mono = mono;
             Transform = mono.transform;
-            accountIdTMPText = Mono.BindComponents[0] as TMPro.TMP_Text;
-            sureButton = Mono.BindComponents[1] as UnityEngine.UI.Button;
+            AccountIdTMPText = Mono.BindComponents[0] as TMPro.TMP_Text;
+            SureButton = Mono.BindComponents[1] as UnityEngine.UI.Button;
         }
 
         public void ClearBind()
         {
             Mono = null;
             Transform = null;
-            accountIdTMPText = null;
-            sureButton = null;
+            AccountIdTMPText = null;
+            SureButton = null;
         }
     }
 }

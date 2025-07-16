@@ -3,10 +3,13 @@
     public class ModelComponent : HotComponent
     {
         public AccountModel Account { get; private set; }
+
+        public RoomModel Room { get; private set; }
         
         protected override void OnInitialize()
         {
             Account = new AccountModel();
+            Room = new RoomModel();
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)

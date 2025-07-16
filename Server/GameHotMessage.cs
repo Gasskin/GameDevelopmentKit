@@ -61,10 +61,26 @@ namespace Game.Hot
     {
         public override int Id => 30005;
         [ProtoMember(1)]
-        public int accountId { get; set; }
+        public int newAccountId { get; set; }
+        [ProtoMember(2)]
+        public List<int> roomPlayers { get; set; } = new List<int>();
         public override void Clear()
         {
-            this.accountId = default;
+            this.newAccountId = default;
+            this.roomPlayers.Clear();
+        }
+    }
+
+    // proto file : GameHot/GameMsg.proto (line:30)
+    [Serializable, ProtoContract(Name = @"SC_LeaveRoomNtf")]
+    public partial class SC_LeaveRoomNtf : SCPacketBase
+    {
+        public override int Id => 30006;
+        [ProtoMember(1)]
+        public int leaveAccountId { get; set; }
+        public override void Clear()
+        {
+            this.leaveAccountId = default;
         }
     }
 

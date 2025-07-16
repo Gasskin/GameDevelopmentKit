@@ -97,5 +97,14 @@
     "UIGroupName": "Default",
     "AllowMultiInstance": false,
     "PauseCoveredUIForm": true
+  },
+  {
+    "Id": 1002,
+    "CSName": "RoomForm",
+    "Desc": "",
+    "AssetName": "Hot/RoomForm",
+    "UIGroupName": "Default",
+    "AllowMultiInstance": false,
+    "PauseCoveredUIForm": true
   }
 ]

@@ -24,11 +24,13 @@ namespace Game.Hot
         protected override void OnUpdate(IFsm<ProcedureComponent> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-            // ChangeState<ProcedurePreload>(procedureOwner);
-            if (_state == 0 && HotEntry.Model.Account.AccountId > 0)
+            if (_state == 0 && HotEntry.Model.Room.PlayerCount >= 0) 
             {
                 if (_loginForm > 0)
+                {
                     GameEntry.UI.CloseUIForm(_loginForm);
+                    GameEntry.UI.OpenUIForm(UIFormId.RoomForm);
+                }
                 _state = 1;
             }
         }

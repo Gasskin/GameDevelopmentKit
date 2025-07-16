@@ -10,8 +10,6 @@ namespace Game.Hot
 
         public override void Handle(object sender, Packet packet)
         {
-            var msg = (SC_PingAck)packet;
-            Log.Debug(Utility.FormatTime(msg.timeStamp));
         }
     }
 }

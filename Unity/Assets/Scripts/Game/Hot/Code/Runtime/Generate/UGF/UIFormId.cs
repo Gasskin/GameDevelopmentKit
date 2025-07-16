@@ -63,5 +63,10 @@ namespace Game.Hot
         /// 
         /// </summary>
         public const int LoginForm = 1001;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const int RoomForm = 1002;
     }
 }

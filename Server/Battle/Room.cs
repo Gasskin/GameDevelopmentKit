@@ -6,27 +6,28 @@ public class Room
     public static Room Instance { get; } = new();
 
     private Dictionary<int, Socket> _roomPlayer = new();
-
-
-    public void JoinRoomReq(Socket client, CS_JoinRoomReq msg)
+    
+    public void JoinRoomReq(Socket newClient, CS_JoinRoomReq msg)
     {
+        Console.WriteLine($"[房间]{msg.accountId}加入房间");
+        _roomPlayer.Add(msg.accountId, newClient);
+        var nowPlayers = _roomPlayer.Keys.ToList();
         foreach (var c in _roomPlayer.Values)
         {
+            if (c == newClient) 
+                continue;
             Server.Instance.Send(c, new SC_JoinRoomNtf()
             {
-                accountId = msg.accountId,
+                newAccountId = msg.accountId,
+                roomPlayers = nowPlayers,
             });
         }
-        _roomPlayer.Add(msg.accountId, client);
-        Console.WriteLine($"[房间]{msg.accountId}加入房间");
+
         var ack = new SC_JoinRoomAck();
-        foreach (var player in _roomPlayer)
-        {
-            ack.roomPlayers.Add(player.Key);
-        }
-        Server.Instance.Send(client, ack);
+        ack.roomPlayers = nowPlayers;
+        Server.Instance.Send(newClient, ack);
     }
-    
+
     public void OnDisconnect(Socket client)
     {
         int? targetId = null;
@@ -45,5 +46,4 @@ public class Room
             _roomPlayer.Remove(targetId.Value);
         }
     }
-
 }

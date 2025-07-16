@@ -13,20 +13,20 @@ namespace Game.Hot
         {
             base.OnInit(userData);
             InitBind(gameObject.GetComponent<CSCodeBindMono>());
-            sureButton.onClick.AddListener(OnSureButtonClick);
+            SureButton.onClick.AddListener(OnSureButtonClick);
         }
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
             _accountId = Utility.Random.GetRandom(1, int.MaxValue);
-            accountIdTMPText.text = Utility.Text.Format("用户名：{0}", _accountId);
+            AccountIdTMPText.text = Utility.Text.Format("用户名：{0}", _accountId);
         }
 
         protected override void OnRecycle()
         {
             base.OnRecycle();
-            sureButton.onClick.RemoveListener(OnSureButtonClick);
+            SureButton.onClick.RemoveListener(OnSureButtonClick);
         }
 
 

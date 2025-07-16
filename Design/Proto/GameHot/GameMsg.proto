@@ -26,3 +26,8 @@ message SC_JoinRoomNtf
 	int32 newAccountId			= 1;
 	repeated int32 roomPlayers	= 2;
 }
+
+message SC_LeaveRoomNtf
+{
+	int32 leaveAccountId = 1;
+}
