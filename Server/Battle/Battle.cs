@@ -62,7 +62,7 @@ public class Battle
         _battleState = BattleState.InitWaitForClientReady;
     }
 
-    public void OnReadyForGameReq(CS_ReadyForGameReq msg)
+    public void OnReadyForGameReq(CS_ReadyForGameNtf msg)
     {
         if (_battleState == BattleState.WaitForClientRead)
         {

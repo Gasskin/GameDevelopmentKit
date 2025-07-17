@@ -29,7 +29,7 @@ namespace Game.Hot
         public void Initialize(INetworkChannel networkChannel)
         {
             m_NetworkChannel = networkChannel;
-            
+
             networkChannel.HeartBeatInterval = 60;
 
             // 反射注册包和包处理函数。
@@ -134,7 +134,7 @@ namespace Game.Hot
                 Serializer.Serialize(ms, packet);
                 body = ms.ToArray();
             }
-            
+
             byte[] header = new byte[8];
             Array.Copy(BitConverter.GetBytes(body.Length), 0, header, 0, 4);
             Array.Copy(BitConverter.GetBytes(packetImpl.Id), 0, header, 4, 4);
@@ -142,9 +142,11 @@ namespace Game.Hot
             m_CachedStream.Write(body, 0, body.Length);
             m_CachedStream.WriteTo(destination);
 
+            Log.Debug($"[即将发送]{packet.GetType().Name}{Utility.Json.ToJson(packet)}");
+
             ReferencePool.Release((IReference)packet);
-            
-            
+
+
             return true;
         }
 
@@ -162,7 +164,7 @@ namespace Game.Hot
             // 约定消息头包含2个int，第一个代表消息体的长度，第二个代表消息体的类型
             using BinaryReader reader = new BinaryReader(source, System.Text.Encoding.UTF8, leaveOpen: true);
             int packetLength = reader.ReadInt32(); // 消息体长度
-            int packetId = reader.ReadInt32();     // 消息类型 Id
+            int packetId = reader.ReadInt32(); // 消息类型 Id
 
             // 构造 SCPacketHeader
             var header = ReferencePool.Acquire<SCPacketHeader>();
@@ -189,7 +191,7 @@ namespace Game.Hot
                 Log.Warning("Packet header is invalid.");
                 return null;
             }
-            
+
             // byte[] ReadStreamToByteArray(Stream stream)
             // {
             //     long originalPosition = stream.Position;

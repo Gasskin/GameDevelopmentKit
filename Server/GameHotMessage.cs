@@ -113,8 +113,8 @@ namespace Game.Hot
     }
 
     // proto file : GameHot/GameMsg.proto (line:50)
-    [Serializable, ProtoContract(Name = @"CS_ReadyForGameReq")]
-    public partial class CS_ReadyForGameReq : CSPacketBase
+    [Serializable, ProtoContract(Name = @"CS_ReadyForGameNtf")]
+    public partial class CS_ReadyForGameNtf : CSPacketBase
     {
         public override int Id => 30009;
         [ProtoMember(1)]

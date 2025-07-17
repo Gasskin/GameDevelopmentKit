@@ -5,57 +5,61 @@ public class Room
 {
     public static Room Instance { get; } = new();
 
-    private Dictionary<int, Socket> _roomPlayer = new();
-    
+    private Dictionary<int, Socket> _playerToSocket = new();
+
+    private List<int> _roomPlayer = new();
     public void JoinRoomReq(Socket newClient, CS_JoinRoomReq msg)
     {
         Console.WriteLine($"[房间]{msg.accountId}加入房间");
-        _roomPlayer.Add(msg.accountId, newClient);
-        var nowPlayers = _roomPlayer.Keys.ToList();
-        foreach (var c in _roomPlayer.Values)
+        _playerToSocket.Add(msg.accountId, newClient);
+        
+        foreach (var c in _playerToSocket.Values)
         {
             if (c == newClient) 
                 continue;
             Server.Instance.Send(c, new SC_JoinRoomNtf()
             {
                 newAccountId = msg.accountId,
-                roomPlayers = nowPlayers,
+                roomPlayers = _roomPlayer,
             });
         }
+        
+        _roomPlayer.Add(msg.accountId);
 
         var ack = new SC_JoinRoomAck();
-        ack.roomPlayers = nowPlayers;
+        ack.roomPlayers = _roomPlayer;
         ack.myAccountId = msg.accountId;
         Server.Instance.Send(newClient, ack);
     }
 
     public void OnDisconnect(Socket client)
     {
-        int? targetId = null;
-        foreach (var kv in _roomPlayer)
+        var player = 0;
+        foreach (var kv in _playerToSocket)
         {
             if (kv.Value == client)
             {
-                targetId = kv.Key;
+                player = kv.Key;
                 break;
             }
         }
 
-        if (targetId.HasValue)
+        if (player > 0) 
         {
-            Console.WriteLine($"[房间]{targetId.Value}离开房间");
-            _roomPlayer.Remove(targetId.Value);
+            Console.WriteLine($"[房间]{player}离开房间");
+            _roomPlayer.Remove(player);
         }
     }
 
     public List<int> GetPlayers()
     {
-        return _roomPlayer.Keys.ToList();
+        var players = new List<int>(_roomPlayer);
+        return players;
     }
 
     public void OnStartBattleReq()
     {
-        foreach (var client in _roomPlayer.Values)
+        foreach (var client in _playerToSocket.Values)
         {
             Server.Instance.Send(client, new SC_StartBattleNtf()
             {

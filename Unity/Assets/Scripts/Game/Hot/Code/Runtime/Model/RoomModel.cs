@@ -20,9 +20,10 @@ namespace Game.Hot
             MyAccount = myAccount;
             
             _roomPlayers.Clear();
-            _roomPlayers.AddRange(players);
+            foreach (var player in players)
+                _roomPlayers.Add(player);
 
-            Log.Info($"成功加入房间，房间人数：{_roomPlayers.Count}");
+            Log.Info($"{myAccount} 成功加入房间，房间人数：{_roomPlayers.Count}");
             for (int i = 0; i < _roomPlayers.Count; i++)
             {
                 Log.Info($"玩家[{i}]：{_roomPlayers[i]}");

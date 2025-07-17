@@ -467,12 +467,7 @@ namespace GameFramework.Network
                     try
                     {
                         serializeResult = m_NetworkChannelHelper.Serialize(packet, m_SendState.Stream);
-#if UNITY_EDITOR
-                        if (serializeResult)
-                        {
-                            GameFrameworkLog.Debug($"[即将发送]{packet.GetType().Name}{Utility.Json.ToJson(packet)}");
-                        }
-#endif
+
                     }
                     catch (Exception exception)
                     {

@@ -10,21 +10,17 @@ namespace Game.Hot
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
-            _loginFormId = GameEntry.UI.OpenUIForm(UIFormId.LoginForm) ?? 0;
-            // GameEntry.Event.Subscribe(JoinRoomAckEventArgs.EventId, OnJoinRoomAckEvent);
+        }
+
+        protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
+        {
+            base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
+            var battleState = GameEntry.DataNode.GetData("");
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
-            // GameEntry.Event.Unsubscribe(JoinRoomAckEventArgs.EventId, OnJoinRoomAckEvent);
-        }
-
-        private void OnJoinRoomAckEvent(object sender, GameEventArgs e)
-        {
-            if (_loginFormId > 0)
-                GameEntry.UI.CloseUIForm(_loginFormId);
-            GameEntry.UI.OpenUIForm(UIFormId.RoomForm);
         }
     }
 }

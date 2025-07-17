@@ -73,7 +73,6 @@ namespace GameFramework.Event
         /// </summary>
         internal override void Shutdown()
         {
-            GameFrameworkLog.Error("shut down");
             m_EventPool.Shutdown();
         }
 

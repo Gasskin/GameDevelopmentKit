@@ -167,7 +167,7 @@ public class Server
                     Room.Instance.OnStartBattleReq();
                     break;
                 case 30009:
-                    Battle.Instance.OnReadyForGameReq(Serializer.Deserialize<CS_ReadyForGameReq>(ms));
+                    Battle.Instance.OnReadyForGameReq(Serializer.Deserialize<CS_ReadyForGameNtf>(ms));
                     break;
                 default:
                     Console.WriteLine($"[日志]未知消息 Id={msgId}");

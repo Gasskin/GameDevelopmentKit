@@ -19,7 +19,6 @@ namespace Game
 
         private void ClearUIForm()
         {
-            Log.Error("clear ui ");
             if (m_EventContainer != null)
             {
                 ReferencePool.Release(m_EventContainer);
@@ -50,8 +49,8 @@ namespace Game
 
         private void OnDestroy()
         {
-            RemoveAllUIWidget();
-            ClearUIForm();
+            // RemoveAllUIWidget();
+            // ClearUIForm();
         }
 
         protected override void OnClose(bool isShutdown, object userData)
@@ -60,7 +59,7 @@ namespace Game
             UnsubscribeAll();
             UnloadAllAssets();
             CloseAllUIWidgets(userData, isShutdown);
-            if (isShutdown)
+            if (!isShutdown)
             {
                 RemoveAllUIWidget();
                 ClearUIForm();

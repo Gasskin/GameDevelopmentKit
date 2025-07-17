@@ -47,7 +47,7 @@ message SC_StartBattleNtf
 
 }
 
-message CS_ReadyForGameReq
+message CS_ReadyForGameNtf
 {
 	int32 accountId = 1;
 }

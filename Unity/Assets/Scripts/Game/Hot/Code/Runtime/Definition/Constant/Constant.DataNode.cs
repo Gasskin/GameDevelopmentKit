@@ -16,7 +16,7 @@ namespace Game.Hot
         /// </summary>
         public static class DataNode
         {
-            public const string ACCOUNT = "ACCOUNT";
+            public const string BATTLE_STAGE = "BATTLE_STAGE";
         }
     }
 }

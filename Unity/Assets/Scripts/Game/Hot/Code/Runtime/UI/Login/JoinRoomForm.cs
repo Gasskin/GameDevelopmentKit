@@ -10,7 +10,7 @@ using NetworkConnectedEventArgs = UnityGameFramework.Runtime.NetworkConnectedEve
 
 namespace Game.Hot
 {
-    public partial class LoginForm : AHotUIForm
+    public partial class JoinRoomForm : AHotUIForm
     {
         private int _accountId;
         private int _roomFormId;
@@ -26,8 +26,6 @@ namespace Game.Hot
             GameEntry.Event.Subscribe(NetworkConnectedEventArgs.EventId, OnNetworkConnectedEvent);
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccessEvent);
         }
-
-
 
 
         protected override void OnOpen(object userData)

@@ -1,4 +1,5 @@
-﻿using GameFramework.Network;
+﻿using GameFramework;
+using GameFramework.Network;
 using UnityGameFramework.Runtime;
 
 namespace Game.Hot
@@ -9,7 +10,8 @@ namespace Game.Hot
         
         protected override void DoHandle(object sender, Packet packet)
         {
-            Log.Info("开始战斗！");
+            var battleStage = GameEntry.DataNode.GetData<VarInt32>(HotConstant.DataNode.BATTLE_STAGE);
+            battleStage.Value = (int)BattleStage.LoadGameAsset;
         }
     }
 }

@@ -2,29 +2,29 @@
 
 namespace Game.Hot
 {
-    public partial class LoginForm : CodeBind.ICSCodeBind
+    public partial class LoadingForm : CodeBind.ICSCodeBind
     {
         public CodeBind.CSCodeBindMono Mono { get; private set; }
         public UnityEngine.Transform Transform { get; private set; }
 
-        public TMPro.TMP_Text AccountIdTMPText { get; private set; }
-        public UnityEngine.UI.Button SureButton { get; private set; }
+        public UnityEngine.UI.UXImage ProgressUXImage { get; private set; }
+        public TMPro.TMP_Text TipTMPText { get; private set; }
 
 
         public void InitBind(CodeBind.CSCodeBindMono mono)
         {
             Mono = mono;
             Transform = mono.transform;
-            AccountIdTMPText = Mono.BindComponents[0] as TMPro.TMP_Text;
-            SureButton = Mono.BindComponents[1] as UnityEngine.UI.Button;
+            ProgressUXImage = Mono.BindComponents[0] as UnityEngine.UI.UXImage;
+            TipTMPText = Mono.BindComponents[1] as TMPro.TMP_Text;
         }
 
         public void ClearBind()
         {
             Mono = null;
             Transform = null;
-            AccountIdTMPText = null;
-            SureButton = null;
+            ProgressUXImage = null;
+            TipTMPText = null;
         }
     }
 }
