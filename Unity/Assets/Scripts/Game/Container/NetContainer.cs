@@ -7,6 +7,7 @@ using GameFramework;
 using GameFramework.Event;
 using GameFramework.Network;
 using UnityGameFramework.Extension;
+using UnityGameFramework.Runtime;
 
 namespace Game
 {
@@ -22,49 +23,50 @@ namespace Game
         }
 
         private CancellationTokenSource m_CancellationTokenSource;
+
         private string m_ChannelName;
-        private List<int> m_PacketSending = new();
-        private List<int> m_PacketReceived = new();
+        // private List<int> m_PacketSending = new();
+        // private Dictionary<int, Packet> m_PacketReceived = new();
+
+        private Dictionary<int, AutoResetUniTaskCompletionSource<Packet>> m_PacketToTcs = new();
 
         public void Clear()
         {
             if (m_CancellationTokenSource != null)
                 m_CancellationTokenSource.Cancel();
             m_CancellationTokenSource = null;
+            foreach (var tcs in m_PacketToTcs.Values)
+                tcs.TrySetCanceled();
+            m_PacketToTcs.Clear();
             UnSubscribeEvent();
         }
 
-        public UniTask<T> SendPacketAsync<T>(Packet packet) where T : Packet
+        public async UniTask<Packet> SendPacketAsync(Packet packet)
         {
-            if (m_PacketSending.Contains(packet.Id))
+            if (m_PacketToTcs.ContainsKey(packet.Id))
             {
-                return UniTask.FromException<T>(new Exception("The packet is already sent, but no receive"));
+                return await UniTask.FromException<Packet>(new Exception("The packet is already sent"));
             }
             if (m_CancellationTokenSource.IsCancellationRequested)
             {
-                return UniTask.FromCanceled<T>(m_CancellationTokenSource.Token);
+                return await UniTask.FromCanceled<Packet>(m_CancellationTokenSource.Token);
             }
             var channel = GameEntry.Network.GetNetworkChannel(m_ChannelName);
             if (channel == null)
             {
-                return UniTask.FromException<T>(new Exception("Channel not found"));
+                return await UniTask.FromException<Packet>(new Exception("Channel not found"));
             }
+            var tcs = AutoResetUniTaskCompletionSource<Packet>.Create();
+            m_PacketToTcs.Add(packet.Id, tcs);
+            
             channel.Send(packet);
-            m_PacketSending.Add(packet.Id);
-            // var delayOneFrame = true;
-            bool MoveNext(ref UniTaskCompletionSourceCore<T> core)
-            {
-                if (!m_PacketReceived.Contains(packet.Id))
-                    return true;
-                //等待一帧GF的Event.Fire
-                // if (delayOneFrame)
-                    // delayOneFrame = false;
-                m_PacketSending.Remove(packet.Id);
-                m_PacketReceived.Remove(packet.Id);
-                return false;
-            }
-
-            return Awaitable.NewUniTask<T>(MoveNext, m_CancellationTokenSource.Token);
+            var timeout = UniTask.Delay(TimeSpan.FromSeconds(5), cancellationToken: m_CancellationTokenSource.Token);
+            var (hasCompleted, p) = await UniTask.WhenAny(tcs.Task, timeout);
+            if (hasCompleted)
+                return p;
+            if (m_CancellationTokenSource.IsCancellationRequested)
+                return await UniTask.FromCanceled<Packet>(m_CancellationTokenSource.Token);
+            return await UniTask.FromException<Packet>(new TimeoutException("Request timeout"));
         }
 
 
@@ -72,7 +74,7 @@ namespace Game
         {
             GameEntry.Event.Subscribe(PacketHandleEventArgs.EventId, OnPacketHandleEvent);
         }
-        
+
         private void UnSubscribeEvent()
         {
             GameEntry.Event.Unsubscribe(PacketHandleEventArgs.EventId, OnPacketHandleEvent);
@@ -81,7 +83,17 @@ namespace Game
         private void OnPacketHandleEvent(object sender, GameEventArgs e)
         {
             var ee = (PacketHandleEventArgs)e;
-            m_PacketReceived.Add(ee.AckId);
+            if (!m_PacketToTcs.ContainsKey(ee.FromReqId))
+                return;
+            if (m_PacketToTcs.Remove(ee.FromReqId, out var tcs))
+            {
+                if (m_CancellationTokenSource.IsCancellationRequested)
+                {
+                    tcs.TrySetCanceled(m_CancellationTokenSource.Token);
+                    return;
+                }
+                tcs.TrySetResult(ee.Packet);
+            }
         }
     }
 }

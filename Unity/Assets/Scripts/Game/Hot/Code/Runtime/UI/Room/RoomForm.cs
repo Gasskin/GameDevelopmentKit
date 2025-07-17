@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CodeBind;
+using GameFramework;
 using GameFramework.Event;
 using TMPro;
 using UnityEngine;
@@ -71,6 +72,7 @@ namespace Game.Hot
                 _playerState[i].color = Color.green;
             }
             StartGameUXImage.SetGrey(_roomModel.PlayerCount < 2);
+            StartGameButton.gameObject.SetActive(_roomModel.IsRoomOwner);
         }
         
         private void OnStartGameClick()
@@ -79,7 +81,7 @@ namespace Game.Hot
             {
                 return;
             }
-            Log.Debug("开始战斗");
+            GameEntry.Network.SendTcp(ReferencePool.Acquire<CS_StartBattleReq>());
         }
     }
 }

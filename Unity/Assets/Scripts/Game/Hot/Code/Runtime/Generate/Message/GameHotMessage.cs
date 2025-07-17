@@ -6,7 +6,8 @@ using System.Collections.Generic;
 
 namespace Game.Hot
 {
-    // proto file : GameHot/GameMsg.proto (line:3)
+    // 心跳
+    // proto file : GameHot/GameMsg.proto (line:4)
     [Serializable, ProtoContract(Name = @"CS_PingReq")]
     public partial class CS_PingReq : CSPacketBase
     {
@@ -16,7 +17,7 @@ namespace Game.Hot
         }
     }
 
-    // proto file : GameHot/GameMsg.proto (line:8)
+    // proto file : GameHot/GameMsg.proto (line:9)
     [Serializable, ProtoContract(Name = @"SC_PingAck")]
     public partial class SC_PingAck : SCPacketBase
     {
@@ -29,7 +30,8 @@ namespace Game.Hot
         }
     }
 
-    // proto file : GameHot/GameMsg.proto (line:14)
+    // 加入房间请求
+    // proto file : GameHot/GameMsg.proto (line:15)
     [Serializable, ProtoContract(Name = @"CS_JoinRoomReq")]
     public partial class CS_JoinRoomReq : CSPacketBase
     {
@@ -42,20 +44,24 @@ namespace Game.Hot
         }
     }
 
-    // proto file : GameHot/GameMsg.proto (line:19)
+    // proto file : GameHot/GameMsg.proto (line:20)
     [Serializable, ProtoContract(Name = @"SC_JoinRoomAck")]
     public partial class SC_JoinRoomAck : SCPacketBase
     {
         public override int Id => 30004;
         [ProtoMember(1)]
+        public int myAccountId { get; set; }
+        [ProtoMember(2)]
         public List<int> roomPlayers { get; set; } = new List<int>();
         public override void Clear()
         {
+            this.myAccountId = default;
             this.roomPlayers.Clear();
         }
     }
 
-    // proto file : GameHot/GameMsg.proto (line:24)
+    // 玩家加入房间广播
+    // proto file : GameHot/GameMsg.proto (line:27)
     [Serializable, ProtoContract(Name = @"SC_JoinRoomNtf")]
     public partial class SC_JoinRoomNtf : SCPacketBase
     {
@@ -71,7 +77,8 @@ namespace Game.Hot
         }
     }
 
-    // proto file : GameHot/GameMsg.proto (line:30)
+    // 玩家离开房间广播
+    // proto file : GameHot/GameMsg.proto (line:34)
     [Serializable, ProtoContract(Name = @"SC_LeaveRoomNtf")]
     public partial class SC_LeaveRoomNtf : SCPacketBase
     {
@@ -81,6 +88,40 @@ namespace Game.Hot
         public override void Clear()
         {
             this.leaveAccountId = default;
+        }
+    }
+
+    // 开始战斗
+    // proto file : GameHot/GameMsg.proto (line:40)
+    [Serializable, ProtoContract(Name = @"CS_StartBattleReq")]
+    public partial class CS_StartBattleReq : CSPacketBase
+    {
+        public override int Id => 30007;
+        public override void Clear()
+        {
+        }
+    }
+
+    // proto file : GameHot/GameMsg.proto (line:45)
+    [Serializable, ProtoContract(Name = @"SC_StartBattleNtf")]
+    public partial class SC_StartBattleNtf : SCPacketBase
+    {
+        public override int Id => 30008;
+        public override void Clear()
+        {
+        }
+    }
+
+    // proto file : GameHot/GameMsg.proto (line:50)
+    [Serializable, ProtoContract(Name = @"CS_ReadyForGameReq")]
+    public partial class CS_ReadyForGameReq : CSPacketBase
+    {
+        public override int Id => 30009;
+        [ProtoMember(1)]
+        public int accountId { get; set; }
+        public override void Clear()
+        {
+            this.accountId = default;
         }
     }
 

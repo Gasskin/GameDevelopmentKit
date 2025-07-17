@@ -25,6 +25,7 @@ public class Room
 
         var ack = new SC_JoinRoomAck();
         ack.roomPlayers = nowPlayers;
+        ack.myAccountId = msg.accountId;
         Server.Instance.Send(newClient, ack);
     }
 
@@ -44,6 +45,21 @@ public class Room
         {
             Console.WriteLine($"[房间]{targetId.Value}离开房间");
             _roomPlayer.Remove(targetId.Value);
+        }
+    }
+
+    public List<int> GetPlayers()
+    {
+        return _roomPlayer.Keys.ToList();
+    }
+
+    public void OnStartBattleReq()
+    {
+        foreach (var client in _roomPlayer.Values)
+        {
+            Server.Instance.Send(client, new SC_StartBattleNtf()
+            {
+            });
         }
     }
 }

@@ -13,14 +13,21 @@ namespace Game.Hot
     public partial class LoginForm : AHotUIForm
     {
         private int _accountId;
+        private int _roomFormId;
 
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
             InitBind(gameObject.GetComponent<CSCodeBindMono>());
-            SureButton.onClick.AddListener(OnSureButtonClick);
+            SureButton.onClick.AddListener((() =>
+            {
+                JoinRoomAsync().Forget();
+            }));
             GameEntry.Event.Subscribe(NetworkConnectedEventArgs.EventId, OnNetworkConnectedEvent);
+            GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccessEvent);
         }
+
+
 
 
         protected override void OnOpen(object userData)
@@ -36,26 +43,17 @@ namespace Game.Hot
         protected override void OnRecycle()
         {
             base.OnRecycle();
-            SureButton.onClick.RemoveListener(OnSureButtonClick);
+            SureButton.onClick.RemoveAllListeners();
             GameEntry.Event.Unsubscribe(NetworkConnectedEventArgs.EventId, OnNetworkConnectedEvent);
-        }
-
-
-        private void OnSureButtonClick()
-        {
-            // HotEntry.Model.Account.SetAccountId(_accountId);
-            // var packet = ReferencePool.Acquire<CS_JoinRoomReq>();
-            // packet.accountId = _accountId;
-            // GameEntry.Network.SendTcp(packet);
-            JoinRoomAsync().Forget();
+            GameEntry.Event.Unsubscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccessEvent);
         }
 
         private async UniTaskVoid JoinRoomAsync()
         {
             var packet = ReferencePool.Acquire<CS_JoinRoomReq>();
             packet.accountId = _accountId;
-            var ack = await SendPacketAsync<SC_JoinRoomAck>(packet);
-            Log.Error($"房间人数：{ack.roomPlayers.Count}");
+            await SendPacketAsync<SC_JoinRoomAck>(packet);
+            _roomFormId = GameEntry.UI.OpenUIForm(UIFormId.RoomForm) ?? 0;
         }
 
         private void OnNetworkConnectedEvent(object sender, GameEventArgs e)
@@ -63,6 +61,15 @@ namespace Game.Hot
             _accountId = Utility.Random.GetRandom(1, int.MaxValue);
             AccountIdTMPText.text = Utility.Text.Format("用户名：{0}", _accountId);
             SureButton.gameObject.SetActive(true);
+        }
+        
+        private void OnOpenUIFormSuccessEvent(object sender, GameEventArgs e)
+        {
+            var ee = (OpenUIFormSuccessEventArgs)e;
+            if (ee.UIForm.SerialId == _roomFormId)
+            {
+                Close();
+            }
         }
     }
 }

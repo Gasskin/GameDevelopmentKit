@@ -15,17 +15,18 @@ namespace Game
     public abstract class PacketHandlerBase : IPacketHandler
     {
         public abstract int Id { get; }
-        
-        public virtual int AckId { get; }
 
+        public virtual int FromReqId { get; } = 0;
+        
         public void Handle(object sender, Packet packet)
         {
             DoHandle(sender, packet);
-            if (AckId > 0) 
+            if (FromReqId > 0) 
             {
                 var e = ReferencePool.Acquire<PacketHandleEventArgs>();
-                e.AckId = AckId;
-                GameEntry.Event.Fire(this, e);
+                e.FromReqId = FromReqId;
+                e.Packet = packet;
+                GameEntry.Event.FireNow(this, e);
             }
         }
 

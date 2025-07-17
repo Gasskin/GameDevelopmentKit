@@ -1,4 +1,6 @@
-﻿using GameFramework.Event;
+﻿using GameFramework;
+using GameFramework.Event;
+using GameFramework.Network;
 
 namespace Game
 {
@@ -8,11 +10,15 @@ namespace Game
 
         public override int Id => EventId;
         
-        public int AckId { get; set; }
+        public int FromReqId { get; set; }
+        
+        // 会被自动释放
+        public Packet Packet { get; set; }
         
         public override void Clear()
         {
-            AckId = 0;
+            FromReqId = 0;
+            Packet = null;
         }
     }
 }

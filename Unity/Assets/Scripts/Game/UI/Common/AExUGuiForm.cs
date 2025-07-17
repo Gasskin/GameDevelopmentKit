@@ -19,6 +19,7 @@ namespace Game
 
         private void ClearUIForm()
         {
+            Log.Error("clear ui ");
             if (m_EventContainer != null)
             {
                 ReferencePool.Release(m_EventContainer);
@@ -237,10 +238,11 @@ namespace Game
             m_ResourceContainer.UnloadAllAssets();
         }
 
-        public async UniTask<T> SendPacketAsync<T>(Packet packet, string channel = "TcpChannel") where T : Packet
+        protected async UniTask<T> SendPacketAsync<T>(Packet packet, string channel = "TcpChannel") where T : Packet
         {
             m_NetContainer ??= NetContainer.Create(channel);
-            return await m_NetContainer.SendPacketAsync<T>(packet);
+            var p = await m_NetContainer.SendPacketAsync(packet);
+            return p as T;
         }
     }
 }

@@ -158,8 +158,16 @@ public class Server
                     });
                     break;
                 case 30003:
-                    var req = Serializer.Deserialize<CS_JoinRoomReq>(ms);
-                    Room.Instance.JoinRoomReq(client, req);
+                    var req30003 = Serializer.Deserialize<CS_JoinRoomReq>(ms);
+                    Room.Instance.JoinRoomReq(client, req30003);
+                    break;
+                case 30007:
+                    var req30007 = Serializer.Deserialize<CS_StartBattleReq>(ms);
+                    Battle.Instance.OnStartBattleReq(req30007);
+                    Room.Instance.OnStartBattleReq();
+                    break;
+                case 30009:
+                    Battle.Instance.OnReadyForGameReq(Serializer.Deserialize<CS_ReadyForGameReq>(ms));
                     break;
                 default:
                     Console.WriteLine($"[日志]未知消息 Id={msgId}");

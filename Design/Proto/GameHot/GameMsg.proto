@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+// 心跳
 message CS_PingReq
 {
 
@@ -10,7 +11,7 @@ message SC_PingAck
 	int64 timeStamp = 1;
 }
 
-
+// 加入房间请求
 message CS_JoinRoomReq
 {
 	int32 accountId = 1;
@@ -18,16 +19,35 @@ message CS_JoinRoomReq
 
 message SC_JoinRoomAck
 {
-	repeated int32 roomPlayers = 1;
+	int32 myAccountId = 1;
+	repeated int32 roomPlayers = 2;
 }
 
+// 玩家加入房间广播
 message SC_JoinRoomNtf
 {
 	int32 newAccountId			= 1;
 	repeated int32 roomPlayers	= 2;
 }
 
+// 玩家离开房间广播
 message SC_LeaveRoomNtf
 {
 	int32 leaveAccountId = 1;
+}
+
+// 开始战斗
+message CS_StartBattleReq
+{
+
+}
+
+message SC_StartBattleNtf
+{
+
+}
+
+message CS_ReadyForGameReq
+{
+	int32 accountId = 1;
 }

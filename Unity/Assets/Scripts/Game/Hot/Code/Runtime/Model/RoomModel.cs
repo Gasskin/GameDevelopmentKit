@@ -8,11 +8,17 @@ namespace Game.Hot
     public class RoomModel
     {
         public int PlayerCount => _roomPlayers.Count;
-        
+
+        public int MyAccount { get;private set; }
+
+        public bool IsRoomOwner => _roomPlayers.Count >= 1 && _roomPlayers[0] == MyAccount;
+
         private List<int> _roomPlayers = new();
 
-        public void SetRoomPlayers(List<int> players)
+        public void SetRoomPlayers(int myAccount, List<int> players)
         {
+            MyAccount = myAccount;
+            
             _roomPlayers.Clear();
             _roomPlayers.AddRange(players);
 
@@ -21,7 +27,7 @@ namespace Game.Hot
             {
                 Log.Info($"玩家[{i}]：{_roomPlayers[i]}");
             }
-            
+
             GameEntry.Event.Fire(this, ReferencePool.Acquire<RoomPlayerChangeEvent>());
         }
 
@@ -57,13 +63,23 @@ namespace Game.Hot
             {
                 Log.Info($"玩家[{i}]：{_roomPlayers[i]}");
             }
-            
+
             GameEntry.Event.Fire(this, ReferencePool.Acquire<RoomPlayerChangeEvent>());
         }
 
         public void GetRoomPlayer(UGFList<int> players)
         {
             players.AddRange(_roomPlayers);
+        }
+
+        public int GetPlayerByIndex(int idx)
+        {
+            if (idx >= _roomPlayers.Count || idx < 0)
+            {
+                Log.Error("索引超出范围，无法获取玩家。索引: {0}, 房间人数: {1}", idx, _roomPlayers.Count);
+                return 0;
+            }
+            return _roomPlayers[idx];
         }
     }
 }
