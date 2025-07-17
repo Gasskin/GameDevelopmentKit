@@ -52,6 +52,7 @@ namespace UnityGameFramework.Extension
             eventComponent.Subscribe(LoadDictionaryFailureEventArgs.EventId, OnLoadDictionaryFailure);
             eventComponent.Subscribe(LoadDictionaryUpdateEventArgs.EventId, OnLoadDictionaryUpdate);
             eventComponent.Subscribe(LoadDictionaryDependencyAssetEventArgs.EventId, OnLoadDictionaryDependencyAsset);
+            
 
             IsValid = true;
 #if UNITY_EDITOR

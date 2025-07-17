@@ -8,7 +8,7 @@ namespace Game.Hot
     {
         public override int Id => 30002;
 
-        public override void Handle(object sender, Packet packet)
+        protected override void DoHandle(object sender, Packet packet)
         {
         }
     }

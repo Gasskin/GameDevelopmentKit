@@ -11,13 +11,13 @@ namespace Game.Hot
         {
             base.OnEnter(procedureOwner);
             _loginFormId = GameEntry.UI.OpenUIForm(UIFormId.LoginForm) ?? 0;
-            GameEntry.Event.Subscribe(JoinRoomAckEventArgs.EventId, OnJoinRoomAckEvent);
+            // GameEntry.Event.Subscribe(JoinRoomAckEventArgs.EventId, OnJoinRoomAckEvent);
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
-            GameEntry.Event.Unsubscribe(JoinRoomAckEventArgs.EventId, OnJoinRoomAckEvent);
+            // GameEntry.Event.Unsubscribe(JoinRoomAckEventArgs.EventId, OnJoinRoomAckEvent);
         }
 
         private void OnJoinRoomAckEvent(object sender, GameEventArgs e)

@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using GameFramework;
 using GameFramework.Event;
+using GameFramework.Network;
 using UnityGameFramework.Runtime;
 
 namespace Game
@@ -10,10 +11,11 @@ namespace Game
     public abstract class AExUGuiForm : AUGuiForm
     {
         private CancellationTokenSource m_CancellationTokenSource;
-        
+
         private UIWidgetContainer m_UIWidgetContainer;
         private EventContainer m_EventContainer;
         private ResourceContainer m_ResourceContainer;
+        private NetContainer m_NetContainer;
 
         private void ClearUIForm()
         {
@@ -31,6 +33,11 @@ namespace Game
             {
                 ReferencePool.Release(m_ResourceContainer);
                 m_ResourceContainer = null;
+            }
+            if (m_NetContainer != null)
+            {
+                ReferencePool.Release(m_NetContainer);
+                m_NetContainer = null;
             }
         }
 
@@ -228,6 +235,12 @@ namespace Game
             if (m_ResourceContainer == null)
                 return;
             m_ResourceContainer.UnloadAllAssets();
+        }
+
+        public async UniTask<T> SendPacketAsync<T>(Packet packet, string channel = "TcpChannel") where T : Packet
+        {
+            m_NetContainer ??= NetContainer.Create(channel);
+            return await m_NetContainer.SendPacketAsync<T>(packet);
         }
     }
 }
