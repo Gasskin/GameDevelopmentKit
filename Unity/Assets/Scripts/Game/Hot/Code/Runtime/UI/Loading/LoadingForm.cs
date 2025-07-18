@@ -11,15 +11,12 @@ namespace Game.Hot
         private float _randomWait;
         private float _remain;
 
-        private VarInt32 _battleStage;
-
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
             InitBind(gameObject.GetComponent<CSCodeBindMono>());
 
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccessEvent);
-            _battleStage = GameEntry.DataNode.GetData<VarInt32>(HotConstant.DataNode.BATTLE_STAGE);
         }
 
         protected override void OnRecycle()
@@ -31,7 +28,7 @@ namespace Game.Hot
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            _randomWait = Utility.Random.GetRandom(5, 15);
+            _randomWait = (float)Utility.Random.GetRandomDouble() * 10f;
             _remain = _randomWait;
             TipTMPText.text = "资源加载中...";
         }
@@ -43,12 +40,12 @@ namespace Game.Hot
 
             if (_remain < 0)
             {
-                if (_battleStage.Value == (int)BattleStage.LoadGameAsset)
-                {
-                    _battleStage.Value = (int)BattleStage.ReadyForGame;
-                    ProgressUXImage.fillAmount = 1f;
-                    TipTMPText.text = "等待其他玩家...";
-                }
+                // if (_battleStage.Value == (int)EBattleStage.LoadGameAsset)
+                // {
+                //     _battleStage.Value = (int)EBattleStage.ReadyForGame;
+                //     ProgressUXImage.fillAmount = 1f;
+                //     TipTMPText.text = "等待其他玩家...";
+                // }
             }
             else
             {

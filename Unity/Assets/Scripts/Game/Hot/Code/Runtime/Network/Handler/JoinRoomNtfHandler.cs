@@ -5,7 +5,7 @@ namespace Game.Hot
 {
     public class JoinRoomNtfHandler : PacketHandlerBase
     {
-        public override int Id => 30005;
+        public override int Id => SC_JoinRoomNtf.MsgId;
 
         protected override void DoHandle(object sender, Packet packet)
         {

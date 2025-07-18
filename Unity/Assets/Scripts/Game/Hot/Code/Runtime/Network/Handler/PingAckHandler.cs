@@ -6,7 +6,7 @@ namespace Game.Hot
 {
     public class PingAckHandler : PacketHandlerBase
     {
-        public override int Id => 30002;
+        public override int Id => SC_PingAck.MsgId;
 
         protected override void DoHandle(object sender, Packet packet)
         {

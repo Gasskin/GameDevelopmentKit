@@ -6,12 +6,10 @@ namespace Game.Hot
 {
     public class StartBattleNtfHandler : PacketHandlerBase
     {
-        public override int Id => 30008;
+        public override int Id => SC_StartBattleNtf.MsgId;
         
         protected override void DoHandle(object sender, Packet packet)
         {
-            var battleStage = GameEntry.DataNode.GetData<VarInt32>(HotConstant.DataNode.BATTLE_STAGE);
-            battleStage.Value = (int)BattleStage.LoadGameAsset;
         }
     }
 }

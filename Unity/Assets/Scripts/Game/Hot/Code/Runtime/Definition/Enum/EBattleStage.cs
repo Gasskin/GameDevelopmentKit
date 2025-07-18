@@ -1,8 +1,9 @@
 ﻿namespace Game.Hot
 {
-    public enum BattleStage
+    public enum EBattleStage
     {
         None = 0,
+        InRoom,
         LoadGameAsset,
         ReadyForGame,
     }

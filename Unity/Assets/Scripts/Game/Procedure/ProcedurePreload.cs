@@ -52,14 +52,14 @@ namespace Game
                     Log.Error(GameFramework.Utility.Text.Format("DRUIForm '{0}' - ui group '{1}' is not exist.", drUIForm.AssetName, drUIForm.UIGroupName));
                 }
             }
-            foreach (var drEntity in GameEntry.Tables.DTEntity.DataList)
-            {
-                GameFramework.Entity.IEntityGroup entityGroup = GameEntry.Entity.GetEntityGroup(drEntity.EntityGroupName);
-                if (entityGroup == null)
-                {
-                    Log.Error(GameFramework.Utility.Text.Format("DREntity '{0}' - entity group '{1}' is not exist.", drEntity.AssetName, drEntity.EntityGroupName));
-                }
-            }
+            // foreach (var drEntity in GameEntry.Tables.DTEntity.DataList)
+            // {
+            //     GameFramework.Entity.IEntityGroup entityGroup = GameEntry.Entity.GetEntityGroup(drEntity.EntityGroupName);
+            //     if (entityGroup == null)
+            //     {
+            //         Log.Error(GameFramework.Utility.Text.Format("DREntity '{0}' - entity group '{1}' is not exist.", drEntity.AssetName, drEntity.EntityGroupName));
+            //     }
+            // }
         }
 #endif
     }

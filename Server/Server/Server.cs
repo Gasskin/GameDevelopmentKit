@@ -145,39 +145,42 @@ public class Server
     private void HandleMessage(Socket client, int msgId, byte[] bodyBuf)
     {
         Console.WriteLine($"[日志]接收 Id={msgId}, From={client.RemoteEndPoint}");
-        using var ms = new MemoryStream(bodyBuf);
+        
+        // 从 ReadClient 中收到完整数据后
+        MessageDispatcher.Instance.Post(client, msgId, bodyBuf);
 
-        try
-        {
-            switch (msgId)
-            {
-                case 30001:
-                    Send(client, new SC_PingAck()
-                    {
-                        timeStamp = (long)(DateTime.UtcNow.AddHours(8) - new DateTime(1970, 1, 1)).TotalMilliseconds
-                    });
-                    break;
-                case 30003:
-                    var req30003 = Serializer.Deserialize<CS_JoinRoomReq>(ms);
-                    Room.Instance.JoinRoomReq(client, req30003);
-                    break;
-                case 30007:
-                    var req30007 = Serializer.Deserialize<CS_StartBattleReq>(ms);
-                    Battle.Instance.OnStartBattleReq(req30007);
-                    Room.Instance.OnStartBattleReq();
-                    break;
-                case 30009:
-                    Battle.Instance.OnReadyForGameReq(Serializer.Deserialize<CS_ReadyForGameNtf>(ms));
-                    break;
-                default:
-                    Console.WriteLine($"[日志]未知消息 Id={msgId}");
-                    break;
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"[日志]反序列化异常 Id={msgId}, 异常={ex.Message}");
-        }
+        // using var ms = new MemoryStream(bodyBuf);
+        // try
+        // {
+        //     switch (msgId)
+        //     {
+        //         case 30001:
+        //             Send(client, new SC_PingAck()
+        //             {
+        //                 timeStamp = (long)(DateTime.UtcNow.AddHours(8) - new DateTime(1970, 1, 1)).TotalMilliseconds
+        //             });
+        //             break;
+        //         case 30003:
+        //             var req30003 = Serializer.Deserialize<CS_JoinRoomReq>(ms);
+        //             Room.Instance.JoinRoomReq(client, req30003);
+        //             break;
+        //         case 30007:
+        //             var req30007 = Serializer.Deserialize<CS_StartBattleReq>(ms);
+        //             Battle.Instance.OnStartBattleReq(req30007);
+        //             Room.Instance.OnStartBattleReq();
+        //             break;
+        //         case 30009:
+        //             Battle.Instance.OnReadyForGameReq(Serializer.Deserialize<CS_ReadyForGameNtf>(ms));
+        //             break;
+        //         default:
+        //             Console.WriteLine($"[日志]未知消息 Id={msgId}");
+        //             break;
+        //     }
+        // }
+        // catch (Exception ex)
+        // {
+        //     Console.WriteLine($"[日志]反序列化异常 Id={msgId}, 异常={ex.Message}");
+        // }
     }
 
     public void Send(Socket client, SCPacketBase packet)

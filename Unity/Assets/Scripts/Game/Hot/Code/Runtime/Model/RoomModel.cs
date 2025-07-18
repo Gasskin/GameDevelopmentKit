@@ -7,21 +7,27 @@ namespace Game.Hot
 {
     public class RoomModel
     {
-        public int PlayerCount => _roomPlayers.Count;
+        public int MyAccount { get; private set; }
 
-        public int MyAccount { get;private set; }
+
+        public EBattleStage EBattleStage { get; private set; } = EBattleStage.None;
+        public int PlayerCount => _roomPlayers.Count;
 
         public bool IsRoomOwner => _roomPlayers.Count >= 1 && _roomPlayers[0] == MyAccount;
 
+
         private List<int> _roomPlayers = new();
 
+    #region Player相关
         public void SetRoomPlayers(int myAccount, List<int> players)
         {
             MyAccount = myAccount;
-            
+
             _roomPlayers.Clear();
             foreach (var player in players)
                 _roomPlayers.Add(player);
+
+            ChangeBattleStage(EBattleStage.InRoom);
 
             Log.Info($"{myAccount} 成功加入房间，房间人数：{_roomPlayers.Count}");
             for (int i = 0; i < _roomPlayers.Count; i++)
@@ -82,5 +88,13 @@ namespace Game.Hot
             }
             return _roomPlayers[idx];
         }
+    #endregion
+
+    #region 战斗流程相关
+        public void ChangeBattleStage(EBattleStage stage)
+        {
+            EBattleStage = stage;
+        }
+    #endregion
     }
 }

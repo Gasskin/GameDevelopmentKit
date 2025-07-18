@@ -11,7 +11,8 @@ namespace Game.Hot
     [Serializable, ProtoContract(Name = @"CS_PingReq")]
     public partial class CS_PingReq : CSPacketBase
     {
-        public override int Id => 30001;
+        public const int MsgId = 30001;
+        public override int Id => MsgId;
         public override void Clear()
         {
         }
@@ -21,7 +22,8 @@ namespace Game.Hot
     [Serializable, ProtoContract(Name = @"SC_PingAck")]
     public partial class SC_PingAck : SCPacketBase
     {
-        public override int Id => 30002;
+        public const int MsgId = 30002;
+        public override int Id => MsgId;
         [ProtoMember(1)]
         public long timeStamp { get; set; }
         public override void Clear()
@@ -35,7 +37,8 @@ namespace Game.Hot
     [Serializable, ProtoContract(Name = @"CS_JoinRoomReq")]
     public partial class CS_JoinRoomReq : CSPacketBase
     {
-        public override int Id => 30003;
+        public const int MsgId = 30003;
+        public override int Id => MsgId;
         [ProtoMember(1)]
         public int accountId { get; set; }
         public override void Clear()
@@ -48,7 +51,8 @@ namespace Game.Hot
     [Serializable, ProtoContract(Name = @"SC_JoinRoomAck")]
     public partial class SC_JoinRoomAck : SCPacketBase
     {
-        public override int Id => 30004;
+        public const int MsgId = 30004;
+        public override int Id => MsgId;
         [ProtoMember(1)]
         public int myAccountId { get; set; }
         [ProtoMember(2)]
@@ -65,7 +69,8 @@ namespace Game.Hot
     [Serializable, ProtoContract(Name = @"SC_JoinRoomNtf")]
     public partial class SC_JoinRoomNtf : SCPacketBase
     {
-        public override int Id => 30005;
+        public const int MsgId = 30005;
+        public override int Id => MsgId;
         [ProtoMember(1)]
         public int newAccountId { get; set; }
         [ProtoMember(2)]
@@ -82,7 +87,8 @@ namespace Game.Hot
     [Serializable, ProtoContract(Name = @"SC_LeaveRoomNtf")]
     public partial class SC_LeaveRoomNtf : SCPacketBase
     {
-        public override int Id => 30006;
+        public const int MsgId = 30006;
+        public override int Id => MsgId;
         [ProtoMember(1)]
         public int leaveAccountId { get; set; }
         public override void Clear()
@@ -96,7 +102,8 @@ namespace Game.Hot
     [Serializable, ProtoContract(Name = @"CS_StartBattleReq")]
     public partial class CS_StartBattleReq : CSPacketBase
     {
-        public override int Id => 30007;
+        public const int MsgId = 30007;
+        public override int Id => MsgId;
         public override void Clear()
         {
         }
@@ -106,7 +113,8 @@ namespace Game.Hot
     [Serializable, ProtoContract(Name = @"SC_StartBattleNtf")]
     public partial class SC_StartBattleNtf : SCPacketBase
     {
-        public override int Id => 30008;
+        public const int MsgId = 30008;
+        public override int Id => MsgId;
         public override void Clear()
         {
         }
@@ -116,7 +124,8 @@ namespace Game.Hot
     [Serializable, ProtoContract(Name = @"CS_ReadyForGameNtf")]
     public partial class CS_ReadyForGameNtf : CSPacketBase
     {
-        public override int Id => 30009;
+        public const int MsgId = 30009;
+        public override int Id => MsgId;
         [ProtoMember(1)]
         public int accountId { get; set; }
         public override void Clear()

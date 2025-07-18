@@ -11,12 +11,6 @@ namespace Game.Hot
 {
     public static partial class HotConstant
     {
-        /// <summary>
-        /// 层。
-        /// </summary>
-        public static class DataNode
-        {
-            public const string BATTLE_STAGE = "BATTLE_STAGE";
-        }
+
     }
 }

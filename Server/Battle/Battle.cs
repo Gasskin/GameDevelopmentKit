@@ -13,9 +13,7 @@ public class Battle
 {
     public static Battle Instance { get; } = new();
 
-    private const double FRAME_TIME = 1000.0 / 60;
 
-    private bool _isRunning = true;
 
     private BattleState _battleState = BattleState.None;
 
@@ -23,20 +21,10 @@ public class Battle
 
     public void Init()
     {
-        var stopwatch = new Stopwatch();
-        while (_isRunning)
-        {
-            stopwatch.Restart();
-            Update();
-            stopwatch.Stop();
-            var elapsed = stopwatch.Elapsed.TotalMilliseconds;
-            var waitTime = FRAME_TIME - elapsed;
-            if (waitTime > 0)
-                Thread.Sleep((int)waitTime);
-        }
+
     }
 
-    private void Update()
+    public void Update()
     {
         switch (_battleState)
         {

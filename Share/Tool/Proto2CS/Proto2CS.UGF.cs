@@ -133,7 +133,8 @@ namespace ET
                         if (newline.StartsWith("{"))
                         {
                             s_StringBuilder.Append("\t{\n");
-                            s_StringBuilder.Append($"\t\tpublic override int Id => {++s_StartOpcode};\n");
+                            s_StringBuilder.Append($"\t\tpublic const int MsgId = {++s_StartOpcode};\n");
+                            s_StringBuilder.Append($"\t\tpublic override int Id => MsgId;\n");
                             continue;
                         }
 

@@ -6,4 +6,7 @@
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
+    <ItemGroup>
+      <Folder Include="Luban\Code\" />
+    </ItemGroup>
 </Project>

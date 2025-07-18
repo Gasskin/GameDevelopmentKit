@@ -7,14 +7,16 @@ namespace Game.Hot
 {
     public class JoinRoomAckHandler : PacketHandlerBase
     {
-        public override int Id => 30004;
+        public override int Id => SC_JoinRoomAck.MsgId;
 
-        public override int FromReqId => 30003;
+        protected override bool HasAck => true;
 
         protected override void DoHandle(object sender, Packet packet)
         {
             var msg = (SC_JoinRoomAck)packet;
             HotEntry.Model.Room.SetRoomPlayers(msg.myAccountId, msg.roomPlayers);
+            
+            HotEntry.Model.Room.ChangeBattleStage(EBattleStage.InRoom);
         }
     }
 }
