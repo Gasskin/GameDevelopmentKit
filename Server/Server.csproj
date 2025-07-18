@@ -8,5 +8,6 @@
     </PropertyGroup>
     <ItemGroup>
       <Folder Include="Luban\Code\" />
+      <Folder Include="Luban\Data\" />
     </ItemGroup>
 </Project>

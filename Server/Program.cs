@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using cfg;
 
 class Program
 {
@@ -10,6 +11,7 @@ class Program
         MessageDispatcher.Instance.AutoRegisterHandlers(new GameMessageHandler());
         
         Task.Run(() => Server.Instance.Init());
+        Tables.Instance.Init();
         Battle.Instance.Init();
         
         var stopwatch = new Stopwatch();

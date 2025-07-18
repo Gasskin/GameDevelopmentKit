@@ -12,24 +12,25 @@ using Luban;
 
 namespace cfg
 {
-public partial struct vec3
+public sealed partial class DROneConfig : Luban.BeanBase
 {
-    public vec3(ByteBuf _buf) 
+    public DROneConfig(ByteBuf _buf) 
     {
-        X = _buf.ReadFloat();
-        Y = _buf.ReadFloat();
-        Z = _buf.ReadFloat();
+        Test = _buf.ReadInt();
     }
 
-    public static vec3 Deserializevec3(ByteBuf _buf)
+    public static DROneConfig DeserializeDROneConfig(ByteBuf _buf)
     {
-        return new vec3(_buf);
+        return new DROneConfig(_buf);
     }
 
-    public readonly float X;
-    public readonly float Y;
-    public readonly float Z;
+    /// <summary>
+    /// 匹配最大时间
+    /// </summary>
+    public readonly int Test;
    
+    public const int __ID__ = -2019618726;
+    public override int GetTypeId() => __ID__;
 
     public  void ResolveRef(Tables tables)
     {
@@ -38,9 +39,7 @@ public partial struct vec3
     public override string ToString()
     {
         return "{ "
-        + "x:" + X + ","
-        + "y:" + Y + ","
-        + "z:" + Z + ","
+        + "Test:" + Test + ","
         + "}";
     }
 }

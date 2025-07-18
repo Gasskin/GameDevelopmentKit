@@ -9,7 +9,8 @@
 
 using Luban;
 
-namespace Game
+
+namespace cfg
 {
 public partial struct vec4
 {
@@ -19,7 +20,6 @@ public partial struct vec4
         Y = _buf.ReadFloat();
         Z = _buf.ReadFloat();
         W = _buf.ReadFloat();
-        PostInit();
     }
 
     public static vec4 Deserializevec4(ByteBuf _buf)
@@ -31,10 +31,10 @@ public partial struct vec4
     public readonly float Y;
     public readonly float Z;
     public readonly float W;
+   
 
-    public  void ResolveRef(TablesComponent tables)
+    public  void ResolveRef(Tables tables)
     {
-        PostResolveRef();
     }
 
     public override string ToString()
@@ -46,8 +46,7 @@ public partial struct vec4
         + "w:" + W + ","
         + "}";
     }
+}
 
-    partial void PostInit();
-    partial void PostResolveRef();
 }
-}
+

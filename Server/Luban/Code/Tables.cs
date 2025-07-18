@@ -7,16 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-
+using Luban;
 
 namespace cfg
-{ 
-    public enum AudioType
+{
+public partial class Tables
+{
+    public DTOneConfig DTOneConfig {get; }
+
+    public Tables(System.Func<string, ByteBuf> loader)
     {
-        UNKNOWN = 0,
-        ACC = 1,
-        AIFF = 2,
+        DTOneConfig = new DTOneConfig(loader("dtoneconfig"));
+        ResolveRef();
     }
+    
+    private void ResolveRef()
+    {
+        DTOneConfig.ResolveRef(this);
+    }
+}
 
-} 
-
+}
