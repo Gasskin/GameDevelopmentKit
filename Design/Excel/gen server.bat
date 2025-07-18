@@ -19,7 +19,7 @@ dotnet %LUBAN_DLL% ^
     -t server ^
     -c cs-bin ^
     -d bin  ^
-    --conf %CONF_ROOT%\lubanserver.conf ^
+    --conf %CONF_ROOT2%\lubanserver.conf ^
     -x outputCodeDir=%WORKSPACE%\Server\Luban\Code ^
     -x outputDataDir=%WORKSPACE%\Server\Luban\Data ^
     -x l10n.provider=default ^

@@ -7,24 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using Luban;
+
 
 namespace cfg
-{
-public partial class Tables
-{
-    public DTHero DTHero {get; }
-
-    public Tables(System.Func<string, ByteBuf> loader)
+{ 
+    public enum ESkill
     {
-        DTHero = new DTHero(loader("dthero"));
-        ResolveRef();
+        /// <summary>
+        /// 七进七出
+        /// </summary>
+        QiJinQiChu = 0,
+        /// <summary>
+        /// 单骑救主
+        /// </summary>
+        DanQiJiuZhu = 1,
     }
-    
-    private void ResolveRef()
-    {
-        DTHero.ResolveRef(this);
-    }
-}
 
-}
+} 
+
