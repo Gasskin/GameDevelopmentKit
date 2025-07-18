@@ -1,0 +1,18 @@
+{
+    "name": "LubanLib.Editor",
+    "rootNamespace": "",
+    "references": [
+        "LubanLib"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
