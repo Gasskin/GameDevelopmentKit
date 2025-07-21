@@ -37,15 +37,13 @@ namespace Game.Hot
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
             _remain -= elapseSeconds;
-
             if (_remain < 0)
             {
-                // if (_battleStage.Value == (int)EBattleStage.LoadGameAsset)
-                // {
-                //     _battleStage.Value = (int)EBattleStage.ReadyForGame;
-                //     ProgressUXImage.fillAmount = 1f;
-                //     TipTMPText.text = "等待其他玩家...";
-                // }
+                if (HotEntry.Model.Room.BattleStage == EBattleStage.Loading)
+                {
+                    ProgressUXImage.fillAmount = 1f;
+                    HotEntry.Model.Room.ChangeBattleStage(EBattleStage.LoadEnd);
+                }
             }
             else
             {

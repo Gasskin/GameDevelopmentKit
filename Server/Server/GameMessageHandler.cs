@@ -7,8 +7,7 @@ public class GameMessageHandler
     {
         dispatcher.Register<CS_PingReq>(CS_PingReq.MsgId, OnPingReq);
         dispatcher.Register<CS_JoinRoomReq>(CS_JoinRoomReq.MsgId, OnJoinRoomReq);
-        dispatcher.Register<CS_StartBattleReq>(CS_StartBattleReq.MsgId, OnStartBattleReq);
-        dispatcher.Register<CS_ReadyForGameNtf>(CS_ReadyForGameNtf.MsgId, OnReadyForGameNtf);
+        dispatcher.Register<CS_BeginBattleReq>(CS_BeginBattleReq.MsgId, OnBeginBattleReq);
     }
 
     private void OnPingReq(Socket client, CS_PingReq msg)
@@ -24,14 +23,9 @@ public class GameMessageHandler
         Room.Instance.JoinRoomReq(client, msg);
     }
 
-    private void OnStartBattleReq(Socket client, CS_StartBattleReq msg)
+    private void OnBeginBattleReq(Socket client, CS_BeginBattleReq msg)
     {
-        Room.Instance.OnStartBattleReq();
-        Battle.Instance.OnStartBattleReq(msg); // 主线程调用，不需要Post
-    }
-
-    private void OnReadyForGameNtf(Socket client, CS_ReadyForGameNtf msg)
-    {
-        Battle.Instance.OnReadyForGameReq(msg);
+        Room.Instance.OnBeginBattleReq();
+        Battle.Instance.OnBeginBattleReq(msg); // 主线程调用，不需要Post
     }
 }

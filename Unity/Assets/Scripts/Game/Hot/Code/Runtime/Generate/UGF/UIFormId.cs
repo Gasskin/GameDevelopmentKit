@@ -22,6 +22,11 @@ namespace Game.Hot
         /// <summary>
         /// 
         /// </summary>
+        public const int SelectHeroForm = 1003;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const int LoadingForm = 3001;
     }
 }

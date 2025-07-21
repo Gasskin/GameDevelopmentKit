@@ -30,7 +30,7 @@ public partial struct vec3
     public readonly float Y;
     public readonly float Z;
 
-    public  void ResolveRef(Tables tables)
+    public  void ResolveRef(HotTablesComponent tables)
     {
         PostResolveRef();
     }

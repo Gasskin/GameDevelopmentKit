@@ -32,7 +32,7 @@ namespace Game.Hot
         }
     }
 
-    // 加入房间请求
+    // 加入房间
     // proto file : GameHot/GameMsg.proto (line:15)
     [Serializable, ProtoContract(Name = @"CS_JoinRoomReq")]
     public partial class CS_JoinRoomReq : CSPacketBase
@@ -64,7 +64,7 @@ namespace Game.Hot
         }
     }
 
-    // 玩家加入房间广播
+    // 广播 玩家加入房间
     // proto file : GameHot/GameMsg.proto (line:27)
     [Serializable, ProtoContract(Name = @"SC_JoinRoomNtf")]
     public partial class SC_JoinRoomNtf : SCPacketBase
@@ -82,7 +82,7 @@ namespace Game.Hot
         }
     }
 
-    // 玩家离开房间广播
+    // 广播 玩家离开房间
     // proto file : GameHot/GameMsg.proto (line:34)
     [Serializable, ProtoContract(Name = @"SC_LeaveRoomNtf")]
     public partial class SC_LeaveRoomNtf : SCPacketBase
@@ -99,8 +99,8 @@ namespace Game.Hot
 
     // 开始战斗
     // proto file : GameHot/GameMsg.proto (line:40)
-    [Serializable, ProtoContract(Name = @"CS_StartBattleReq")]
-    public partial class CS_StartBattleReq : CSPacketBase
+    [Serializable, ProtoContract(Name = @"CS_BeginBattleReq")]
+    public partial class CS_BeginBattleReq : CSPacketBase
     {
         public const int MsgId = 30007;
         public override int Id => MsgId;
@@ -109,28 +109,21 @@ namespace Game.Hot
         }
     }
 
-    // proto file : GameHot/GameMsg.proto (line:45)
-    [Serializable, ProtoContract(Name = @"SC_StartBattleNtf")]
-    public partial class SC_StartBattleNtf : SCPacketBase
+    // 广播 开始战斗
+    // proto file : GameHot/GameMsg.proto (line:46)
+    [Serializable, ProtoContract(Name = @"SC_BeginBattleNtf")]
+    public partial class SC_BeginBattleNtf : SCPacketBase
     {
         public const int MsgId = 30008;
         public override int Id => MsgId;
-        public override void Clear()
-        {
-        }
-    }
-
-    // proto file : GameHot/GameMsg.proto (line:50)
-    [Serializable, ProtoContract(Name = @"CS_ReadyForGameNtf")]
-    public partial class CS_ReadyForGameNtf : CSPacketBase
-    {
-        public const int MsgId = 30009;
-        public override int Id => MsgId;
+        /// <summary>
+        /// 玩家ID，可选择武将ID
+        /// </summary>
         [ProtoMember(1)]
-        public int accountId { get; set; }
+        public List<int> canChooseHero { get; set; } = new List<int>();
         public override void Clear()
         {
-            this.accountId = default;
+            this.canChooseHero.Clear();
         }
     }
 

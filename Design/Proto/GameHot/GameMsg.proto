@@ -11,7 +11,7 @@ message SC_PingAck
 	int64 timeStamp = 1;
 }
 
-// 加入房间请求
+// 加入房间
 message CS_JoinRoomReq
 {
 	int32 accountId = 1;
@@ -23,31 +23,28 @@ message SC_JoinRoomAck
 	repeated int32 roomPlayers = 2;
 }
 
-// 玩家加入房间广播
+// 广播 玩家加入房间
 message SC_JoinRoomNtf
 {
 	int32 newAccountId			= 1;
 	repeated int32 roomPlayers	= 2;
 }
 
-// 玩家离开房间广播
+// 广播 玩家离开房间
 message SC_LeaveRoomNtf
 {
 	int32 leaveAccountId = 1;
 }
 
 // 开始战斗
-message CS_StartBattleReq
+message CS_BeginBattleReq
 {
 
 }
 
-message SC_StartBattleNtf
+// 广播 开始战斗
+message SC_BeginBattleNtf
 {
-
+	repeated int32 canChooseHero = 1; // 玩家ID，可选择武将ID
 }
 
-message CS_ReadyForGameNtf
-{
-	int32 accountId = 1;
-}

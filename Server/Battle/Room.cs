@@ -1,4 +1,5 @@
 ﻿using System.Net.Sockets;
+using cfg;
 using Game.Hot;
 
 public class Room
@@ -57,13 +58,64 @@ public class Room
         return players;
     }
 
-    public void OnStartBattleReq()
+    public void OnBeginBattleReq()
     {
+        var idx = 0;
+        var dtHero = Tables.Instance.DTHero;
+        var list = new List<int>();
         foreach (var client in _playerToSocket.Values)
         {
-            Server.Instance.Send(client, new SC_StartBattleNtf()
+            list.Clear();
+            list.Add(dtHero.DataList[idx].Id);
+            list.Add(dtHero.DataList[idx + 1].Id);
+            Server.Instance.Send(client, new SC_BeginBattleNtf()
             {
+                canChooseHero = list
             });
+            idx += 2;
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

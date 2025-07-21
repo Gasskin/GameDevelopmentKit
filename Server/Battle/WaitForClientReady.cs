@@ -13,9 +13,4 @@ public class WaitForClientReady
     {
         return _waitForClient.Count <= 0;
     }
-
-    public void OnReadyForGameReq(CS_ReadyForGameNtf msg)
-    {
-        _waitForClient.Remove(msg.accountId);
-    }
 }

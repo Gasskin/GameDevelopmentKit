@@ -18,6 +18,15 @@
     "PauseCoveredUIForm": true
   },
   {
+    "Id": 1003,
+    "CSName": "SelectHeroForm",
+    "Desc": "",
+    "AssetName": "SelectHeroForm",
+    "UIGroupName": "Default",
+    "AllowMultiInstance": false,
+    "PauseCoveredUIForm": true
+  },
+  {
     "Id": 3001,
     "CSName": "LoadingForm",
     "Desc": "",

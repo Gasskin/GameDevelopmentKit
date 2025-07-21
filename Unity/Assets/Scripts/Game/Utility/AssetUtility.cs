@@ -74,6 +74,11 @@ namespace Game
             return Utility.Text.Format("Assets/Res/Luban/{0}.{1}", assetName, fromJson ? "json" : "bytes");
         }
         
+        public static string GetLubanHotAsset(string assetName, bool fromJson)
+        {
+            return Utility.Text.Format("Assets/Res/Hot/Luban/{0}.{1}", assetName, fromJson ? "json" : "bytes");
+        }
+        
         public static string GetETAsset(string assetName)
         {
             return Utility.Text.Format("Assets/Res/ET/{0}", assetName);
