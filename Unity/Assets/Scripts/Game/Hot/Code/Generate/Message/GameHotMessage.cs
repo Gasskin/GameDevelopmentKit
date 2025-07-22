@@ -6,94 +6,125 @@ using System.Collections.Generic;
 
 namespace Game.Hot
 {
-    /// <summary>
-    /// 心跳测试
-    /// </summary>
-    // proto file : GameHot/GameHot.proto (line:4)
-    [Serializable, ProtoContract(Name = @"CSHeartBeatTest")]
-    public partial class CSHeartBeatTest : CSPacketBase
+    // 心跳
+    // proto file : GameHot/GameMsg.proto (line:4)
+    [Serializable, ProtoContract(Name = @"CS_PingReq")]
+    public partial class CS_PingReq : CSPacketBase
     {
-        public override int Id => 30001;
-        /// <summary>
-        /// 测试A
-        /// </summary>
+        public const int MsgId = 30001;
+        public override int Id => MsgId;
+        public override void Clear()
+        {
+        }
+    }
+
+    // proto file : GameHot/GameMsg.proto (line:9)
+    [Serializable, ProtoContract(Name = @"SC_PingAck")]
+    public partial class SC_PingAck : SCPacketBase
+    {
+        public const int MsgId = 30002;
+        public override int Id => MsgId;
         [ProtoMember(1)]
-        public List<int> A { get; set; } = new List<int>();
-        /// <summary>
-        /// 测试B
-        /// </summary>
+        public long timeStamp { get; set; }
+        public override void Clear()
+        {
+            this.timeStamp = default;
+        }
+    }
+
+    // 加入房间
+    // proto file : GameHot/GameMsg.proto (line:15)
+    [Serializable, ProtoContract(Name = @"CS_JoinRoomReq")]
+    public partial class CS_JoinRoomReq : CSPacketBase
+    {
+        public const int MsgId = 30003;
+        public override int Id => MsgId;
+        [ProtoMember(1)]
+        public int accountId { get; set; }
+        public override void Clear()
+        {
+            this.accountId = default;
+        }
+    }
+
+    // proto file : GameHot/GameMsg.proto (line:20)
+    [Serializable, ProtoContract(Name = @"SC_JoinRoomAck")]
+    public partial class SC_JoinRoomAck : SCPacketBase
+    {
+        public const int MsgId = 30004;
+        public override int Id => MsgId;
+        [ProtoMember(1)]
+        public int myAccountId { get; set; }
         [ProtoMember(2)]
-        public string B { get; set; }
-        [ProtoMember(3)]
-        public Dictionary<int, long> C { get; set; } = new Dictionary<int, long>();
+        public List<int> roomPlayers { get; set; } = new List<int>();
         public override void Clear()
         {
-            this.A.Clear();
-            this.B = default;
-            this.C.Clear();
+            this.myAccountId = default;
+            this.roomPlayers.Clear();
         }
     }
 
-    // proto file : GameHot/GameHot.proto (line:11)
-    [Serializable, ProtoContract(Name = @"SCHeartBeatTest")]
-    public partial class SCHeartBeatTest : SCPacketBase
+    // 广播 玩家加入房间
+    // proto file : GameHot/GameMsg.proto (line:27)
+    [Serializable, ProtoContract(Name = @"SC_JoinRoomNtf")]
+    public partial class SC_JoinRoomNtf : SCPacketBase
     {
-        public override int Id => 30002;
+        public const int MsgId = 30005;
+        public override int Id => MsgId;
         [ProtoMember(1)]
-        public List<int> A { get; set; } = new List<int>();
+        public int newAccountId { get; set; }
+        [ProtoMember(2)]
+        public List<int> roomPlayers { get; set; } = new List<int>();
         public override void Clear()
         {
-            this.A.Clear();
+            this.newAccountId = default;
+            this.roomPlayers.Clear();
         }
     }
 
-    // proto file : GameHot/GameHot2.proto (line:3)
-    [Serializable, ProtoContract(Name = @"CSHeartBeatTest22")]
-    public partial class CSHeartBeatTest22 : CSPacketBase
+    // 广播 玩家离开房间
+    // proto file : GameHot/GameMsg.proto (line:34)
+    [Serializable, ProtoContract(Name = @"SC_LeaveRoomNtf")]
+    public partial class SC_LeaveRoomNtf : SCPacketBase
     {
-        public override int Id => 30003;
+        public const int MsgId = 30006;
+        public override int Id => MsgId;
+        [ProtoMember(1)]
+        public int leaveAccountId { get; set; }
+        public override void Clear()
+        {
+            this.leaveAccountId = default;
+        }
+    }
+
+    // 开始战斗
+    // proto file : GameHot/GameMsg.proto (line:40)
+    [Serializable, ProtoContract(Name = @"CS_BeginBattleReq")]
+    public partial class CS_BeginBattleReq : CSPacketBase
+    {
+        public const int MsgId = 30007;
+        public override int Id => MsgId;
+        public override void Clear()
+        {
+        }
+    }
+
+    // 广播 开始战斗
+    // proto file : GameHot/GameMsg.proto (line:46)
+    [Serializable, ProtoContract(Name = @"SC_BeginBattleNtf")]
+    public partial class SC_BeginBattleNtf : SCPacketBase
+    {
+        public const int MsgId = 30008;
+        public override int Id => MsgId;
         /// <summary>
-        /// 测试A
+        /// 玩家ID，可选择武将ID
         /// </summary>
         [ProtoMember(1)]
-        public List<int> A { get; set; } = new List<int>();
-        [ProtoMember(1)]
-        public List<string> B { get; set; } = new List<string>();
+        public List<int> canChooseHero { get; set; } = new List<int>();
         public override void Clear()
         {
-            this.A.Clear();
-            this.B.Clear();
+            this.canChooseHero.Clear();
         }
     }
 
-    // proto file : GameHot/GameHot2.proto (line:10)
-    [Serializable, ProtoContract(Name = @"SCHeartBeatTest22")]
-    public partial class SCHeartBeatTest22 : SCPacketBase
-    {
-        public override int Id => 30004;
-        [ProtoMember(1)]
-        public List<int> A { get; set; } = new List<int>();
-        public override void Clear()
-        {
-            this.A.Clear();
-        }
-    }
-
-    // 测试枚举
-    // proto file : GameHot/GameHot2.proto (line:16)
-    public enum TestEnum    {
-        /// <summary>
-        /// 测试A
-        /// </summary>
-        A = 1,
-        B = 2,
-    }
-
-    public static partial class GameHotMessageId
-    {
-         public const ushort CSHeartBeatTest = 30001;
-         public const ushort SCHeartBeatTest = 30002;
-         public const ushort CSHeartBeatTest22 = 30003;
-         public const ushort SCHeartBeatTest22 = 30004;
-    }
 }

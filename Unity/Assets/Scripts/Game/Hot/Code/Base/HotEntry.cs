@@ -30,6 +30,8 @@ namespace Game.Hot
 
         public static ProcedureComponent Procedure { get; private set; }
         public static TablesComponent Tables { get; private set; }
+        
+        public static ModelComponent Model { get; private set; }
 
         #region Custom Components
         public static HPBarComponent HPBar { get; private set; }
@@ -40,6 +42,7 @@ namespace Game.Hot
         {
             Procedure = HotComponentEntry.GetComponent<ProcedureComponent>();
             Tables = HotComponentEntry.GetComponent<TablesComponent>();
+            Model = HotComponentEntry.GetComponent<ModelComponent>();
 
             #region Custom Components
             HPBar = HotComponentEntry.GetComponent<HPBarComponent>();
