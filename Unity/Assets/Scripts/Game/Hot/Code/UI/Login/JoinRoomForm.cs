@@ -34,8 +34,7 @@ namespace Game.Hot
             AccountIdTMPText.text = "等待连接...";
             SureButton.gameObject.SetActive(false);
 
-            GameEntry.Network.CreateNetworkChannel("TcpChannel", GameFramework.Network.ServiceType.Tcp, new NetworkChannelHelperHot());
-            GameEntry.Network.GetNetworkChannel("TcpChannel").Connect(IPAddress.Parse("127.0.0.1"), 12388);
+            GameEntry.Network.CreateTcpChannel();
         }
 
         protected override void OnRecycle()

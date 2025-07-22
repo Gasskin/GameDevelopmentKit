@@ -221,6 +221,10 @@ namespace Game.Hot
             {
                 Log.Warning("Packet header is invalid.");
             }
+            if (packet != null)
+            {
+                Log.Debug($"[接收]{packet.GetType().Name}{Utility.Json.ToJson(packet)}");
+            }
 
             ReferencePool.Release(scPacketHeader);
             return packet;
