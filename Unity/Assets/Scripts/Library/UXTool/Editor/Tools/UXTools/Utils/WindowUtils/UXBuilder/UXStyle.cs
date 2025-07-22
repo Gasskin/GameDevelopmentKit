@@ -32,6 +32,7 @@ namespace ThunderFireUITool
         public StyleLength paddingBottom { get; set; }
         public StyleEnum<Position> position { get; set; }
         public StyleEnum<Align> alignSelf { get; set; }
+        public StyleEnum<SliceType> unitySliceType { get; set; }
         public StyleEnum<TextAnchor> unityTextAlign { get; set; }
         public StyleEnum<FontStyle> unityFontStyleAndWeight { get; set; }
         public StyleFont unityFont { get; set; }
