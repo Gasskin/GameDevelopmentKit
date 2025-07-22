@@ -22,7 +22,7 @@ namespace Game.Hot
             await HotEntry.HPBar.PreloadAsync();
             await LoadFontAsync("Default");
             
-            ChangeState<ProcedureGame>(procedureOwner);
+            // ChangeState<ProcedureGame>(procedureOwner);
         }
 
         private async UniTask LoadFontAsync(string fontName)
@@ -32,7 +32,7 @@ namespace Game.Hot
             {
                 Log.Error("Can not load font '{0}'.", fontName);
             }
-            StarForceUIForm.SetMainFont(font);
+            // StarForceUIForm.SetMainFont(font);
         }
     }
 }
