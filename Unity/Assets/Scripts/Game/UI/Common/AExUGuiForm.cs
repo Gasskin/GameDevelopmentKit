@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using GameFramework;
 using GameFramework.Event;
+using GameFramework.Network;
 using UnityGameFramework.Runtime;
 
 namespace Game
@@ -15,6 +16,7 @@ namespace Game
         private EventContainer m_EventContainer;
         private EntityContainer m_EntityContainer;
         private ResourceContainer m_ResourceContainer;
+        private NetContainer m_NetContainer;
 
         private void ClearUIForm()
         {
@@ -38,6 +40,11 @@ namespace Game
                 ReferencePool.Release(m_ResourceContainer);
                 m_ResourceContainer = null;
             }
+            if (m_NetContainer != null)
+            {
+                ReferencePool.Release(m_NetContainer);
+                m_NetContainer = null;
+            }
         }
 
         protected override void OnRecycle()
@@ -48,8 +55,8 @@ namespace Game
 
         private void OnDestroy()
         {
-            RemoveAllUIWidget();
-            ClearUIForm();
+            // RemoveAllUIWidget();
+            // ClearUIForm();
         }
 
         protected override void OnClose(bool isShutdown, object userData)
@@ -59,7 +66,7 @@ namespace Game
             UnsubscribeAll();
             UnloadAllAssets();
             CloseAllUIWidgets(userData, isShutdown);
-            if (isShutdown)
+            if (!isShutdown)
             {
                 RemoveAllUIWidget();
                 ClearUIForm();
@@ -107,6 +114,13 @@ namespace Game
         {
             base.OnDepthChanged(uiGroupDepth, depthInUIGroup);
             m_UIWidgetContainer?.OnDepthChanged(uiGroupDepth, depthInUIGroup);
+        }
+        
+        protected async UniTask<T> SendPacketAsync<T>(Packet packet, string channel = "TcpChannel") where T : Packet
+        {
+            m_NetContainer ??= NetContainer.Create(channel);
+            var p = await m_NetContainer.SendPacketAsync(packet);
+            return p as T;
         }
 
         public void AddUIWidget(AUIWidget auiWidget, object userData = null)

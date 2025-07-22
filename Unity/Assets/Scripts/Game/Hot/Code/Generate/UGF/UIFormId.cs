@@ -10,53 +10,23 @@ namespace Game.Hot
         public const int Undefined = 0;
 
         /// <summary>
-        /// 帮助界面
+        /// 
         /// </summary>
-        public const int UIHelp = 801;
+        public const int JoinRoomForm = 1001;
 
         /// <summary>
-        /// 大厅面
+        /// 
         /// </summary>
-        public const int UILobby = 802;
+        public const int RoomForm = 1002;
 
         /// <summary>
-        /// 登录界面
+        /// 
         /// </summary>
-        public const int UILogin = 803;
+        public const int SelectHeroForm = 1003;
 
         /// <summary>
-        /// 登录界面
+        /// 
         /// </summary>
-        public const int UILSLogin = 901;
-
-        /// <summary>
-        /// 大厅面
-        /// </summary>
-        public const int UILSLobby = 902;
-
-        /// <summary>
-        /// 房间界面
-        /// </summary>
-        public const int UILSRoom = 903;
-
-        /// <summary>
-        /// 弹出框
-        /// </summary>
-        public const int DialogForm = 1;
-
-        /// <summary>
-        /// 主菜单
-        /// </summary>
-        public const int MenuForm = 100;
-
-        /// <summary>
-        /// 设置
-        /// </summary>
-        public const int SettingForm = 101;
-
-        /// <summary>
-        /// 关于
-        /// </summary>
-        public const int AboutForm = 102;
+        public const int LoadingForm = 3001;
     }
 }
