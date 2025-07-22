@@ -1,6 +1,4 @@
-﻿using GameFramework.Event;
-using UnityGameFramework.Runtime;
-using ProcedureOwner = GameFramework.Fsm.IFsm<Game.Hot.ProcedureComponent>;
+﻿using ProcedureOwner = GameFramework.Fsm.IFsm<Game.Hot.ProcedureComponent>;
 
 namespace Game.Hot
 {
