@@ -23,6 +23,7 @@ namespace Game.Hot
         {
             base.OnRecycle();
             GameEntry.Event.Unsubscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccessEvent);
+            ClearBind();
         }
 
         protected override void OnOpen(object userData)

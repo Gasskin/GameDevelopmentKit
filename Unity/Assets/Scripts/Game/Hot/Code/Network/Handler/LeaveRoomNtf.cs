@@ -4,7 +4,7 @@ namespace Game.Hot
 {
     public class LeaveRoomNtf : PacketHandlerBase
     {
-        public override int Id => SC_LeaveRoomNtf.MsgId;
+        public override int Id => GameHotMessageId.SC_LeaveRoomNtf;
 
         protected override void DoHandle(object sender, Packet packet)
         {

@@ -6,7 +6,7 @@ namespace Game.Hot
 {
     public class BeginBattleNtfHandler : PacketHandlerBase
     {
-        public override int Id => SC_BeginBattleNtf.MsgId;
+        public override int Id => GameHotMessageId.SC_BeginBattleNtf;
         
         protected override void DoHandle(object sender, Packet packet)
         {

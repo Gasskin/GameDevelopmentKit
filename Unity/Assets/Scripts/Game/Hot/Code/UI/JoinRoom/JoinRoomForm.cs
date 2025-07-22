@@ -36,13 +36,13 @@ namespace Game.Hot
 
             GameEntry.Network.CreateTcpChannel();
         }
-
         protected override void OnRecycle()
         {
             base.OnRecycle();
             SureButton.onClick.RemoveAllListeners();
             GameEntry.Event.Unsubscribe(NetworkConnectedEventArgs.EventId, OnNetworkConnectedEvent);
             GameEntry.Event.Unsubscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccessEvent);
+            ClearBind();
         }
 
         private async UniTaskVoid JoinRoomAsync()

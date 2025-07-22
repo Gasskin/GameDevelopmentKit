@@ -67,7 +67,7 @@ namespace Game
         /// <param name="uiWidget"></param>
         /// <param name="userData"></param>
         /// <exception cref="GameFrameworkException"></exception>
-        public void OpenUIWidget(AUIWidget uiWidget, object userData)
+        public void OpenUIWidget(AUIWidget uiWidget, IReference userData)
         {
             if (uiWidget == null)
             {
@@ -82,6 +82,7 @@ namespace Game
                 throw new GameFrameworkException(Utility.Text.Format("Can't open UIWidget, UIWidget '{0}' is already opened!", uiWidget.name));
             }
             uiWidget.OnOpen(userData);
+            ReferencePool.Release(userData);
         }
 
         /// <summary>
@@ -89,7 +90,7 @@ namespace Game
         /// </summary>
         /// <param name="uiWidget"></param>
         /// <param name="userData"></param>
-        public void DynamicOpenUIWidget(AUIWidget uiWidget, object userData)
+        public void DynamicOpenUIWidget(AUIWidget uiWidget, IReference userData)
         {
             OpenUIWidget(uiWidget, userData);
             uiWidget.OnDepthChanged(Owner.UIForm.UIGroup.Depth, Owner.UIForm.DepthInUIGroup);

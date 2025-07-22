@@ -3,6 +3,8 @@ using cfg;
 
 class Program
 {
+    public static long ServerTimeMs { get;private set; }
+    
     private const double FRAME_TIME = 1000.0 / 30;
     private static bool _isRunning = true;
     
@@ -29,6 +31,7 @@ class Program
 
     private static void Update()
     {
+        ServerTimeMs = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         MessageDispatcher.Instance.Update(); 
         Battle.Instance.Update();
     }

@@ -7,7 +7,7 @@ namespace Game.Hot
 {
     public class JoinRoomAckHandler : PacketHandlerBase
     {
-        public override int Id => SC_JoinRoomAck.MsgId;
+        public override int Id => GameHotMessageId.SC_JoinRoomAck;
 
         protected override bool HasAck => true;
 

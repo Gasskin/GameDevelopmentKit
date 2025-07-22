@@ -35,13 +35,12 @@ namespace Game.Hot
             GameEntry.Event.Subscribe(RoomPlayerChangeEvent.EventId, OnRoomPlayerChangeEvent);
         }
 
-
-
         protected override void OnRecycle()
         {
             base.OnRecycle();
             StartGameButton.onClick.RemoveAllListeners();
             GameEntry.Event.Unsubscribe(RoomPlayerChangeEvent.EventId, OnRoomPlayerChangeEvent);
+            ClearBind();
         }
 
         protected override void OnOpen(object userData)

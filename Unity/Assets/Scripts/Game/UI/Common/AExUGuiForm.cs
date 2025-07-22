@@ -154,7 +154,7 @@ namespace Game
         /// <param name="auiWidget"></param>
         /// <param name="userData"></param>
         /// <exception cref="GameFrameworkException"></exception>
-        public void OpenUIWidget(AUIWidget auiWidget, object userData = null)
+        public void OpenUIWidget(AUIWidget auiWidget, IReference userData = null)
         {
             if (m_UIWidgetContainer == null)
             {
@@ -169,7 +169,7 @@ namespace Game
         /// <param name="auiWidget"></param>
         /// <param name="userData"></param>
         /// <exception cref="GameFrameworkException"></exception>
-        public void DynamicOpenUIWidget(AUIWidget auiWidget, object userData = null)
+        public void DynamicOpenUIWidget(AUIWidget auiWidget, IReference userData = null)
         {
             if (m_UIWidgetContainer == null)
             {

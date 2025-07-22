@@ -30,7 +30,7 @@ namespace Game.Hot
         {
             m_NetworkChannel = networkChannel;
 
-            networkChannel.HeartBeatInterval = 60;
+            networkChannel.HeartBeatInterval = 15;
 
             // 反射注册包和包处理函数。
             Type packetBaseType = typeof(SCPacketBase);
@@ -250,6 +250,7 @@ namespace Game.Hot
             }
 
             Log.Info("Network channel '{0}' connected, local address '{1}', remote address '{2}'.", ne.NetworkChannel.Name, ne.NetworkChannel.Socket.LocalEndPoint.ToString(), ne.NetworkChannel.Socket.RemoteEndPoint.ToString());
+            SendHeartBeat();
         }
 
         private void OnNetworkClosed(object sender, GameEventArgs e)

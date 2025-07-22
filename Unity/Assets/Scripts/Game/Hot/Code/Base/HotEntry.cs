@@ -32,6 +32,8 @@ namespace Game.Hot
         public static TablesComponent Tables { get; private set; }
         
         public static ModelComponent Model { get; private set; }
+        
+        public static ServerTimeComponent ServerTime { get; private set; }
 
         #region Custom Components
         public static HPBarComponent HPBar { get; private set; }
@@ -43,6 +45,7 @@ namespace Game.Hot
             Procedure = HotComponentEntry.GetComponent<ProcedureComponent>();
             Tables = HotComponentEntry.GetComponent<TablesComponent>();
             Model = HotComponentEntry.GetComponent<ModelComponent>();
+            ServerTime = HotComponentEntry.GetComponent<ServerTimeComponent>();
 
             #region Custom Components
             HPBar = HotComponentEntry.GetComponent<HPBarComponent>();

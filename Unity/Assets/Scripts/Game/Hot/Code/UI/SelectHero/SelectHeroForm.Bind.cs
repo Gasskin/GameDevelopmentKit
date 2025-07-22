@@ -10,6 +10,7 @@ namespace Game.Hot
         public TMPro.TMP_Text ChooseHeroTMPText { get; private set; }
         public TMPro.TMP_Text HeroName1TMPText { get; private set; }
         public TMPro.TMP_Text HeroName2TMPText { get; private set; }
+        public Game.AUIWidget ProgressBarUIWidget { get; private set; }
         public UnityEngine.UI.Button Select1Button { get; private set; }
         public UnityEngine.UI.Button Select2Button { get; private set; }
         public UnityEngine.UI.UXImage State1UXImage { get; private set; }
@@ -22,9 +23,10 @@ namespace Game.Hot
             ChooseHeroTMPText = Mono.BindComponents[0] as TMPro.TMP_Text;
             HeroName1TMPText = Mono.BindComponents[1] as TMPro.TMP_Text;
             HeroName2TMPText = Mono.BindComponents[2] as TMPro.TMP_Text;
-            Select1Button = Mono.BindComponents[3] as UnityEngine.UI.Button;
-            Select2Button = Mono.BindComponents[4] as UnityEngine.UI.Button;
-            State1UXImage = Mono.BindComponents[5] as UnityEngine.UI.UXImage;
+            ProgressBarUIWidget = Mono.BindComponents[3] as Game.AUIWidget;
+            Select1Button = Mono.BindComponents[4] as UnityEngine.UI.Button;
+            Select2Button = Mono.BindComponents[5] as UnityEngine.UI.Button;
+            State1UXImage = Mono.BindComponents[6] as UnityEngine.UI.UXImage;
         }
 
         public void ClearBind()
@@ -34,6 +36,7 @@ namespace Game.Hot
             ChooseHeroTMPText = null;
             HeroName1TMPText = null;
             HeroName2TMPText = null;
+            ProgressBarUIWidget = null;
             Select1Button = null;
             Select2Button = null;
             State1UXImage = null;

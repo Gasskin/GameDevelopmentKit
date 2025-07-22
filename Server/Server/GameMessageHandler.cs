@@ -5,9 +5,9 @@ public class GameMessageHandler
 {
     public void Register(MessageDispatcher dispatcher)
     {
-        dispatcher.Register<CS_PingReq>(CS_PingReq.MsgId, OnPingReq);
-        dispatcher.Register<CS_JoinRoomReq>(CS_JoinRoomReq.MsgId, OnJoinRoomReq);
-        dispatcher.Register<CS_BeginBattleReq>(CS_BeginBattleReq.MsgId, OnBeginBattleReq);
+        dispatcher.Register<CS_PingReq>(GameHotMessageId.CS_PingReq, OnPingReq);
+        dispatcher.Register<CS_JoinRoomReq>(GameHotMessageId.CS_JoinRoomReq, OnJoinRoomReq);
+        dispatcher.Register<CS_BeginBattleReq>(GameHotMessageId.CS_BeginBattleReq, OnBeginBattleReq);
     }
 
     private void OnPingReq(Socket client, CS_PingReq msg)

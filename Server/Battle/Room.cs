@@ -9,14 +9,15 @@ public class Room
     private Dictionary<int, Socket> _playerToSocket = new();
 
     private List<int> _roomPlayer = new();
+
     public void JoinRoomReq(Socket newClient, CS_JoinRoomReq msg)
     {
         Console.WriteLine($"[房间]{msg.accountId}加入房间");
         _playerToSocket.Add(msg.accountId, newClient);
-        
+
         foreach (var c in _playerToSocket.Values)
         {
-            if (c == newClient) 
+            if (c == newClient)
                 continue;
             Server.Instance.Send(c, new SC_JoinRoomNtf()
             {
@@ -24,7 +25,7 @@ public class Room
                 roomPlayers = _roomPlayer,
             });
         }
-        
+
         _roomPlayer.Add(msg.accountId);
 
         var ack = new SC_JoinRoomAck();
@@ -45,7 +46,7 @@ public class Room
             }
         }
 
-        if (player > 0) 
+        if (player > 0)
         {
             Console.WriteLine($"[房间]{player}离开房间");
             _roomPlayer.Remove(player);
@@ -70,52 +71,11 @@ public class Room
             list.Add(dtHero.DataList[idx + 1].Id);
             Server.Instance.Send(client, new SC_BeginBattleNtf()
             {
-                canChooseHero = list
+                canChooseHero = list,
+                endTimestampMs = Program.ServerTimeMs + 30 * 1000,
+                totalTimeMs = 30 * 1000,// 30秒
             });
             idx += 2;
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -46,5 +46,7 @@ message CS_BeginBattleReq
 message SC_BeginBattleNtf
 {
 	repeated int32 canChooseHero = 1; // 玩家ID，可选择武将ID
+	int64 endTimestampMs		 = 2; // 截止时间戳
+	int32 totalTimeMs			 = 3; // 总操作时长
 }
 

@@ -9,16 +9,20 @@ namespace Game.Hot
     {
         public int MyAccount { get; private set; }
 
-
+        // --------- 房间信息 --------
         public EBattleStage BattleStage { get; private set; } = EBattleStage.None;
         public int PlayerCount => _roomPlayers.Count;
-        
-        public bool IsRoomOwner => _roomPlayers.Count >= 1 && _roomPlayers[0] == MyAccount;
 
+        public bool IsRoomOwner => _roomPlayers.Count >= 1 && _roomPlayers[0] == MyAccount;
 
         private List<int> _roomPlayers = new();
 
+        // --------- 局内信息 --------
+        public long EndTimestampMs { get; private set; }
+        public int TotalTimeMs { get; private set; }
+
         private List<int> _canChooseHero = new();
+
     #region Player相关
         public void SetRoomPlayers(int myAccount, List<int> players)
         {
@@ -106,6 +110,8 @@ namespace Game.Hot
         {
             _canChooseHero.Clear();
             _canChooseHero.AddRange(msg.canChooseHero);
+            EndTimestampMs = msg.endTimestampMs;
+            TotalTimeMs = msg.totalTimeMs;
         }
 
         public void GetCanChooseHero(UGFList<int> result)
