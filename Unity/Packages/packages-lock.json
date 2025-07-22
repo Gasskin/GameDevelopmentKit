@@ -28,11 +28,10 @@
       "hash": "93c7e64d2fa1b8ce1798f0cbce75034f63a45c04"
     },
     "com.code-philosophy.hybridclr": {
-      "version": "https://github.com/focus-creative-games/hybridclr_unity.git",
+      "version": "file:hybridclr_unity-main",
       "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "ee7af5c5926c12402b3ccd121408646f1cf3128f"
+      "source": "embedded",
+      "dependencies": {}
     },
     "com.coffee.softmask-for-ugui": {
       "version": "https://github.com/mob-sakai/SoftMaskForUGUI.git?path=Packages/src",
@@ -319,11 +318,10 @@
       }
     },
     "com.yasirkula.inspectplus": {
-      "version": "https://github.com/yasirkula/UnityInspectPlus.git",
+      "version": "file:UnityInspectPlus-master",
       "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "160da9f371f8fd02ea2b24acdb8e86bc6c627f20"
+      "source": "embedded",
+      "dependencies": {}
     },
     "com.yasirkula.runtimeinspector": {
       "version": "https://github.com/yasirkula/UnityRuntimeInspector.git",
