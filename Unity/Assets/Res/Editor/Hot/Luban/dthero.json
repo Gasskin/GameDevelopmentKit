@@ -2,17 +2,23 @@
   {
     "Id": 1001,
     "Name": "刘备",
-    "Skill": []
+    "Skill": [],
+    "HandLimit": 5,
+    "HpLimit": 5
   },
   {
     "Id": 1002,
     "Name": "关羽",
-    "Skill": []
+    "Skill": [],
+    "HandLimit": 4,
+    "HpLimit": 6
   },
   {
     "Id": 1003,
     "Name": "张飞",
-    "Skill": []
+    "Skill": [],
+    "HandLimit": 3,
+    "HpLimit": 7
   },
   {
     "Id": 1004,
@@ -20,46 +26,64 @@
     "Skill": [
       0,
       1
-    ]
+    ],
+    "HandLimit": 6,
+    "HpLimit": 4
   },
   {
     "Id": 1101,
     "Name": "曹操",
-    "Skill": []
+    "Skill": [],
+    "HandLimit": 7,
+    "HpLimit": 3
   },
   {
     "Id": 1102,
     "Name": "郭嘉",
-    "Skill": []
+    "Skill": [],
+    "HandLimit": 5,
+    "HpLimit": 5
   },
   {
     "Id": 1103,
     "Name": "典韦",
-    "Skill": []
+    "Skill": [],
+    "HandLimit": 4,
+    "HpLimit": 6
   },
   {
     "Id": 1104,
     "Name": "张辽",
-    "Skill": []
+    "Skill": [],
+    "HandLimit": 3,
+    "HpLimit": 7
   },
   {
     "Id": 1201,
     "Name": "孙权",
-    "Skill": []
+    "Skill": [],
+    "HandLimit": 6,
+    "HpLimit": 4
   },
   {
     "Id": 1202,
     "Name": "甘宁",
-    "Skill": []
+    "Skill": [],
+    "HandLimit": 7,
+    "HpLimit": 3
   },
   {
     "Id": 1203,
     "Name": "周瑜",
-    "Skill": []
+    "Skill": [],
+    "HandLimit": 5,
+    "HpLimit": 5
   },
   {
     "Id": 1204,
     "Name": "陆逊",
-    "Skill": []
+    "Skill": [],
+    "HandLimit": 4,
+    "HpLimit": 6
   }
 ]

@@ -3,6 +3,7 @@
 包含了很多GF扩展，剥离了ET，可以直接用来开发客户端项目
 
 # GameDevelopmentKit的介绍：
+
 努力提供完善的双端开发工具
 
 服务端以[ET8.1框架](https://github.com/egametang/ET)为基础
@@ -19,13 +20,17 @@
 
 # 细节
 
-1.以[GFUI](Unity/Assets/Scripts/Game/ET/Loader/UGF/UIForm)为基础的[ETUI](Unity/Assets/Scripts/Game/ET/Code/ModelView/Client/Module/UGF)
+1.以[GFUI](Unity/Assets/Scripts/Game/ET/Loader/UGF/UIForm)
+为基础的[ETUI](Unity/Assets/Scripts/Game/ET/Code/ModelView/Client/Module/UGF)
 
-2.以[GFEntity](Unity/Assets/Scripts/Game/ET/Loader/UGF/Entity)为基础的[ETEntity](Unity/Assets/Scripts/Game/ET/Code/ModelView/Client/Module/UGF)
+2.以[GFEntity](Unity/Assets/Scripts/Game/ET/Loader/UGF/Entity)
+为基础的[ETEntity](Unity/Assets/Scripts/Game/ET/Code/ModelView/Client/Module/UGF)
 
 3.使用极其灵活方便的[代码绑定工具](https://github.com/XuToWei/CodeBind)，解决代码与资源映射的最后一公里，极力推荐！
 
-4.配置灵活易扩展的[状态控制器](https://github.com/XuToWei/StateController)，加上宏"STATE_CONTROLLER_CODE_BIND"即可代码绑定时自动生成状态数据的代码，一行代码就能控制繁琐的UI状态，极力推荐与[代码绑定工具](https://github.com/XuToWei/CodeBind)结合使用！
+4.配置灵活易扩展的[状态控制器](https://github.com/XuToWei/StateController)，加上宏"STATE_CONTROLLER_CODE_BIND"
+即可代码绑定时自动生成状态数据的代码，一行代码就能控制繁琐的UI状态，极力推荐与[代码绑定工具](https://github.com/XuToWei/CodeBind)
+结合使用！
 
 5.[模块切换](Book/Project%E7%BB%93%E6%9E%84.md)方便，ET逻辑或GF逻辑，热更或非热更选择随心所欲，当然也可以只用GF，可以按需选用ET或GF分支开发即可
 
@@ -51,12 +56,14 @@
 
 ### Unity Editor
 
-- 1.安装 [.net8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)，服务器功能需要安装[MongoDB](https://www.mongodb.com/)
+- 1.安装 [.net8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+  ，服务器功能需要安装[MongoDB](https://www.mongodb.com/)
 
 - 2.打开Unity(6000.0.30f1)项目，等待Unity编译完成
 
-- 3.打开Unity的Editor/Preferences菜单栏，按如下设置后（不要勾选'Registry packages'和'Build-in packages'），点击Regenerate project files按钮
-![](Book/png/unity_step1.png)
+- 3.打开Unity的Editor/Preferences菜单栏，按如下设置后（不要勾选'Registry packages'和'Build-in packages'），点击Regenerate
+  project files按钮
+  ![](Book/png/unity_step1.png)
 
 - 4.使用IDE打开Kit.sln编译（导表，资源服务器，代码分析等功能需要用到）
 
@@ -87,9 +94,11 @@
 ***
 
 # 引用库 致谢
+
 [UnityGameFramework](https://github.com/EllanJiang/UnityGameFramework)
 
-[ET](https://github.com/egametang/ET)（版本：[8.1](https://github.com/egametang/ET/commit/faa825d22a5b05d727f4878dfe34600628942579)）
+[ET](https://github.com/egametang/ET)
+（版本：[8.1](https://github.com/egametang/ET/commit/faa825d22a5b05d727f4878dfe34600628942579)）
 
 [Luban](https://github.com/focus-creative-games/luban)
 

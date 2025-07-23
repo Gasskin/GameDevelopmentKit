@@ -93,8 +93,8 @@ namespace Game.Hot
 
     // 开始战斗
     // proto file : GameHot/GameMsg.proto (line:40)
-    [Serializable, ProtoContract(Name = @"CS_BeginBattleReq")]
-    public partial class CS_BeginBattleReq : CSPacketBase
+    [Serializable, ProtoContract(Name = @"CS_BeginBattleNtf")]
+    public partial class CS_BeginBattleNtf : CSPacketBase
     {
         public override int Id => 30007;
         public override void Clear()
@@ -131,6 +131,23 @@ namespace Game.Hot
         }
     }
 
+    // 选择武将
+    // proto file : GameHot/GameMsg.proto (line:54)
+    [Serializable, ProtoContract(Name = @"CS_ChooseHeroNtf")]
+    public partial class CS_ChooseHeroNtf : CSPacketBase
+    {
+        public override int Id => 30009;
+        /// <summary>
+        /// 选择的武将ID
+        /// </summary>
+        [ProtoMember(1)]
+        public int heroId { get; set; }
+        public override void Clear()
+        {
+            this.heroId = default;
+        }
+    }
+
     public static partial class GameHotMessageId
     {
          public const ushort CS_PingReq = 30001;
@@ -139,7 +156,8 @@ namespace Game.Hot
          public const ushort SC_JoinRoomAck = 30004;
          public const ushort SC_JoinRoomNtf = 30005;
          public const ushort SC_LeaveRoomNtf = 30006;
-         public const ushort CS_BeginBattleReq = 30007;
+         public const ushort CS_BeginBattleNtf = 30007;
          public const ushort SC_BeginBattleNtf = 30008;
+         public const ushort CS_ChooseHeroNtf = 30009;
     }
 }

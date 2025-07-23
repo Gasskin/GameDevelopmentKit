@@ -1480,7 +1480,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -1569,7 +1569,7 @@ MonoBehaviour:
   m_BottomRightDistortion: {x: 1, y: 0}
   m_TopLeftDistortion: {x: 0, y: 1}
   m_TopRightDistortion: {x: 1, y: 1}
-  rect2props: {x: 0.00012207031, y: -0.00012207031, z: 1053.5892, w: 1053.5892}
+  rect2props: {x: 0.00012207031, y: -0.00012207031, z: 999.04095, w: 999.04095}
   image: {fileID: 0}
   m_OriginFlipMode: 0
   m_FlipMode: 0

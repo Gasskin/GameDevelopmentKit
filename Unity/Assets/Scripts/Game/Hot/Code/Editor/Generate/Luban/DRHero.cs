@@ -48,6 +48,22 @@ public sealed class DRHero :  Luban.EditorBeanBase
             }
         }
         
+        { 
+            var _fieldJson = _json["HandLimit"];
+            if (_fieldJson != null)
+            {
+                if(!_fieldJson.IsNumber) { throw new SerializationException(); }  HandLimit = _fieldJson;
+            }
+        }
+        
+        { 
+            var _fieldJson = _json["HpLimit"];
+            if (_fieldJson != null)
+            {
+                if(!_fieldJson.IsNumber) { throw new SerializationException(); }  HpLimit = _fieldJson;
+            }
+        }
+        
     }
 
     public override void SaveJson(SimpleJSON.JSONObject _json)
@@ -64,6 +80,12 @@ public sealed class DRHero :  Luban.EditorBeanBase
 
             if (Skill == null) { throw new System.ArgumentNullException(); }
             { var __cjson0 = new JSONArray(); _json["Skill"] = __cjson0; foreach(var _e0 in Skill) { JSONNode __v0; __v0 = new JSONNumber((int)_e0); __cjson0.Add(__v0); } }
+        }
+        {
+            _json["HandLimit"] = new JSONNumber(HandLimit);
+        }
+        {
+            _json["HpLimit"] = new JSONNumber(HpLimit);
         }
     }
 
@@ -93,6 +115,16 @@ public sealed class DRHero :  Luban.EditorBeanBase
     /// 技能列表
     /// </summary>
     public System.Collections.Generic.List<ESkill> Skill;
+
+    /// <summary>
+    /// 手牌上限
+    /// </summary>
+    public int HandLimit;
+
+    /// <summary>
+    /// 血量上限
+    /// </summary>
+    public int HpLimit;
 
 }
 

@@ -6,7 +6,7 @@ using UnityGameFramework.Runtime;
 
 namespace Game.Hot
 {
-    public partial class LoadingForm : AHotUIForm
+    public partial class BattleLoadingForm : AHotUIForm
     {
         private float _randomWait;
         private float _remain;
@@ -29,7 +29,7 @@ namespace Game.Hot
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            _randomWait = (float)Utility.Random.GetRandomDouble() * 10f;
+            _randomWait = (float)Utility.Random.GetRandomDouble() * 2f;
             _remain = _randomWait;
             TipTMPText.text = "资源加载中...";
         }
@@ -54,6 +54,7 @@ namespace Game.Hot
 
         private void OnOpenUIFormSuccessEvent(object sender, GameEventArgs e)
         {
+            var ee = (OpenUIFormSuccessEventArgs)e;
         }
     }
 }

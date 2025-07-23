@@ -7,39 +7,33 @@ namespace Game.Hot
         public CodeBind.CSCodeBindMono Mono { get; private set; }
         public UnityEngine.Transform Transform { get; private set; }
 
-        public TMPro.TMP_Text ChooseHeroTMPText { get; private set; }
-        public TMPro.TMP_Text HeroName1TMPText { get; private set; }
-        public TMPro.TMP_Text HeroName2TMPText { get; private set; }
+        public Game.AUIWidget HeroCardUIWidget { get; private set; }
+        public Game.AUIWidget HeroCard1UIWidget { get; private set; }
+        public Game.AUIWidget HeroCard2UIWidget { get; private set; }
+        public Game.AUIWidget HeroCard3UIWidget { get; private set; }
         public Game.AUIWidget ProgressBarUIWidget { get; private set; }
-        public UnityEngine.UI.Button Select1Button { get; private set; }
-        public UnityEngine.UI.Button Select2Button { get; private set; }
-        public UnityEngine.UI.UXImage State1UXImage { get; private set; }
 
 
         public void InitBind(CodeBind.CSCodeBindMono mono)
         {
             Mono = mono;
             Transform = mono.transform;
-            ChooseHeroTMPText = Mono.BindComponents[0] as TMPro.TMP_Text;
-            HeroName1TMPText = Mono.BindComponents[1] as TMPro.TMP_Text;
-            HeroName2TMPText = Mono.BindComponents[2] as TMPro.TMP_Text;
-            ProgressBarUIWidget = Mono.BindComponents[3] as Game.AUIWidget;
-            Select1Button = Mono.BindComponents[4] as UnityEngine.UI.Button;
-            Select2Button = Mono.BindComponents[5] as UnityEngine.UI.Button;
-            State1UXImage = Mono.BindComponents[6] as UnityEngine.UI.UXImage;
+            HeroCardUIWidget = Mono.BindComponents[0] as Game.AUIWidget;
+            HeroCard1UIWidget = Mono.BindComponents[1] as Game.AUIWidget;
+            HeroCard2UIWidget = Mono.BindComponents[2] as Game.AUIWidget;
+            HeroCard3UIWidget = Mono.BindComponents[3] as Game.AUIWidget;
+            ProgressBarUIWidget = Mono.BindComponents[4] as Game.AUIWidget;
         }
 
         public void ClearBind()
         {
             Mono = null;
             Transform = null;
-            ChooseHeroTMPText = null;
-            HeroName1TMPText = null;
-            HeroName2TMPText = null;
+            HeroCardUIWidget = null;
+            HeroCard1UIWidget = null;
+            HeroCard2UIWidget = null;
+            HeroCard3UIWidget = null;
             ProgressBarUIWidget = null;
-            Select1Button = null;
-            Select2Button = null;
-            State1UXImage = null;
         }
     }
 }

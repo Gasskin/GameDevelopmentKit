@@ -45,7 +45,7 @@ public class Battle
         }
     }
 
-    public void OnBeginBattleReq(CS_BeginBattleReq deserialize)
+    public void OnBeginBattleNtf(CS_BeginBattleNtf deserialize)
     {
         _battleState = BattleState.InitWaitForClientReady;
     }

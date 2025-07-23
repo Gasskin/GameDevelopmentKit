@@ -59,23 +59,29 @@ public class Room
         return players;
     }
 
-    public void OnBeginBattleReq()
+    public void OnBeginBattleNtf()
     {
+        var randomHero = new List<DRHero>(Tables.Instance.DTHero.DataList);
+        var r = new Random();
+        for (int i = randomHero.Count - 1; i > 0; i--)
+        {
+            var rr = r.Next(0, i + 1);
+            (randomHero[rr], randomHero[i]) = (randomHero[i], randomHero[rr]);
+        }
+        var sendList = new List<int>();
         var idx = 0;
-        var dtHero = Tables.Instance.DTHero;
-        var list = new List<int>();
         foreach (var client in _playerToSocket.Values)
         {
-            list.Clear();
-            list.Add(dtHero.DataList[idx].Id);
-            list.Add(dtHero.DataList[idx + 1].Id);
+            sendList.Clear();
+            for (int i = idx; i < idx + 3; i++)
+                sendList.Add(randomHero[i].Id);
             Server.Instance.Send(client, new SC_BeginBattleNtf()
             {
-                canChooseHero = list,
-                endTimestampMs = Program.ServerTimeMs + 30 * 1000,
-                totalTimeMs = 30 * 1000,// 30秒
+                canChooseHero = sendList,
+                endTimestampMs = Program.ServerTimeMs + 20 * 1000,
+                totalTimeMs = 20 * 1000, // 30秒
             });
-            idx += 2;
+            idx++;
         }
     }
 }

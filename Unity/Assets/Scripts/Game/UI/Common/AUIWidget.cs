@@ -1,4 +1,5 @@
 using CodeBind;
+using GameFramework;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
@@ -79,7 +80,7 @@ namespace Game
         /// 界面打开。
         /// </summary>
         /// <param name="userData">用户自定义数据。</param>
-        protected internal virtual void OnOpen(object userData)
+        protected internal virtual void OnOpen(IReference userData)
         {
             m_Available = true;
             Visible = true;

@@ -17,8 +17,9 @@ public sealed partial class DRHero : Luban.BeanBase
     public DRHero(ByteBuf _buf) 
     {
         Id = _buf.ReadInt();
-        Name = _buf.ReadString();
         {int n0 = System.Math.Min(_buf.ReadSize(), _buf.Size);Skill = new System.Collections.Generic.List<ESkill>(n0);for(var i0 = 0 ; i0 < n0 ; i0++) { ESkill _e0;  _e0 = (ESkill)_buf.ReadInt(); Skill.Add(_e0);}}
+        HandLimit = _buf.ReadInt();
+        HpLimit = _buf.ReadInt();
     }
 
     public static DRHero DeserializeDRHero(ByteBuf _buf)
@@ -31,13 +32,17 @@ public sealed partial class DRHero : Luban.BeanBase
     /// </summary>
     public readonly int Id;
     /// <summary>
-    /// 名称
-    /// </summary>
-    public readonly string Name;
-    /// <summary>
     /// 技能列表
     /// </summary>
     public readonly System.Collections.Generic.List<ESkill> Skill;
+    /// <summary>
+    /// 手牌上限
+    /// </summary>
+    public readonly int HandLimit;
+    /// <summary>
+    /// 血量上限
+    /// </summary>
+    public readonly int HpLimit;
    
     public const int __ID__ = 2024756648;
     public override int GetTypeId() => __ID__;
@@ -50,8 +55,9 @@ public sealed partial class DRHero : Luban.BeanBase
     {
         return "{ "
         + "Id:" + Id + ","
-        + "Name:" + Name + ","
         + "Skill:" + Luban.StringUtil.CollectionToString(Skill) + ","
+        + "HandLimit:" + HandLimit + ","
+        + "HpLimit:" + HpLimit + ","
         + "}";
     }
 }

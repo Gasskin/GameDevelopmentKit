@@ -80,7 +80,7 @@ namespace Game.Hot
             {
                 return;
             }
-            GameEntry.Network.SendTcp(ReferencePool.Acquire<CS_BeginBattleReq>());
+            GameEntry.Network.SendTcp(ReferencePool.Acquire<CS_BeginBattleNtf>());
         }
     }
 }

@@ -19,7 +19,7 @@ public class MessageDispatcher
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"[日志]反序列化失败 MsgId={msgId}, 异常={ex.Message}");
+                Console.WriteLine($"[日志]处理消息失败 异常={ex.Message}\n{ex.StackTrace}");
             }
         };
     }

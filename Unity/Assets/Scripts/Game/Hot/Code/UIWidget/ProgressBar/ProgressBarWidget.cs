@@ -36,7 +36,7 @@ namespace Game.Hot
             InitBind(gameObject.GetComponent<CSCodeBindMono>());
         }
 
-        protected override void OnOpen(object userData)
+        protected override void OnOpen(IReference userData)
         {
             base.OnOpen(userData);
             var r = (ProgressBarWidgetOpenData)userData;
