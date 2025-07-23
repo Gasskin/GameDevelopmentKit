@@ -10,8 +10,8 @@ namespace Game.Hot
         
         protected override void DoHandle(object sender, Packet packet)
         {
-            HotEntry.Model.Room.BeginBattle((SC_BeginBattleNtf)packet);
-            HotEntry.Model.Room.ChangeBattleStage(EBattleStage.Loading);
+            HotEntry.Model.RoomBattle.SC_BeginBattleNtf((SC_BeginBattleNtf)packet);
+            HotEntry.Model.Room.ChangeRoomStage(EBattleStage.Loading);
         }
     }
 }

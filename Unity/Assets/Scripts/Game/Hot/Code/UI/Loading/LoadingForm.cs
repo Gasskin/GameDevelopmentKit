@@ -43,7 +43,7 @@ namespace Game.Hot
                 if (HotEntry.Model.Room.BattleStage == EBattleStage.Loading)
                 {
                     ProgressUXImage.fillAmount = 1f;
-                    HotEntry.Model.Room.ChangeBattleStage(EBattleStage.LoadEnd);
+                    HotEntry.Model.Room.ChangeRoomStage(EBattleStage.LoadEnd);
                 }
             }
             else

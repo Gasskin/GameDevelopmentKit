@@ -8,8 +8,6 @@ namespace Game.Hot
     public class RoomModel
     {
         public int MyAccount { get; private set; }
-
-        // --------- 房间信息 --------
         public EBattleStage BattleStage { get; private set; } = EBattleStage.None;
         public int PlayerCount => _roomPlayers.Count;
 
@@ -17,13 +15,6 @@ namespace Game.Hot
 
         private List<int> _roomPlayers = new();
 
-        // --------- 局内信息 --------
-        public long EndTimestampMs { get; private set; }
-        public int TotalTimeMs { get; private set; }
-
-        private List<int> _canChooseHero = new();
-
-    #region Player相关
         public void SetRoomPlayers(int myAccount, List<int> players)
         {
             MyAccount = myAccount;
@@ -32,7 +23,6 @@ namespace Game.Hot
             foreach (var player in players)
                 _roomPlayers.Add(player);
 
-            ChangeBattleStage(EBattleStage.InRoom);
 
             Log.Info($"{myAccount} 成功加入房间，房间人数：{_roomPlayers.Count}");
             for (int i = 0; i < _roomPlayers.Count; i++)
@@ -93,31 +83,14 @@ namespace Game.Hot
             }
             return _roomPlayers[idx];
         }
-    #endregion
 
-    #region 战斗流程相关
-        public void ChangeBattleStage(EBattleStage stage)
+        public void ChangeRoomStage(EBattleStage stage)
         {
             BattleStage = stage;
             if (stage == EBattleStage.None)
             {
                 _roomPlayers.Clear();
-                _canChooseHero.Clear();
             }
         }
-
-        public void BeginBattle(SC_BeginBattleNtf msg)
-        {
-            _canChooseHero.Clear();
-            _canChooseHero.AddRange(msg.canChooseHero);
-            EndTimestampMs = msg.endTimestampMs;
-            TotalTimeMs = msg.totalTimeMs;
-        }
-
-        public void GetCanChooseHero(UGFList<int> result)
-        {
-            result.AddRange(_canChooseHero);
-        }
-    #endregion
     }
 }
