@@ -50,6 +50,7 @@ public class Room
         {
             Console.WriteLine($"[房间]{player}离开房间");
             _roomPlayer.Remove(player);
+            _playerToSocket.Remove(player);
         }
     }
 
@@ -81,7 +82,7 @@ public class Room
                 endTimestampMs = Program.ServerTimeMs + 20 * 1000,
                 totalTimeMs = 20 * 1000, // 30秒
             });
-            idx++;
+            idx += 3;
         }
     }
 }

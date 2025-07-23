@@ -1,4 +1,5 @@
 ﻿using CodeBind;
+using Cysharp.Threading.Tasks;
 using GameFramework;
 using GameFramework.Event;
 using UnityEngine;
@@ -11,25 +12,29 @@ namespace Game.Hot
         private float _randomWait;
         private float _remain;
 
+        private bool _isLoadEnd;
+
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
             InitBind(gameObject.GetComponent<CSCodeBindMono>());
 
-            GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccessEvent);
         }
 
         protected override void OnRecycle()
         {
             base.OnRecycle();
-            GameEntry.Event.Unsubscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccessEvent);
             ClearBind();
         }
 
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            _randomWait = (float)Utility.Random.GetRandomDouble() * 2f;
+            
+            LoadTask().Forget();
+            
+            // 随机等待10-20秒，这个只是用来做显示的，没有实际意义
+            _randomWait = (float)Utility.Random.GetRandomDouble() * 10f + 10f;
             _remain = _randomWait;
             TipTMPText.text = "资源加载中...";
         }
@@ -38,23 +43,26 @@ namespace Game.Hot
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
             _remain -= elapseSeconds;
-            if (_remain < 0)
+            if (_remain < 2)
             {
-                if (HotEntry.Model.RoomBattle.LoadingStage == EBattleStage.Loading)
-                {
-                    ProgressUXImage.fillAmount = 1f;
-                    HotEntry.Model.RoomBattle.ChangeRoomBattleLoadingStage(EBattleStage.LoadEnd);
-                }
             }
             else
             {
                 ProgressUXImage.fillAmount = Mathf.Clamp(1f - _remain / _randomWait, 0f, 1f);
             }
+
+            if (_isLoadEnd && HotEntry.Model.RoomBattle.LoadingStage == EBattleStage.Loading)
+            {
+                ProgressUXImage.fillAmount = 1f;
+                HotEntry.Model.RoomBattle.ChangeRoomBattleLoadingStage(EBattleStage.LoadEnd);
+            }
         }
 
-        private void OnOpenUIFormSuccessEvent(object sender, GameEventArgs e)
+        private async UniTaskVoid LoadTask()
         {
-            var ee = (OpenUIFormSuccessEventArgs)e;
+            _isLoadEnd = false;
+            await GameEntry.UI.OpenUIFormAsync(UIFormId.SelectHeroForm, null, cancellationTokenSource.Token);
+            _isLoadEnd = true;
         }
     }
 }

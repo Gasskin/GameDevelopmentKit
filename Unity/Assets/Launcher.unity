@@ -582,6 +582,10 @@ PrefabInstance:
       propertyPath: m_ConsoleWindow.m_LockScroll
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11402440, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
+      propertyPath: m_ConsoleWindow.m_InfoColor.rgba
+      value: 4278255400
+      objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -736,12 +740,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1576232203}
     - target: {fileID: 11454530, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
+      propertyPath: m_InstanceExpireTime
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 11454530, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
       propertyPath: m_UIGroups.Array.size
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11454530, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
       propertyPath: m_UIGroupHelperTypeName
       value: Game.UGuiGroupHelper
+      objectReference: {fileID: 0}
+    - target: {fileID: 11454530, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
+      propertyPath: m_InstanceAutoReleaseInterval
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 11454530, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
       propertyPath: m_UIGroups.Array.data[0].m_Name
@@ -1569,7 +1581,7 @@ MonoBehaviour:
   m_BottomRightDistortion: {x: 1, y: 0}
   m_TopLeftDistortion: {x: 0, y: 1}
   m_TopRightDistortion: {x: 1, y: 1}
-  rect2props: {x: 0.00012207031, y: -0.00012207031, z: 999.04095, w: 999.04095}
+  rect2props: {x: 0.00012207031, y: -0.00012207031, z: 1053.5892, w: 1053.5892}
   image: {fileID: 0}
   m_OriginFlipMode: 0
   m_FlipMode: 0

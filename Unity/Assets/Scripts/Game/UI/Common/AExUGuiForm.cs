@@ -10,7 +10,7 @@ namespace Game
 {
     public abstract class AExUGuiForm : AUGuiForm
     {
-        private CancellationTokenSource m_CancellationTokenSource;
+        protected CancellationTokenSource cancellationTokenSource { get;private set; }
         
         private UIWidgetContainer m_UIWidgetContainer;
         private EventContainer m_EventContainer;
@@ -45,6 +45,14 @@ namespace Game
                 ReferencePool.Release(m_NetContainer);
                 m_NetContainer = null;
             }
+            cancellationTokenSource.Cancel();
+            cancellationTokenSource = null;
+        }
+
+        protected override void OnOpen(object userData)
+        {
+            base.OnOpen(userData);
+            cancellationTokenSource = new CancellationTokenSource();
         }
 
         protected override void OnRecycle()
@@ -203,12 +211,12 @@ namespace Game
             m_EventContainer.Subscribe(id, handler);
         }
 
-        public void Unsubscribe(int id, EventHandler<GameEventArgs> handler)
-        {
-            if (m_EventContainer == null)
-                return;
-            m_EventContainer.Unsubscribe(id, handler);
-        }
+        // public void Unsubscribe(int id, EventHandler<GameEventArgs> handler)
+        // {
+        //     if (m_EventContainer == null)
+        //         return;
+        //     m_EventContainer.Unsubscribe(id, handler);
+        // }
 
         public void UnsubscribeAll()
         {
@@ -297,7 +305,7 @@ namespace Game
         {
             if (m_ResourceContainer == null)
             {
-                m_ResourceContainer = ResourceContainer.Create(m_CancellationTokenSource.Token);
+                m_ResourceContainer = ResourceContainer.Create(this);
             }
             m_ResourceContainer.LoadAsset(assetName, onLoadSuccess, onLoadFailure, priority, updateEvent, dependencyAssetEvent);
         }
@@ -307,7 +315,7 @@ namespace Game
         {
             if (m_ResourceContainer == null)
             {
-                m_ResourceContainer = ResourceContainer.Create(m_CancellationTokenSource.Token);
+                m_ResourceContainer = ResourceContainer.Create(this);
             }
             return await m_ResourceContainer.LoadAssetAsync<T>(assetName, priority, updateEvent, dependencyAssetEvent);
         }
