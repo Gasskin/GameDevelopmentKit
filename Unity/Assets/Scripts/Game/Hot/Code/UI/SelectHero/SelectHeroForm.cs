@@ -23,10 +23,10 @@ namespace Game.Hot
         {
             base.OnOpen(userData);
 
-            OpenUIWidget(ProgressBarUIWidget, ProgressBarWidgetOpenData.Create(HotEntry.Model.Room.EndTimestampMs, HotEntry.Model.Room.TotalTimeMs));
+            OpenUIWidget(ProgressBarUIWidget, ProgressBarWidgetOpenData.Create(HotEntry.Model.RoomBattle.SelectHeroStage.EndTimestampMs, HotEntry.Model.RoomBattle.SelectHeroStage.TotalTimeMs));
 
             using var canChooseHero = UGFList<int>.Create();
-            HotEntry.Model.Room.GetCanChooseHero(canChooseHero);
+            HotEntry.Model.RoomBattle.SelectHeroStage.GetCanChooseHero(canChooseHero);
             if (canChooseHero.Count > 0)
             {
                 for (int i = 0; i < canChooseHero.Count && i < 2; i++)
