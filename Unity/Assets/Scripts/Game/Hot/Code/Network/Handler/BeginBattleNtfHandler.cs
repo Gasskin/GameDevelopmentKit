@@ -1,6 +1,4 @@
-﻿using GameFramework;
-using GameFramework.Network;
-using UnityGameFramework.Runtime;
+﻿using GameFramework.Network;
 
 namespace Game.Hot
 {
@@ -11,7 +9,6 @@ namespace Game.Hot
         protected override void DoHandle(object sender, Packet packet)
         {
             HotEntry.Model.RoomBattle.SC_BeginBattleNtf((SC_BeginBattleNtf)packet);
-            HotEntry.Model.Room.ChangeRoomStage(EBattleStage.Loading);
         }
     }
 }

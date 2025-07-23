@@ -26,11 +26,31 @@ namespace Game.Hot
     
     public class RoomBattleModel
     {
+        public EBattleStage BattleStage { get; private set; } = EBattleStage.None;
+
+        public EBattleStage LoadingStage { get; private set; } = EBattleStage.None;
+
         public SelectHeroStage SelectHeroStage { get; private set; }
+        
         
         public void SC_BeginBattleNtf(SC_BeginBattleNtf msg)
         {
             SelectHeroStage = new(msg);
+            BattleStage = EBattleStage.SelectHero;
+        }
+        
+        // public void ChangeRoomBattleStage(EBattleStage stage)
+        // {
+        //     BattleStage = stage;
+        //     if (stage == EBattleStage.None)
+        //     {
+        //         SelectHeroStage = null;
+        //     }
+        // }
+
+        public void ChangeRoomBattleLoadingStage(EBattleStage stage)
+        {
+            LoadingStage = stage;
         }
     }
 }

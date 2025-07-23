@@ -15,7 +15,6 @@ namespace Game.Hot
         {
             var msg = (SC_JoinRoomAck)packet;
             HotEntry.Model.Room.SetRoomPlayers(msg.myAccountId, msg.roomPlayers);
-            HotEntry.Model.Room.ChangeRoomStage(EBattleStage.InRoom);
         }
     }
 }

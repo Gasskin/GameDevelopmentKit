@@ -5,23 +5,34 @@ using ProcedureOwner = GameFramework.Fsm.IFsm<Game.Hot.ProcedureComponent>;
 
 namespace Game.Hot
 {
-    public class ProcedureLoading : ProcedureBase
+    public class ProcedureBattleLoading : ProcedureBase
     {
         private int _loadingForm;
 
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
+            HotEntry.Model.RoomBattle.ChangeRoomBattleLoadingStage(EBattleStage.Loading);
             _loadingForm = GameEntry.UI.OpenUIForm(UIFormId.LoadingForm) ?? 0;
         }
-
 
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-            if (HotEntry.Model.Room.BattleStage == EBattleStage.LoadEnd)
+            if (HotEntry.Model.RoomBattle.LoadingStage == EBattleStage.LoadEnd)
             {
-                ChangeState<ProcedureSelectHero>(procedureOwner);
+                switch (HotEntry.Model.RoomBattle.BattleStage)
+                {
+                    case EBattleStage.SelectIdentity:
+                        break;
+                    case EBattleStage.SelectHero:
+                        ChangeState<ProcedureBattleSelectHero>(procedureOwner);
+                        break;
+                    case EBattleStage.ChangeHandCard:
+                        break;
+                    case EBattleStage.InBattle:
+                        break;
+                }
             }
         }
 

@@ -8,9 +8,8 @@ namespace Game.Hot
     public class RoomModel
     {
         public int MyAccount { get; private set; }
-        public EBattleStage BattleStage { get; private set; } = EBattleStage.None;
         public int PlayerCount => _roomPlayers.Count;
-
+        public bool IsInRoom => _roomPlayers.Count > 0;
         public bool IsRoomOwner => _roomPlayers.Count >= 1 && _roomPlayers[0] == MyAccount;
 
         private List<int> _roomPlayers = new();
@@ -82,15 +81,6 @@ namespace Game.Hot
                 return 0;
             }
             return _roomPlayers[idx];
-        }
-
-        public void ChangeRoomStage(EBattleStage stage)
-        {
-            BattleStage = stage;
-            if (stage == EBattleStage.None)
-            {
-                _roomPlayers.Clear();
-            }
         }
     }
 }

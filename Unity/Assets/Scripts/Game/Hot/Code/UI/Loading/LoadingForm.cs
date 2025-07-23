@@ -40,10 +40,10 @@ namespace Game.Hot
             _remain -= elapseSeconds;
             if (_remain < 0)
             {
-                if (HotEntry.Model.Room.BattleStage == EBattleStage.Loading)
+                if (HotEntry.Model.RoomBattle.LoadingStage == EBattleStage.Loading)
                 {
                     ProgressUXImage.fillAmount = 1f;
-                    HotEntry.Model.Room.ChangeRoomStage(EBattleStage.LoadEnd);
+                    HotEntry.Model.RoomBattle.ChangeRoomBattleLoadingStage(EBattleStage.LoadEnd);
                 }
             }
             else

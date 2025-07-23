@@ -2,7 +2,7 @@
 
 namespace Game.Hot
 {
-    public class ProcedureSelectHero : ProcedureBase
+    public class ProcedureBattleSelectHero : ProcedureBase
     {
         private int _selectHeroForm;
         
@@ -15,6 +15,8 @@ namespace Game.Hot
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
+            if (_selectHeroForm > 0)
+                GameEntry.UI.CloseUIForm(_selectHeroForm);
         }
     }
 }

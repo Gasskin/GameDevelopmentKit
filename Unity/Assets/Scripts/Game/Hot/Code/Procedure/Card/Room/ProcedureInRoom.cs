@@ -16,9 +16,9 @@ namespace Game.Hot
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-            if (HotEntry.Model.Room.BattleStage == EBattleStage.Loading)
+            if (HotEntry.Model.RoomBattle.BattleStage >= EBattleStage.SelectHero) 
             {
-                ChangeState<ProcedureLoading>(procedureOwner);
+                ChangeState<ProcedureBattleLoading>(procedureOwner);
             }
         }
 

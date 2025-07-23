@@ -11,13 +11,12 @@ namespace Game.Hot
             base.OnEnter(procedureOwner);
 
             _joinRoomForm = GameEntry.UI.OpenUIForm(UIFormId.JoinRoomForm);
-            HotEntry.Model.Room.ChangeRoomStage(EBattleStage.None);
         }
 
         protected override void OnUpdate(IFsm<ProcedureComponent> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-            if (HotEntry.Model.Room.BattleStage == EBattleStage.InRoom)
+            if (HotEntry.Model.Room.IsInRoom)
                 ChangeState<ProcedureInRoom>(procedureOwner);
         }
 
