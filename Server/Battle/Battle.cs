@@ -4,20 +4,17 @@ using Game.Hot;
 public enum BattleState
 {
     None = 0,
-    InitWaitForClientReady,
-    WaitForClientRead,
-    TrueStartBattle
+    WaitSelectHero,
+    InBattle,
 }
 
 public class Battle
 {
     public static Battle Instance { get; } = new();
 
-
-
     private BattleState _battleState = BattleState.None;
 
-    private WaitForClientReady _waitForClientReady;
+    private WaitSelectHeroStage _waitSelectHeroStage = new();
 
     public void Init()
     {
@@ -30,23 +27,19 @@ public class Battle
         {
             case BattleState.None:
                 break;
-            case BattleState.InitWaitForClientReady:
-                _waitForClientReady = new(Room.Instance.GetPlayers());
-                _battleState = BattleState.WaitForClientRead;
+            case BattleState.WaitSelectHero:
+                if (!_waitSelectHeroStage.IsSelectHeroEnd())
+                    return;
+                Room.Instance.StartBattle();
+                _battleState = BattleState.InBattle;
                 break;
-            case BattleState.WaitForClientRead:
-                var allReady = _waitForClientReady.Wait();
-                if (allReady)
-                {
-                    Console.WriteLine("开始战斗！");
-                    _battleState = BattleState.TrueStartBattle;
-                }
+            case BattleState.InBattle:
                 break;
         }
     }
 
-    public void OnBeginBattleNtf(CS_BeginBattleNtf deserialize)
+    public void OnBeginBattleNtf(CS_BeginBattleNtf msg)
     {
-        _battleState = BattleState.InitWaitForClientReady;
+        _battleState = BattleState.WaitSelectHero;
     }
 }

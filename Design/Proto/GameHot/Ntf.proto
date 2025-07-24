@@ -19,10 +19,24 @@ message CS_BeginBattleNtf
 
 }
 
-// 广播 开始战斗
-message SC_BeginBattleNtf
+// 广播 开始选将
+message SC_StartChooseHeroNtf
 {
 	repeated int32 canChooseHero = 1; // 玩家ID，可选择武将ID
 	int64 endTimestampMs		 = 2; // 截止时间戳
 	int32 totalTimeMs			 = 3; // 总操作时长
+}
+
+
+// 广播 开始战斗
+message SC_StartBattleNtf
+{
+	repeated DS_PlayerInitInfo playerInitInfos = 1;
+}
+
+message DS_PlayerInitInfo
+{
+	repeated int32 handCards = 1; // 初始手牌
+	int32 heroId			 = 2; // 初始武将 
+	int32 playerId			 = 3; // 玩家id
 }

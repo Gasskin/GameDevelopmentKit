@@ -14,13 +14,33 @@ namespace cfg
     public enum ESkill
     {
         /// <summary>
+        /// 斩
+        /// </summary>
+        Zhan = 0,
+        /// <summary>
+        /// 扫
+        /// </summary>
+        Sao = 1,
+        /// <summary>
+        /// 刺
+        /// </summary>
+        Ci = 2,
+        /// <summary>
+        /// 打
+        /// </summary>
+        Da = 3,
+        /// <summary>
+        /// 闪
+        /// </summary>
+        Shan = 4,
+        /// <summary>
         /// 七进七出
         /// </summary>
-        QiJinQiChu = 0,
+        QiJinQiChu = 5,
         /// <summary>
         /// 单骑救主
         /// </summary>
-        DanQiJiuZhu = 1,
+        DanQiJiuZhu = 6,
     }
 
 } 

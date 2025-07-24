@@ -50,9 +50,10 @@ namespace ET
             public static void Proto2CS(string protoFile)
             {
                 string s = File.ReadAllText(protoFile);
-                
+
                 bool isMsgStart = false;
                 bool isEnumStart = false;
+                bool isDataStructure = false;
                 int lineNum = 0;
                 StringBuilder msgDisposeSb = new StringBuilder();
                 foreach (string line in s.Split('\n'))
@@ -84,13 +85,15 @@ namespace ET
                     {
                         string parentClass = "";
                         isMsgStart = true;
-
+                        isDataStructure = false;
                         msgDisposeSb.Clear();
                         msgDisposeSb.Append($"\t\tpublic override void Clear()\n");
                         msgDisposeSb.Append("\t\t{\n");
 
                         string msgName = newline.Split(s_SplitChars, StringSplitOptions.RemoveEmptyEntries)[1];
                         string[] ss = newline.Split(s_SplitStrings, StringSplitOptions.RemoveEmptyEntries);
+
+                        Log.Info($"msgName: {msgName}");
 
                         if (ss.Length == 2)
                         {
@@ -101,20 +104,28 @@ namespace ET
                         {
                             throw new Exception($"Proto_UGF error : {protoFile}'s opcode is larger then max opcode:{OpcodeRangeDefine.MaxOpcode}!");
                         }
-                        s_MsgOpcode.Add(new OpcodeInfo() { name = msgName, opcode = ++s_StartOpcode });
+                        if (!msgName.StartsWith("DS", StringComparison.OrdinalIgnoreCase) && !msgName.StartsWith("SCP", StringComparison.OrdinalIgnoreCase))
+                        {
+                            s_MsgOpcode.Add(new OpcodeInfo() { name = msgName, opcode = ++s_StartOpcode });
+                        }
 
                         s_StringBuilder.Append($"\t// proto file : {protoFile.Replace("\\", "/").Split("/")[^2]}/{Path.GetFileName(protoFile)} (line:{lineNum})\n");
                         s_StringBuilder.Append($"\t[Serializable, ProtoContract(Name = @\"{msgName}\")]\n");
                         s_StringBuilder.Append($"\tpublic partial class {msgName}");
                         if (string.IsNullOrEmpty(parentClass))
                         {
-                            if (msgName.StartsWith("CS", StringComparison.OrdinalIgnoreCase))
+                            if (msgName.StartsWith("SC", StringComparison.OrdinalIgnoreCase))
+                            {
+                                s_StringBuilder.Append(" : SCPacketBase\n");
+                            }
+                            else if (msgName.StartsWith("CS", StringComparison.OrdinalIgnoreCase))
                             {
                                 s_StringBuilder.Append(" : CSPacketBase\n");
                             }
-                            else if (msgName.StartsWith("SC", StringComparison.OrdinalIgnoreCase))
+                            else if (msgName.StartsWith("DS", StringComparison.OrdinalIgnoreCase))
                             {
-                                s_StringBuilder.Append(" : SCPacketBase\n");
+                                isDataStructure = true;
+                                s_StringBuilder.Append("\n");
                             }
                             else
                             {
@@ -129,7 +140,10 @@ namespace ET
                         if (newline.Contains("{"))
                         {
                             s_StringBuilder.Append("\t{\n");
-                            s_StringBuilder.Append($"\t\tpublic override int Id => {s_StartOpcode};\n");
+                            if (!isDataStructure)
+                            {
+                                s_StringBuilder.Append($"\t\tpublic override int Id => {s_StartOpcode};\n");
+                            }
                         }
 
                         continue;
@@ -142,7 +156,7 @@ namespace ET
 
                         s_StringBuilder.Append($"\t// proto file : {protoFile.Replace("\\", "/").Split("/")[^2]}/{Path.GetFileName(protoFile)} (line:{lineNum})\n");
                         s_StringBuilder.Append($"\tpublic enum {enumName}");
-                        
+
                         continue;
                     }
 
@@ -151,7 +165,10 @@ namespace ET
                         if (newline.StartsWith("{"))
                         {
                             s_StringBuilder.Append("\t{\n");
-                            s_StringBuilder.Append($"\t\tpublic override int Id => {s_StartOpcode};\n");
+                            if (!isDataStructure)
+                            {
+                                s_StringBuilder.Append($"\t\tpublic override int Id => {s_StartOpcode};\n");
+                            }
                             continue;
                         }
 
@@ -159,7 +176,10 @@ namespace ET
                         {
                             isMsgStart = false;
                             msgDisposeSb.Append("\t\t}\n");
-                            s_StringBuilder.Append(msgDisposeSb.ToString());
+                            if (!isDataStructure)
+                            {
+                                s_StringBuilder.Append(msgDisposeSb.ToString());
+                            }
                             msgDisposeSb.Clear();
                             s_StringBuilder.Append("\t}\n\n");
                             continue;
@@ -259,7 +279,7 @@ namespace ET
                     ss = tail.Trim().Replace(";", "").Replace("=", " ").Split(s_SplitChars, StringSplitOptions.RemoveEmptyEntries);
                     string v = ss[0];
                     string n = ss[1];
-                
+
                     sb.Append($"\t\t[ProtoMember({n})]\n");
                     sb.Append($"\t\tpublic Dictionary<{keyType}, {valueType}> {v} {{ get; set; }} = new Dictionary<{keyType}, {valueType}>();\n");
 

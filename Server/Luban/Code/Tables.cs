@@ -14,16 +14,19 @@ namespace cfg
 public partial class Tables
 {
     public DTHero DTHero {get; }
+    public DTCardPile DTCardPile {get; }
 
     public Tables(System.Func<string, ByteBuf> loader)
     {
         DTHero = new DTHero(loader("dthero"));
+        DTCardPile = new DTCardPile(loader("dtcardpile"));
         ResolveRef();
     }
     
     private void ResolveRef()
     {
         DTHero.ResolveRef(this);
+        DTCardPile.ResolveRef(this);
     }
 }
 

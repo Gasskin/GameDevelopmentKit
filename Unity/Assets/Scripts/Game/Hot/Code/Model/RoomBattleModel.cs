@@ -10,7 +10,7 @@ namespace Game.Hot
 
         private List<int> _canChooseHero;
 
-        public SelectHeroStage(SC_BeginBattleNtf msg)
+        public SelectHeroStage(SC_StartChooseHeroNtf msg)
         {
             _canChooseHero = new List<int>(msg.canChooseHero);
             EndTimestampMs = msg.endTimestampMs;
@@ -33,21 +33,12 @@ namespace Game.Hot
         public SelectHeroStage SelectHeroStage { get; private set; }
         
         
-        public void SC_BeginBattleNtf(SC_BeginBattleNtf msg)
+        public void SC_BeginBattleNtf(SC_StartChooseHeroNtf msg)
         {
             SelectHeroStage = new(msg);
             BattleStage = EBattleStage.SelectHero;
         }
         
-        // public void ChangeRoomBattleStage(EBattleStage stage)
-        // {
-        //     BattleStage = stage;
-        //     if (stage == EBattleStage.None)
-        //     {
-        //         SelectHeroStage = null;
-        //     }
-        // }
-
         public void ChangeRoomBattleLoadingStage(EBattleStage stage)
         {
             LoadingStage = stage;

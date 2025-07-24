@@ -15,6 +15,7 @@ public class GameMessageHandler
     {
         if (Room.Instance.CanChooseHero(account, msg.heroId))
         {
+            Room.Instance.OnChooseHeroReq(account, msg);
             Server.Instance.Send(client, new SC_ChooseHeroAck()
             {
                 heroId = msg.heroId,

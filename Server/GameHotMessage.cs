@@ -48,10 +48,10 @@ namespace Game.Hot
         }
     }
 
-    // 广播 开始战斗
+    // 广播 开始选将
     // proto file : GameHot/Ntf.proto (line:23)
-    [Serializable, ProtoContract(Name = @"SC_BeginBattleNtf")]
-    public partial class SC_BeginBattleNtf : SCPacketBase
+    [Serializable, ProtoContract(Name = @"SC_StartChooseHeroNtf")]
+    public partial class SC_StartChooseHeroNtf : SCPacketBase
     {
         public override int Id => 30004;
         /// <summary>
@@ -77,12 +77,47 @@ namespace Game.Hot
         }
     }
 
+    // 广播 开始战斗
+    // proto file : GameHot/Ntf.proto (line:32)
+    [Serializable, ProtoContract(Name = @"SC_StartBattleNtf")]
+    public partial class SC_StartBattleNtf : SCPacketBase
+    {
+        public override int Id => 30005;
+        [ProtoMember(1)]
+        public List<DS_PlayerInitInfo> playerInitInfos { get; set; } = new List<DS_PlayerInitInfo>();
+        public override void Clear()
+        {
+            this.playerInitInfos.Clear();
+        }
+    }
+
+    // proto file : GameHot/Ntf.proto (line:37)
+    [Serializable, ProtoContract(Name = @"DS_PlayerInitInfo")]
+    public partial class DS_PlayerInitInfo
+    {
+        /// <summary>
+        /// 初始手牌
+        /// </summary>
+        [ProtoMember(1)]
+        public List<int> handCards { get; set; } = new List<int>();
+        /// <summary>
+        /// 初始武将
+        /// </summary>
+        [ProtoMember(2)]
+        public int heroId { get; set; }
+        /// <summary>
+        /// 玩家id
+        /// </summary>
+        [ProtoMember(3)]
+        public int playerId { get; set; }
+    }
+
     // 心跳
     // proto file : GameHot/Rpc.proto (line:4)
     [Serializable, ProtoContract(Name = @"CS_PingReq")]
     public partial class CS_PingReq : CSPacketBase
     {
-        public override int Id => 30005;
+        public override int Id => 30006;
         public override void Clear()
         {
         }
@@ -92,7 +127,7 @@ namespace Game.Hot
     [Serializable, ProtoContract(Name = @"SC_PingAck")]
     public partial class SC_PingAck : SCPacketBase
     {
-        public override int Id => 30006;
+        public override int Id => 30007;
         [ProtoMember(1)]
         public long timeStamp { get; set; }
         public override void Clear()
@@ -106,7 +141,7 @@ namespace Game.Hot
     [Serializable, ProtoContract(Name = @"CS_JoinRoomReq")]
     public partial class CS_JoinRoomReq : CSPacketBase
     {
-        public override int Id => 30007;
+        public override int Id => 30008;
         [ProtoMember(1)]
         public int accountId { get; set; }
         public override void Clear()
@@ -119,7 +154,7 @@ namespace Game.Hot
     [Serializable, ProtoContract(Name = @"SC_JoinRoomAck")]
     public partial class SC_JoinRoomAck : SCPacketBase
     {
-        public override int Id => 30008;
+        public override int Id => 30009;
         [ProtoMember(1)]
         public int myAccountId { get; set; }
         [ProtoMember(2)]
@@ -136,7 +171,7 @@ namespace Game.Hot
     [Serializable, ProtoContract(Name = @"CS_ChooseHeroReq")]
     public partial class CS_ChooseHeroReq : CSPacketBase
     {
-        public override int Id => 30009;
+        public override int Id => 30010;
         /// <summary>
         /// 选择的武将ID
         /// </summary>
@@ -152,7 +187,7 @@ namespace Game.Hot
     [Serializable, ProtoContract(Name = @"SC_ChooseHeroAck")]
     public partial class SC_ChooseHeroAck : SCPacketBase
     {
-        public override int Id => 30010;
+        public override int Id => 30011;
         [ProtoMember(1)]
         public int heroId { get; set; }
         public override void Clear()
@@ -166,12 +201,13 @@ namespace Game.Hot
          public const ushort SC_JoinRoomNtf = 30001;
          public const ushort SC_LeaveRoomNtf = 30002;
          public const ushort CS_BeginBattleNtf = 30003;
-         public const ushort SC_BeginBattleNtf = 30004;
-         public const ushort CS_PingReq = 30005;
-         public const ushort SC_PingAck = 30006;
-         public const ushort CS_JoinRoomReq = 30007;
-         public const ushort SC_JoinRoomAck = 30008;
-         public const ushort CS_ChooseHeroReq = 30009;
-         public const ushort SC_ChooseHeroAck = 30010;
+         public const ushort SC_StartChooseHeroNtf = 30004;
+         public const ushort SC_StartBattleNtf = 30005;
+         public const ushort CS_PingReq = 30006;
+         public const ushort SC_PingAck = 30007;
+         public const ushort CS_JoinRoomReq = 30008;
+         public const ushort SC_JoinRoomAck = 30009;
+         public const ushort CS_ChooseHeroReq = 30010;
+         public const ushort SC_ChooseHeroAck = 30011;
     }
 }
