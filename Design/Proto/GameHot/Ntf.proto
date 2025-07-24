@@ -26,9 +26,3 @@ message SC_BeginBattleNtf
 	int64 endTimestampMs		 = 2; // 截止时间戳
 	int32 totalTimeMs			 = 3; // 总操作时长
 }
-
-// 选择武将
-message CS_ChooseHeroNtf
-{
-	int32 heroId = 1; // 选择的武将ID
-}

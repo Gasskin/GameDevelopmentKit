@@ -22,3 +22,14 @@ message SC_JoinRoomAck
 	int32 myAccountId = 1;
 	repeated int32 roomPlayers = 2;
 }
+
+// 选择武将
+message CS_ChooseHeroReq
+{
+	int32 heroId = 1; // 选择的武将ID
+}
+
+message SC_ChooseHeroAck
+{
+	int32 heroId = 1;
+}

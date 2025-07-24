@@ -77,29 +77,12 @@ namespace Game.Hot
         }
     }
 
-    // 选择武将
-    // proto file : GameHot/Ntf.proto (line:31)
-    [Serializable, ProtoContract(Name = @"CS_ChooseHeroNtf")]
-    public partial class CS_ChooseHeroNtf : CSPacketBase
-    {
-        public override int Id => 30005;
-        /// <summary>
-        /// 选择的武将ID
-        /// </summary>
-        [ProtoMember(1)]
-        public int heroId { get; set; }
-        public override void Clear()
-        {
-            this.heroId = default;
-        }
-    }
-
     // 心跳
     // proto file : GameHot/Rpc.proto (line:4)
     [Serializable, ProtoContract(Name = @"CS_PingReq")]
     public partial class CS_PingReq : CSPacketBase
     {
-        public override int Id => 30006;
+        public override int Id => 30005;
         public override void Clear()
         {
         }
@@ -109,7 +92,7 @@ namespace Game.Hot
     [Serializable, ProtoContract(Name = @"SC_PingAck")]
     public partial class SC_PingAck : SCPacketBase
     {
-        public override int Id => 30007;
+        public override int Id => 30006;
         [ProtoMember(1)]
         public long timeStamp { get; set; }
         public override void Clear()
@@ -123,7 +106,7 @@ namespace Game.Hot
     [Serializable, ProtoContract(Name = @"CS_JoinRoomReq")]
     public partial class CS_JoinRoomReq : CSPacketBase
     {
-        public override int Id => 30008;
+        public override int Id => 30007;
         [ProtoMember(1)]
         public int accountId { get; set; }
         public override void Clear()
@@ -136,7 +119,7 @@ namespace Game.Hot
     [Serializable, ProtoContract(Name = @"SC_JoinRoomAck")]
     public partial class SC_JoinRoomAck : SCPacketBase
     {
-        public override int Id => 30009;
+        public override int Id => 30008;
         [ProtoMember(1)]
         public int myAccountId { get; set; }
         [ProtoMember(2)]
@@ -148,16 +131,47 @@ namespace Game.Hot
         }
     }
 
+    // 选择武将
+    // proto file : GameHot/Rpc.proto (line:27)
+    [Serializable, ProtoContract(Name = @"CS_ChooseHeroReq")]
+    public partial class CS_ChooseHeroReq : CSPacketBase
+    {
+        public override int Id => 30009;
+        /// <summary>
+        /// 选择的武将ID
+        /// </summary>
+        [ProtoMember(1)]
+        public int heroId { get; set; }
+        public override void Clear()
+        {
+            this.heroId = default;
+        }
+    }
+
+    // proto file : GameHot/Rpc.proto (line:32)
+    [Serializable, ProtoContract(Name = @"SC_ChooseHeroAck")]
+    public partial class SC_ChooseHeroAck : SCPacketBase
+    {
+        public override int Id => 30010;
+        [ProtoMember(1)]
+        public int heroId { get; set; }
+        public override void Clear()
+        {
+            this.heroId = default;
+        }
+    }
+
     public static partial class GameHotMessageId
     {
          public const ushort SC_JoinRoomNtf = 30001;
          public const ushort SC_LeaveRoomNtf = 30002;
          public const ushort CS_BeginBattleNtf = 30003;
          public const ushort SC_BeginBattleNtf = 30004;
-         public const ushort CS_ChooseHeroNtf = 30005;
-         public const ushort CS_PingReq = 30006;
-         public const ushort SC_PingAck = 30007;
-         public const ushort CS_JoinRoomReq = 30008;
-         public const ushort SC_JoinRoomAck = 30009;
+         public const ushort CS_PingReq = 30005;
+         public const ushort SC_PingAck = 30006;
+         public const ushort CS_JoinRoomReq = 30007;
+         public const ushort SC_JoinRoomAck = 30008;
+         public const ushort CS_ChooseHeroReq = 30009;
+         public const ushort SC_ChooseHeroAck = 30010;
     }
 }

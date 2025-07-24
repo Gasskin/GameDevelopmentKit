@@ -10,9 +10,10 @@ namespace Game
 {
     public abstract class AExUGuiForm : AUGuiForm
     {
-        protected CancellationTokenSource cancellationTokenSource { get;private set; }
-        
-        private UIWidgetContainer m_UIWidgetContainer;
+        protected CancellationTokenSource cancellationTokenSource { get; private set; }
+
+        // private UIWidgetContainer m_UIWidgetContainer;
+        private UIElementContainer m_UIElementContainer;
         private EventContainer m_EventContainer;
         private EntityContainer m_EntityContainer;
         private ResourceContainer m_ResourceContainer;
@@ -25,16 +26,21 @@ namespace Game
                 ReferencePool.Release(m_EventContainer);
                 m_EventContainer = null;
             }
+            if (m_UIElementContainer != null)
+            {
+                ReferencePool.Release(m_UIElementContainer);
+                m_UIElementContainer = null;
+            }
             if (m_EntityContainer != null)
             {
                 ReferencePool.Release(m_EntityContainer);
                 m_EntityContainer = null;
             }
-            if (m_UIWidgetContainer != null)
-            {
-                ReferencePool.Release(m_UIWidgetContainer);
-                m_UIWidgetContainer = null;
-            }
+            // if (m_UIWidgetContainer != null)
+            // {
+            //     ReferencePool.Release(m_UIWidgetContainer);
+            //     m_UIWidgetContainer = null;
+            // }
             if (m_ResourceContainer != null)
             {
                 ReferencePool.Release(m_ResourceContainer);
@@ -58,7 +64,7 @@ namespace Game
         protected override void OnRecycle()
         {
             base.OnRecycle();
-            m_UIWidgetContainer?.OnRecycle();
+            // m_UIWidgetContainer?.OnRecycle();
         }
 
         private void OnDestroy()
@@ -69,14 +75,15 @@ namespace Game
 
         protected override void OnClose(bool isShutdown, object userData)
         {
-            m_UIWidgetContainer?.OnClose(isShutdown, userData);
+            // m_UIWidgetContainer?.OnClose(isShutdown, userData);
             HideAllEntity();
             UnsubscribeAll();
             UnloadAllAssets();
-            CloseAllUIWidgets(userData, isShutdown);
+            // CloseAllUIWidgets(userData, isShutdown);
             if (!isShutdown)
             {
-                RemoveAllUIWidget();
+                // m_UIWidgetContainer?.RemoveAllUIWidget();
+                m_UIElementContainer?.CloseAllUIElement(isShutdown);
                 ClearUIForm();
             }
             base.OnClose(isShutdown, userData);
@@ -85,45 +92,46 @@ namespace Game
         protected override void OnPause()
         {
             base.OnPause();
-            m_UIWidgetContainer?.OnPause();
+            // m_UIWidgetContainer?.OnPause();
         }
 
         protected override void OnResume()
         {
             base.OnResume();
-            m_UIWidgetContainer?.OnResume();
+            // m_UIWidgetContainer?.OnResume();
         }
 
         protected override void OnCover()
         {
             base.OnCover();
-            m_UIWidgetContainer?.OnCover();
+            // m_UIWidgetContainer?.OnCover();
         }
 
         protected override void OnReveal()
         {
             base.OnReveal();
-            m_UIWidgetContainer?.OnReveal();
+            // m_UIWidgetContainer?.OnReveal();
         }
 
         protected override void OnRefocus(object userData)
         {
             base.OnRefocus(userData);
-            m_UIWidgetContainer?.OnRefocus(userData);
+            // m_UIWidgetContainer?.OnRefocus(userData);
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            m_UIWidgetContainer?.OnUpdate(elapseSeconds, realElapseSeconds);
+            // m_UIWidgetContainer?.OnUpdate(elapseSeconds, realElapseSeconds);
+            m_UIElementContainer?.OnUpdate(elapseSeconds, realElapseSeconds);
         }
 
         protected override void OnDepthChanged(int uiGroupDepth, int depthInUIGroup)
         {
             base.OnDepthChanged(uiGroupDepth, depthInUIGroup);
-            m_UIWidgetContainer?.OnDepthChanged(uiGroupDepth, depthInUIGroup);
+            // m_UIWidgetContainer?.OnDepthChanged(uiGroupDepth, depthInUIGroup);
         }
-        
+
         protected async UniTask<T> SendPacketAsync<T>(Packet packet, string channel = "TcpChannel") where T : Packet
         {
             m_NetContainer ??= NetContainer.Create(channel);
@@ -131,30 +139,32 @@ namespace Game
             return p as T;
         }
 
-        public void AddUIWidget(AUIWidget auiWidget, object userData = null)
+        protected T OpenUIElement<T>(AUIElement e) where T : AUIElement
         {
-            if (m_UIWidgetContainer == null)
+            if (m_UIElementContainer == null)
             {
-                m_UIWidgetContainer = UIWidgetContainer.Create(this);
+                m_UIElementContainer = UIElementContainer.Create(this);
             }
-            m_UIWidgetContainer.AddUIWidget(auiWidget, userData);
+            return m_UIElementContainer.OpenUIElement<T>(e);
         }
 
-        public void RemoveUIWidget(AUIWidget auiWidget)
-        {
-            if (m_UIWidgetContainer == null)
-            {
-                throw new GameFrameworkException("Container is empty!");
-            }
-            m_UIWidgetContainer.RemoveUIWidget(auiWidget);
-        }
-
-        public void RemoveAllUIWidget()
-        {
-            if (m_UIWidgetContainer == null)
-                return;
-            m_UIWidgetContainer.RemoveAllUIWidget();
-        }
+        // public void AddUIWidget(AUIWidget auiWidget, object userData = null)
+        // {
+        //     if (m_UIWidgetContainer == null)
+        //     {
+        //         m_UIWidgetContainer = UIWidgetContainer.Create(this);
+        //     }
+        //     m_UIWidgetContainer.AddUIWidget(auiWidget, userData);
+        // }
+        //
+        // public void RemoveUIWidget(AUIWidget auiWidget)
+        // {
+        //     if (m_UIWidgetContainer == null)
+        //     {
+        //         throw new GameFrameworkException("Container is empty!");
+        //     }
+        //     m_UIWidgetContainer.RemoveUIWidget(auiWidget);
+        // }
 
         /// <summary>
         /// 打开UIWidget，不刷新Depth，一般在UIForm的OnOpen中调用
@@ -162,14 +172,14 @@ namespace Game
         /// <param name="auiWidget"></param>
         /// <param name="userData"></param>
         /// <exception cref="GameFrameworkException"></exception>
-        public void OpenUIWidget(AUIWidget auiWidget, IReference userData = null)
-        {
-            if (m_UIWidgetContainer == null)
-            {
-                throw new GameFrameworkException("Container is empty!");
-            }
-            m_UIWidgetContainer.OpenUIWidget(auiWidget, userData);
-        }
+        // public void OpenUIWidget(AUIWidget auiWidget, IReference userData = null)
+        // {
+        //     if (m_UIWidgetContainer == null)
+        //     {
+        //         throw new GameFrameworkException("Container is empty!");
+        //     }
+        //     m_UIWidgetContainer.OpenUIWidget(auiWidget, userData);
+        // }
 
         /// <summary>
         /// 动态打开UIWidget，刷新Depth
@@ -177,31 +187,30 @@ namespace Game
         /// <param name="auiWidget"></param>
         /// <param name="userData"></param>
         /// <exception cref="GameFrameworkException"></exception>
-        public void DynamicOpenUIWidget(AUIWidget auiWidget, IReference userData = null)
-        {
-            if (m_UIWidgetContainer == null)
-            {
-                throw new GameFrameworkException("Container is empty!");
-            }
-            m_UIWidgetContainer.DynamicOpenUIWidget(auiWidget, userData);
-        }
+        // public void DynamicOpenUIWidget(AUIWidget auiWidget, IReference userData = null)
+        // {
+        //     if (m_UIWidgetContainer == null)
+        //     {
+        //         throw new GameFrameworkException("Container is empty!");
+        //     }
+        //     m_UIWidgetContainer.DynamicOpenUIWidget(auiWidget, userData);
+        // }
 
-        public void CloseUIWidget(AUIWidget uiWidget, object userData = null, bool isShutdown = false)
-        {
-            if (m_UIWidgetContainer == null)
-            {
-                throw new GameFrameworkException("Container is empty!");
-            }
-            m_UIWidgetContainer.CloseUIWidget(uiWidget, userData, isShutdown);
-        }
+        // public void CloseUIWidget(AUIWidget uiWidget, object userData = null, bool isShutdown = false)
+        // {
+        //     if (m_UIWidgetContainer == null)
+        //     {
+        //         throw new GameFrameworkException("Container is empty!");
+        //     }
+        //     m_UIWidgetContainer.CloseUIWidget(uiWidget, userData, isShutdown);
+        // }
 
-        public void CloseAllUIWidgets(object userData = null, bool isShutdown = false)
-        {
-            if (m_UIWidgetContainer == null)
-                return;
-            m_UIWidgetContainer.CloseAllUIWidgets(userData, isShutdown);
-        }
-
+        // public void CloseAllUIWidgets(object userData = null, bool isShutdown = false)
+        // {
+        //     if (m_UIWidgetContainer == null)
+        //         return;
+        //     m_UIWidgetContainer.CloseAllUIWidgets(userData, isShutdown);
+        // }
         public void Subscribe(int id, EventHandler<GameEventArgs> handler)
         {
             if (m_EventContainer == null)

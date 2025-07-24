@@ -16,15 +16,15 @@ namespace Game
     {
         public abstract int Id { get; }
 
-        protected virtual bool HasAck => false;
+        protected virtual int AwaitReqId => 0;
         
         public void Handle(object sender, Packet packet)
         {
             DoHandle(sender, packet);
-            if (HasAck) 
+            if (AwaitReqId > 0)  
             {
                 var e = ReferencePool.Acquire<PacketHandleEventArgs>();
-                e.FromReqId = Id;
+                e.AwaitReqId = AwaitReqId;
                 e.Packet = packet;
                 GameEntry.Event.FireNow(this, e);
             }

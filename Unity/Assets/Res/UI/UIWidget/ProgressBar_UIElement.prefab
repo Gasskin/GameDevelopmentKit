@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6592593468813664867}
   - component: {fileID: 2621161837910833374}
   - component: {fileID: 465143304363256515}
-  - component: {fileID: 3667854580459552188}
+  - component: {fileID: 316762022881712729}
   m_Layer: 5
-  m_Name: ProgressBar_UIWidget
+  m_Name: ProgressBar_UIElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,10 +148,10 @@ MonoBehaviour:
   m_BindComponents:
   - {fileID: 8925544472946601039}
   m_SeparatorChar: 95
-  m_BindScript: {fileID: 11500000, guid: 36d0baa9ba824fa39a0afa9e0bea5f56, type: 3}
+  m_BindScript: {fileID: 11500000, guid: 706bf03d350d46bba67db4457d668f00, type: 3}
   m_BindComponentNames:
   - CountDownUXImage
---- !u!114 &3667854580459552188
+--- !u!114 &316762022881712729
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,7 +160,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2796176618948522613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36d0baa9ba824fa39a0afa9e0bea5f56, type: 3}
+  m_Script: {fileID: 11500000, guid: 706bf03d350d46bba67db4457d668f00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3401136418508998661

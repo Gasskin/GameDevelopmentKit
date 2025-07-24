@@ -17,36 +17,30 @@ namespace Game.Hot
         private List<TMP_Text> _playerName = new(2);
         private List<UXImage> _playerState = new(2);
 
-        protected override void OnInit(object userData)
+        protected override void OnOpen(object userData)
         {
-            base.OnInit(userData);
+            base.OnOpen(userData);
             InitBind(gameObject.GetComponent<CSCodeBindMono>());
-            
-            _roomModel = HotEntry.Model.Room;
             
             _playerName.Add(Player1TMPText);
             _playerName.Add(Player2TMPText);
-            
             _playerState.Add(State1UXImage);
             _playerState.Add(State2UXImage);
+            
+            _roomModel = HotEntry.Model.Room;
             
             StartGameButton.onClick.AddListener(OnStartGameClick);
             
             GameEntry.Event.Subscribe(RoomPlayerChangeEvent.EventId, OnRoomPlayerChangeEvent);
-        }
-
-        protected override void OnRecycle()
-        {
-            base.OnRecycle();
-            StartGameButton.onClick.RemoveAllListeners();
-            GameEntry.Event.Unsubscribe(RoomPlayerChangeEvent.EventId, OnRoomPlayerChangeEvent);
-            ClearBind();
-        }
-
-        protected override void OnOpen(object userData)
-        {
-            base.OnOpen(userData);
+            
             OnRoomPlayerChangeEvent(null, null);
+        }
+
+        protected override void OnClose(bool isShutdown, object userData)
+        {
+            base.OnClose(isShutdown, userData);
+            StartGameButton.onClick.RemoveAllListeners();
+            ClearBind();
         }
 
         private void ResetSeat()

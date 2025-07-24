@@ -2,12 +2,13 @@
 
 namespace Game.Hot
 {
-    public partial class HeroCardWidget : CodeBind.ICSCodeBind
+    public partial class HeroCardElement : CodeBind.ICSCodeBind
     {
         public CodeBind.CSCodeBindMono Mono { get; private set; }
         public UnityEngine.Transform Transform { get; private set; }
 
         public TMPro.TMP_Text HandCardTMPText { get; private set; }
+        public UnityEngine.UI.Button HeroButton { get; private set; }
         public TMPro.TMP_Text HeroNameTMPText { get; private set; }
         public TMPro.TMP_Text HpTMPText { get; private set; }
 
@@ -17,8 +18,9 @@ namespace Game.Hot
             Mono = mono;
             Transform = mono.transform;
             HandCardTMPText = Mono.BindComponents[0] as TMPro.TMP_Text;
-            HeroNameTMPText = Mono.BindComponents[1] as TMPro.TMP_Text;
-            HpTMPText = Mono.BindComponents[2] as TMPro.TMP_Text;
+            HeroButton = Mono.BindComponents[1] as UnityEngine.UI.Button;
+            HeroNameTMPText = Mono.BindComponents[2] as TMPro.TMP_Text;
+            HpTMPText = Mono.BindComponents[3] as TMPro.TMP_Text;
         }
 
         public void ClearBind()
@@ -26,6 +28,7 @@ namespace Game.Hot
             Mono = null;
             Transform = null;
             HandCardTMPText = null;
+            HeroButton = null;
             HeroNameTMPText = null;
             HpTMPText = null;
         }

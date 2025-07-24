@@ -7,33 +7,33 @@ namespace Game.Hot
         public CodeBind.CSCodeBindMono Mono { get; private set; }
         public UnityEngine.Transform Transform { get; private set; }
 
-        public Game.AUIWidget HeroCardUIWidget { get; private set; }
-        public Game.AUIWidget HeroCard1UIWidget { get; private set; }
-        public Game.AUIWidget HeroCard2UIWidget { get; private set; }
-        public Game.AUIWidget HeroCard3UIWidget { get; private set; }
-        public Game.AUIWidget ProgressBarUIWidget { get; private set; }
+        public Game.AUIElement HeroCardUIElement { get; private set; }
+        public Game.AUIElement HeroCard1UIElement { get; private set; }
+        public Game.AUIElement HeroCard2UIElement { get; private set; }
+        public Game.AUIElement HeroCard3UIElement { get; private set; }
+        public Game.AUIElement ProgressBarUIElement { get; private set; }
 
 
         public void InitBind(CodeBind.CSCodeBindMono mono)
         {
             Mono = mono;
             Transform = mono.transform;
-            HeroCardUIWidget = Mono.BindComponents[0] as Game.AUIWidget;
-            HeroCard1UIWidget = Mono.BindComponents[1] as Game.AUIWidget;
-            HeroCard2UIWidget = Mono.BindComponents[2] as Game.AUIWidget;
-            HeroCard3UIWidget = Mono.BindComponents[3] as Game.AUIWidget;
-            ProgressBarUIWidget = Mono.BindComponents[4] as Game.AUIWidget;
+            HeroCardUIElement = Mono.BindComponents[0] as Game.AUIElement;
+            HeroCard1UIElement = Mono.BindComponents[1] as Game.AUIElement;
+            HeroCard2UIElement = Mono.BindComponents[2] as Game.AUIElement;
+            HeroCard3UIElement = Mono.BindComponents[3] as Game.AUIElement;
+            ProgressBarUIElement = Mono.BindComponents[4] as Game.AUIElement;
         }
 
         public void ClearBind()
         {
             Mono = null;
             Transform = null;
-            HeroCardUIWidget = null;
-            HeroCard1UIWidget = null;
-            HeroCard2UIWidget = null;
-            HeroCard3UIWidget = null;
-            ProgressBarUIWidget = null;
+            HeroCardUIElement = null;
+            HeroCard1UIElement = null;
+            HeroCard2UIElement = null;
+            HeroCard3UIElement = null;
+            ProgressBarUIElement = null;
         }
     }
 }

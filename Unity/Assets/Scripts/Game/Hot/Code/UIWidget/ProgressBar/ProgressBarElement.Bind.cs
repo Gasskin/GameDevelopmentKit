@@ -2,7 +2,7 @@
 
 namespace Game.Hot
 {
-    public partial class ProgressBarWidget : CodeBind.ICSCodeBind
+    public partial class ProgressBarElement : CodeBind.ICSCodeBind
     {
         public CodeBind.CSCodeBindMono Mono { get; private set; }
         public UnityEngine.Transform Transform { get; private set; }

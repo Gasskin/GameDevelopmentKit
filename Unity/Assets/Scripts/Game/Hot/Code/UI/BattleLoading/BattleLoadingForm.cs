@@ -14,29 +14,23 @@ namespace Game.Hot
 
         private bool _isLoadEnd;
 
-        protected override void OnInit(object userData)
-        {
-            base.OnInit(userData);
-            InitBind(gameObject.GetComponent<CSCodeBindMono>());
-
-        }
-
-        protected override void OnRecycle()
-        {
-            base.OnRecycle();
-            ClearBind();
-        }
-
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-            
-            LoadTask().Forget();
+            InitBind(gameObject.GetComponent<CSCodeBindMono>());
             
             // 随机等待10-20秒，这个只是用来做显示的，没有实际意义
             _randomWait = (float)Utility.Random.GetRandomDouble() * 10f + 10f;
             _remain = _randomWait;
             TipTMPText.text = "资源加载中...";
+            
+            LoadTask().Forget();
+        }
+
+        protected override void OnClose(bool isShutdown, object userData)
+        {
+            base.OnClose(isShutdown, userData);
+            ClearBind();
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)

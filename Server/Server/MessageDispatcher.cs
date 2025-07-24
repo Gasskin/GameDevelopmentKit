@@ -7,7 +7,7 @@ public class MessageDispatcher
     private readonly Dictionary<int, Action<Socket, byte[]>> _handlers = new();
     private readonly Queue<Action> _postQueue = new();
 
-    public void Register<T>(int msgId, Action<Socket, T> handler) where T : class
+    public void Register<T>(int msgId, Action<int, Socket, T> handler) where T : class
     {
         _handlers[msgId] = (client, body) =>
         {
@@ -15,7 +15,8 @@ public class MessageDispatcher
             {
                 using var ms = new MemoryStream(body);
                 var msg = ProtoBuf.Serializer.Deserialize<T>(ms);
-                handler(client, msg);
+                var account = Room.Instance.SocketToAccount(client);
+                handler(account, client, msg);
             }
             catch (Exception ex)
             {

@@ -30,11 +30,11 @@ namespace Game
 
         public void Clear()
         {
+            foreach (var tcs in m_PacketToTcs.Values)
+                tcs.TrySetCanceled(m_CancellationTokenSource.Token);
             if (m_CancellationTokenSource != null)
                 m_CancellationTokenSource.Cancel();
             m_CancellationTokenSource = null;
-            foreach (var tcs in m_PacketToTcs.Values)
-                tcs.TrySetCanceled();
             m_PacketToTcs.Clear();
             UnSubscribeEvent();
         }
@@ -81,9 +81,12 @@ namespace Game
         private void OnPacketHandleEvent(object sender, GameEventArgs e)
         {
             var ee = (PacketHandleEventArgs)e;
-            if (!m_PacketToTcs.ContainsKey(ee.FromReqId))
+            if (!m_PacketToTcs.ContainsKey(ee.AwaitReqId))
+            {
+                Log.Error($"no net await found: {ee.AwaitReqId}");
                 return;
-            if (m_PacketToTcs.Remove(ee.FromReqId, out var tcs))
+            }
+            if (m_PacketToTcs.Remove(ee.AwaitReqId, out var tcs))
             {
                 if (m_CancellationTokenSource.IsCancellationRequested)
                 {

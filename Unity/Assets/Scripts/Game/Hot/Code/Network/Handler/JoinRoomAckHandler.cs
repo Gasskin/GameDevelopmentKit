@@ -9,8 +9,6 @@ namespace Game.Hot
     {
         public override int Id => GameHotMessageId.SC_JoinRoomAck;
 
-        protected override bool HasAck => true;
-
         protected override void DoHandle(object sender, Packet packet)
         {
             var msg = (SC_JoinRoomAck)packet;

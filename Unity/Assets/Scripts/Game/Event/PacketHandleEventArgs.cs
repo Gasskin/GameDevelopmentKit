@@ -10,14 +10,14 @@ namespace Game
 
         public override int Id => EventId;
         
-        public int FromReqId { get; set; }
+        public int AwaitReqId { get; set; }
         
         // 会被自动释放
         public Packet Packet { get; set; }
         
         public override void Clear()
         {
-            FromReqId = 0;
+            AwaitReqId = 0;
             Packet = null;
         }
     }
