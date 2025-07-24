@@ -1,28 +1,5 @@
 syntax = "proto3";
 
-// 心跳
-message CS_PingReq
-{
-
-}
-
-message SC_PingAck
-{
-	int64 timeStamp = 1;
-}
-
-// 加入房间
-message CS_JoinRoomReq
-{
-	int32 accountId = 1;
-}
-
-message SC_JoinRoomAck
-{
-	int32 myAccountId = 1;
-	repeated int32 roomPlayers = 2;
-}
-
 // 广播 玩家加入房间
 message SC_JoinRoomNtf
 {
