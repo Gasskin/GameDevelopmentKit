@@ -24,8 +24,8 @@
     "Id": 1004,
     "Name": "赵云",
     "Skill": [
-      0,
-      1
+      2,
+      3
     ],
     "HandLimit": 6,
     "HpLimit": 4

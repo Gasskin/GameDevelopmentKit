@@ -15,11 +15,13 @@ public partial class Tables
 {
     public DTHero DTHero {get; }
     public DTCardPile DTCardPile {get; }
+    public DTCardConfig DTCardConfig {get; }
 
     public Tables(System.Func<string, ByteBuf> loader)
     {
         DTHero = new DTHero(loader("dthero"));
         DTCardPile = new DTCardPile(loader("dtcardpile"));
+        DTCardConfig = new DTCardConfig(loader("dtcardconfig"));
         ResolveRef();
     }
     
@@ -27,6 +29,7 @@ public partial class Tables
     {
         DTHero.ResolveRef(this);
         DTCardPile.ResolveRef(this);
+        DTCardConfig.ResolveRef(this);
     }
 }
 

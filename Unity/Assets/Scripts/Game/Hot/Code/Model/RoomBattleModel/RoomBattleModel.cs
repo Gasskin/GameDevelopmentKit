@@ -24,14 +24,13 @@ namespace Game.Hot
         }
     }
     
-    public class RoomBattleModel
+    public partial class RoomBattleModel
     {
         public EBattleStage BattleStage { get; private set; } = EBattleStage.None;
 
         public EBattleStage LoadingStage { get; private set; } = EBattleStage.None;
 
         public SelectHeroStage SelectHeroStage { get; private set; }
-        
         
         public void SC_BeginBattleNtf(SC_StartChooseHeroNtf msg)
         {

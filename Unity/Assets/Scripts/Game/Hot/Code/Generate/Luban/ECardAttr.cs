@@ -11,24 +11,31 @@
 
 namespace Game.Hot
 { 
-    public enum ESkill
+    /// <summary>
+    /// 卡牌属性
+    /// </summary>
+    public enum ECardAttr
     {
         /// <summary>
-        /// 杀
+        /// 金
         /// </summary>
-        Sha = 0,
+        Jin = 0,
         /// <summary>
-        /// 闪
+        /// 木
         /// </summary>
-        Shan = 1,
+        Mu = 1,
         /// <summary>
-        /// 七进七出
+        /// 水
         /// </summary>
-        QiJinQiChu = 2,
+        Shui = 2,
         /// <summary>
-        /// 单骑救主
+        /// 火
         /// </summary>
-        DanQiJiuZhu = 3,
+        Huo = 3,
+        /// <summary>
+        /// 土
+        /// </summary>
+        Tu = 4,
     }
 
 } 

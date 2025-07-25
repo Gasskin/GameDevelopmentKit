@@ -11,24 +11,15 @@
 
 namespace Game.Hot
 { 
-    public enum ESkill
+    /// <summary>
+    /// 所属牌堆
+    /// </summary>
+    public enum ECardPile
     {
         /// <summary>
-        /// 杀
+        /// 基础牌堆
         /// </summary>
-        Sha = 0,
-        /// <summary>
-        /// 闪
-        /// </summary>
-        Shan = 1,
-        /// <summary>
-        /// 七进七出
-        /// </summary>
-        QiJinQiChu = 2,
-        /// <summary>
-        /// 单骑救主
-        /// </summary>
-        DanQiJiuZhu = 3,
+        Base = 0,
     }
 
 } 

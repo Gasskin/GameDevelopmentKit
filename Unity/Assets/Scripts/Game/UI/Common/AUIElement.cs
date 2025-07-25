@@ -55,7 +55,6 @@ namespace Game
         {
             m_OwnerForm = owner;
             Visible = true;
-            OnInit();
             OnOpen();
         }
 
@@ -64,7 +63,6 @@ namespace Game
             OnClose();
             m_OwnerForm = null;
         }
-        protected virtual void OnInit(){}
         protected abstract void OnOpen();
         protected abstract void OnClose();
         

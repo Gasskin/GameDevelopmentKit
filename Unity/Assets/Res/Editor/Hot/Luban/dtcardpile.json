@@ -1,0 +1,352 @@
+[
+  {
+    "Id": 1001,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 1,
+    "CardAttr": 0
+  },
+  {
+    "Id": 1002,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 2,
+    "CardAttr": 1
+  },
+  {
+    "Id": 1003,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 3,
+    "CardAttr": 2
+  },
+  {
+    "Id": 1004,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 4,
+    "CardAttr": 3
+  },
+  {
+    "Id": 1005,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 5,
+    "CardAttr": 4
+  },
+  {
+    "Id": 1006,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 6,
+    "CardAttr": 0
+  },
+  {
+    "Id": 1007,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 7,
+    "CardAttr": 1
+  },
+  {
+    "Id": 1008,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 8,
+    "CardAttr": 2
+  },
+  {
+    "Id": 1009,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 9,
+    "CardAttr": 3
+  },
+  {
+    "Id": 1010,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 10,
+    "CardAttr": 4
+  },
+  {
+    "Id": 1011,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 1,
+    "CardAttr": 0
+  },
+  {
+    "Id": 1012,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 2,
+    "CardAttr": 1
+  },
+  {
+    "Id": 1013,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 3,
+    "CardAttr": 2
+  },
+  {
+    "Id": 1014,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 4,
+    "CardAttr": 3
+  },
+  {
+    "Id": 1015,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 5,
+    "CardAttr": 4
+  },
+  {
+    "Id": 1016,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 6,
+    "CardAttr": 0
+  },
+  {
+    "Id": 1017,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 7,
+    "CardAttr": 1
+  },
+  {
+    "Id": 1018,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 8,
+    "CardAttr": 2
+  },
+  {
+    "Id": 1019,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 9,
+    "CardAttr": 3
+  },
+  {
+    "Id": 1020,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 10,
+    "CardAttr": 4
+  },
+  {
+    "Id": 1021,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 1,
+    "CardAttr": 0
+  },
+  {
+    "Id": 1022,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 2,
+    "CardAttr": 1
+  },
+  {
+    "Id": 1023,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 3,
+    "CardAttr": 2
+  },
+  {
+    "Id": 1024,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 4,
+    "CardAttr": 3
+  },
+  {
+    "Id": 1025,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 5,
+    "CardAttr": 4
+  },
+  {
+    "Id": 1026,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 6,
+    "CardAttr": 0
+  },
+  {
+    "Id": 1027,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 7,
+    "CardAttr": 1
+  },
+  {
+    "Id": 1028,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 8,
+    "CardAttr": 2
+  },
+  {
+    "Id": 1029,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 9,
+    "CardAttr": 3
+  },
+  {
+    "Id": 1030,
+    "CardPile": 0,
+    "CardConfig": 1,
+    "Num": 10,
+    "CardAttr": 4
+  },
+  {
+    "Id": 1031,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 1,
+    "CardAttr": 0
+  },
+  {
+    "Id": 1032,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 2,
+    "CardAttr": 1
+  },
+  {
+    "Id": 1033,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 3,
+    "CardAttr": 2
+  },
+  {
+    "Id": 1034,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 4,
+    "CardAttr": 3
+  },
+  {
+    "Id": 1035,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 5,
+    "CardAttr": 4
+  },
+  {
+    "Id": 1036,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 6,
+    "CardAttr": 0
+  },
+  {
+    "Id": 1037,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 7,
+    "CardAttr": 1
+  },
+  {
+    "Id": 1038,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 8,
+    "CardAttr": 2
+  },
+  {
+    "Id": 1039,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 9,
+    "CardAttr": 3
+  },
+  {
+    "Id": 1040,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 10,
+    "CardAttr": 4
+  },
+  {
+    "Id": 1041,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 1,
+    "CardAttr": 0
+  },
+  {
+    "Id": 1042,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 2,
+    "CardAttr": 1
+  },
+  {
+    "Id": 1043,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 3,
+    "CardAttr": 2
+  },
+  {
+    "Id": 1044,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 4,
+    "CardAttr": 3
+  },
+  {
+    "Id": 1045,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 5,
+    "CardAttr": 4
+  },
+  {
+    "Id": 1046,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 6,
+    "CardAttr": 0
+  },
+  {
+    "Id": 1047,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 7,
+    "CardAttr": 1
+  },
+  {
+    "Id": 1048,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 8,
+    "CardAttr": 2
+  },
+  {
+    "Id": 1049,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 9,
+    "CardAttr": 3
+  },
+  {
+    "Id": 1050,
+    "CardPile": 0,
+    "CardConfig": 2,
+    "Num": 10,
+    "CardAttr": 4
+  }
+]

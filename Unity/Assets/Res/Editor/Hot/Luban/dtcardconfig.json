@@ -1,0 +1,12 @@
+[
+  {
+    "Id": 1,
+    "CardSkill": 0,
+    "CardName": "杀"
+  },
+  {
+    "Id": 2,
+    "CardSkill": 1,
+    "CardName": "闪"
+  }
+]

@@ -10,39 +10,48 @@
 
 namespace Game.Hot.Editor
 {
-    public enum ESkill
+    /// <summary>
+    /// 卡牌属性
+    /// </summary>
+    public enum ECardAttr
     {
         /// <summary>
-        /// 杀
+        /// 金
         /// </summary>
-        Sha = 0,
+        Jin = 0,
         /// <summary>
-        /// 闪
+        /// 木
         /// </summary>
-        Shan = 1,
+        Mu = 1,
         /// <summary>
-        /// 七进七出
+        /// 水
         /// </summary>
-        QiJinQiChu = 2,
+        Shui = 2,
         /// <summary>
-        /// 单骑救主
+        /// 火
         /// </summary>
-        DanQiJiuZhu = 3,
+        Huo = 3,
+        /// <summary>
+        /// 土
+        /// </summary>
+        Tu = 4,
     }
 
-    public static class ESkill_Metadata
+    public static class ECardAttr_Metadata
     {
-        public static readonly Luban.EditorEnumItemInfo Sha = new Luban.EditorEnumItemInfo("Sha", "杀", 0, "杀");
-        public static readonly Luban.EditorEnumItemInfo Shan = new Luban.EditorEnumItemInfo("Shan", "闪", 1, "闪");
-        public static readonly Luban.EditorEnumItemInfo QiJinQiChu = new Luban.EditorEnumItemInfo("QiJinQiChu", "七进七出", 2, "七进七出");
-        public static readonly Luban.EditorEnumItemInfo DanQiJiuZhu = new Luban.EditorEnumItemInfo("DanQiJiuZhu", "单骑救主", 3, "单骑救主");
+        public static readonly Luban.EditorEnumItemInfo Jin = new Luban.EditorEnumItemInfo("Jin", "金", 0, "金");
+        public static readonly Luban.EditorEnumItemInfo Mu = new Luban.EditorEnumItemInfo("Mu", "木", 1, "木");
+        public static readonly Luban.EditorEnumItemInfo Shui = new Luban.EditorEnumItemInfo("Shui", "水", 2, "水");
+        public static readonly Luban.EditorEnumItemInfo Huo = new Luban.EditorEnumItemInfo("Huo", "火", 3, "火");
+        public static readonly Luban.EditorEnumItemInfo Tu = new Luban.EditorEnumItemInfo("Tu", "土", 4, "土");
 
         private static readonly System.Collections.Generic.List<Luban.EditorEnumItemInfo> __items = new System.Collections.Generic.List<Luban.EditorEnumItemInfo>
         {
-            Sha,
-            Shan,
-            QiJinQiChu,
-            DanQiJiuZhu,
+            Jin,
+            Mu,
+            Shui,
+            Huo,
+            Tu,
         };
 
         public static System.Collections.Generic.List<Luban.EditorEnumItemInfo> GetItems() => __items;

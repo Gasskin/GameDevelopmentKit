@@ -10,39 +10,24 @@
 
 namespace Game.Hot.Editor
 {
-    public enum ESkill
+    /// <summary>
+    /// 所属牌堆
+    /// </summary>
+    public enum ECardPile
     {
         /// <summary>
-        /// 杀
+        /// 基础牌堆
         /// </summary>
-        Sha = 0,
-        /// <summary>
-        /// 闪
-        /// </summary>
-        Shan = 1,
-        /// <summary>
-        /// 七进七出
-        /// </summary>
-        QiJinQiChu = 2,
-        /// <summary>
-        /// 单骑救主
-        /// </summary>
-        DanQiJiuZhu = 3,
+        Base = 0,
     }
 
-    public static class ESkill_Metadata
+    public static class ECardPile_Metadata
     {
-        public static readonly Luban.EditorEnumItemInfo Sha = new Luban.EditorEnumItemInfo("Sha", "杀", 0, "杀");
-        public static readonly Luban.EditorEnumItemInfo Shan = new Luban.EditorEnumItemInfo("Shan", "闪", 1, "闪");
-        public static readonly Luban.EditorEnumItemInfo QiJinQiChu = new Luban.EditorEnumItemInfo("QiJinQiChu", "七进七出", 2, "七进七出");
-        public static readonly Luban.EditorEnumItemInfo DanQiJiuZhu = new Luban.EditorEnumItemInfo("DanQiJiuZhu", "单骑救主", 3, "单骑救主");
+        public static readonly Luban.EditorEnumItemInfo Base = new Luban.EditorEnumItemInfo("Base", "基础牌堆", 0, "基础牌堆");
 
         private static readonly System.Collections.Generic.List<Luban.EditorEnumItemInfo> __items = new System.Collections.Generic.List<Luban.EditorEnumItemInfo>
         {
-            Sha,
-            Shan,
-            QiJinQiChu,
-            DanQiJiuZhu,
+            Base,
         };
 
         public static System.Collections.Generic.List<Luban.EditorEnumItemInfo> GetItems() => __items;

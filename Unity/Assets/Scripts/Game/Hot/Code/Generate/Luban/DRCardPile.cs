@@ -9,8 +9,7 @@
 
 using Luban;
 
-
-namespace cfg
+namespace Game.Hot
 {
 public sealed partial class DRCardPile : Luban.BeanBase
 {
@@ -22,6 +21,7 @@ public sealed partial class DRCardPile : Luban.BeanBase
         CardConfig_Ref = null;
         Num = _buf.ReadInt();
         CardAttr = (ECardAttr)_buf.ReadInt();
+        PostInit();
     }
 
     public static DRCardPile DeserializeDRCardPile(ByteBuf _buf)
@@ -41,7 +41,7 @@ public sealed partial class DRCardPile : Luban.BeanBase
     /// 卡牌配置
     /// </summary>
     public readonly int CardConfig;
-    public DRCardConfig CardConfig_Ref;
+    public DRCardConfig CardConfig_Ref { private set; get; }
     /// <summary>
     /// 点数
     /// </summary>
@@ -50,13 +50,13 @@ public sealed partial class DRCardPile : Luban.BeanBase
     /// 属性
     /// </summary>
     public readonly ECardAttr CardAttr;
-   
     public const int __ID__ = 1690855184;
     public override int GetTypeId() => __ID__;
 
-    public  void ResolveRef(Tables tables)
+    public  void ResolveRef(TablesComponent tables)
     {
         CardConfig_Ref = tables.DTCardConfig.GetOrDefault(CardConfig);
+        PostResolveRef();
     }
 
     public override string ToString()
@@ -69,7 +69,8 @@ public sealed partial class DRCardPile : Luban.BeanBase
         + "CardAttr:" + CardAttr + ","
         + "}";
     }
-}
 
+    partial void PostInit();
+    partial void PostResolveRef();
 }
-
+}

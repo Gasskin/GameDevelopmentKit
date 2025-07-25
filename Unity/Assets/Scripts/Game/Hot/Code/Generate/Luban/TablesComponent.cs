@@ -20,6 +20,8 @@ public partial class TablesComponent
     public DTThruster DTThruster { private set; get; }
     public DTWeapon DTWeapon { private set; get; }
     public DTHero DTHero { private set; get; }
+    public DTCardPile DTCardPile { private set; get; }
+    public DTCardConfig DTCardConfig { private set; get; }
     private System.Collections.Generic.Dictionary<string, IDataTable> _tables;
     public System.Collections.Generic.IEnumerable<IDataTable> DataTables => _tables.Values;
     public IDataTable GetDataTable(string tableName) => _tables.TryGetValue(tableName, out var v) ? v : null;
@@ -52,6 +54,12 @@ public partial class TablesComponent
         DTHero = new DTHero(() => loader("dthero"));
         loadTasks.Add(DTHero.LoadAsync());
         _tables.Add("DTHero", DTHero);
+        DTCardPile = new DTCardPile(() => loader("dtcardpile"));
+        loadTasks.Add(DTCardPile.LoadAsync());
+        _tables.Add("DTCardPile", DTCardPile);
+        DTCardConfig = new DTCardConfig(() => loader("dtcardconfig"));
+        loadTasks.Add(DTCardConfig.LoadAsync());
+        _tables.Add("DTCardConfig", DTCardConfig);
 
         await Cysharp.Threading.Tasks.UniTask.WhenAll(loadTasks);
 
@@ -69,6 +77,8 @@ public partial class TablesComponent
         DTThruster.ResolveRef(this);
         DTWeapon.ResolveRef(this);
         DTHero.ResolveRef(this);
+        DTCardPile.ResolveRef(this);
+        DTCardConfig.ResolveRef(this);
         PostResolveRef();
     }
 
