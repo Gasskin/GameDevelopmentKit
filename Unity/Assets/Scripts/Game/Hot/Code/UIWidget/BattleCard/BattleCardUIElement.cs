@@ -10,14 +10,14 @@ namespace Game.Hot
 
         private BattleCard _battleCard;
 
-        protected override void OnOpen()
+        protected override void OnAdd()
         {
             InitBind(CachedGameObject.GetComponent<CSCodeBindMono>());
 
             CardBgButton.onClick.AddListener(OnCardClick);
         }
 
-        protected override void OnClose()
+        protected override void OnRemove()
         {
             _battleCard = null;
             ClickBattleCardEventHandler = null;

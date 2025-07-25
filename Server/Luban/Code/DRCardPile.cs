@@ -10,8 +10,7 @@
 using Luban;
 
 
-namespace cfg
-{
+
 public sealed partial class DRCardPile : Luban.BeanBase
 {
     public DRCardPile(ByteBuf _buf) 
@@ -71,5 +70,5 @@ public sealed partial class DRCardPile : Luban.BeanBase
     }
 }
 
-}
+
 

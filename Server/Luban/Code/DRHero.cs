@@ -10,8 +10,7 @@
 using Luban;
 
 
-namespace cfg
-{
+
 public sealed partial class DRHero : Luban.BeanBase
 {
     public DRHero(ByteBuf _buf) 
@@ -62,5 +61,5 @@ public sealed partial class DRHero : Luban.BeanBase
     }
 }
 
-}
+
 

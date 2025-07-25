@@ -153,7 +153,7 @@ namespace ET
                         isEnumStart = true;
 
                         string enumName = newline.Split(s_SplitChars, StringSplitOptions.RemoveEmptyEntries)[1];
-
+                        Log.Info($"enumName: {enumName}");
                         s_StringBuilder.Append($"\t// proto file : {protoFile.Replace("\\", "/").Split("/")[^2]}/{Path.GetFileName(protoFile)} (line:{lineNum})\n");
                         s_StringBuilder.Append($"\tpublic enum {enumName}");
 

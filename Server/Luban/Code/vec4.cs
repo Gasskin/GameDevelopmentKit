@@ -10,8 +10,7 @@
 using Luban;
 
 
-namespace cfg
-{
+
 public partial struct vec4
 {
     public vec4(ByteBuf _buf) 
@@ -48,5 +47,5 @@ public partial struct vec4
     }
 }
 
-}
+
 

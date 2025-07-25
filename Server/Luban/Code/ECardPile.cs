@@ -9,8 +9,7 @@
 
 
 
-namespace cfg
-{ 
+ 
     /// <summary>
     /// 所属牌堆
     /// </summary>
@@ -22,5 +21,5 @@ namespace cfg
         Base = 0,
     }
 
-} 
+ 
 

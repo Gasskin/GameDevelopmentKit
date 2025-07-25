@@ -21,7 +21,7 @@ namespace Game
         }
 
 
-        public T OpenUIElement<T>(AUIElement uiElement) where T : AUIElement
+        public T AddUIElement<T>(AUIElement uiElement) where T : AUIElement
         {
             if (uiElement == null)
             {
@@ -32,7 +32,7 @@ namespace Game
                 throw new GameFrameworkException(Utility.Text.Format("Can't duplicate add UIElement : '{0}'!", uiElement.CachedTransform.name));
             }
             m_UIElement.Add(uiElement);
-            uiElement.Open(Owner);
+            uiElement.Add(Owner);
             return (T)uiElement;
         }
 
@@ -53,7 +53,7 @@ namespace Game
             {
                 foreach (var element in m_UIElement)
                 {
-                    element.Close();
+                    element.Remove();
                 }
                 m_UIElement.Clear();
             }

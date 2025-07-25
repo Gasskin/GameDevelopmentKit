@@ -44,18 +44,18 @@ namespace Game.Hot
             {
                 ProgressUXImage.fillAmount = Mathf.Clamp(1f - _remain / _randomWait, 0f, 1f);
             }
-
-            if (_isLoadEnd && HotEntry.Model.RoomBattle.LoadingStage == EBattleStage.Loading)
-            {
-                ProgressUXImage.fillAmount = 1f;
-                HotEntry.Model.RoomBattle.ChangeRoomBattleLoadingStage(EBattleStage.LoadEnd);
-            }
+            //
+            // if (_isLoadEnd && HotEntry.Model.RoomBattle.LoadingStage == EBattleStage.Loading)
+            // {
+            //     ProgressUXImage.fillAmount = 1f;
+            //     HotEntry.Model.RoomBattle.ChangeRoomBattleLoadingStage(EBattleStage.LoadEnd);
+            // }
         }
 
         private async UniTaskVoid LoadTask()
         {
             _isLoadEnd = false;
-            await GameEntry.UI.OpenUIFormAsync(UIFormId.SelectHeroForm, null, cancellationTokenSource.Token);
+            await GameEntry.UI.OpenUIFormAsync(UIFormId.ChooseHeroForm, null, cancellationTokenSource.Token);
             _isLoadEnd = true;
         }
     }

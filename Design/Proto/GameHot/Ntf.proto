@@ -31,12 +31,20 @@ message SC_StartChooseHeroNtf
 // 广播 开始战斗
 message SC_StartBattleNtf
 {
-	repeated DS_PlayerInitInfo playerInitInfos = 1;
+	int32 mainPlayerId						   = 1; // 主视角玩家ID
+	repeated DS_PlayerInitInfo playerInitInfos = 2;
 }
 
 message DS_PlayerInitInfo
 {
-	repeated int32 handCards = 1; // 初始手牌
-	int32 heroId			 = 2; // 初始武将 
-	int32 playerId			 = 3; // 玩家id
+	repeated int32 handCards 			= 1; // 初始手牌
+	int32 heroId			 			= 2; // 初始武将 
+	int32 playerId			 			= 3; // 玩家id
+	repeated DS_PropertyInfo properties = 4; // 属性信息
+}
+
+message DS_PropertyInfo
+{
+	EPropertyType propertyType = 1; // 枚举
+	int32 value 			   = 2; // 值
 }

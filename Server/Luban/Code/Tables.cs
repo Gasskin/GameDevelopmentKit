@@ -9,8 +9,7 @@
 
 using Luban;
 
-namespace cfg
-{
+
 public partial class Tables
 {
     public DTHero DTHero {get; }
@@ -33,4 +32,4 @@ public partial class Tables
     }
 }
 
-}
+

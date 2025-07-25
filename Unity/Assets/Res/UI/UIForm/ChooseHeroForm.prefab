@@ -555,7 +555,7 @@ GameObject:
   - component: {fileID: 3998843986689329168}
   - component: {fileID: 8438519971194489601}
   m_Layer: 5
-  m_Name: SelectHeroForm
+  m_Name: ChooseHeroForm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -6,6 +6,30 @@ using System.Collections.Generic;
 
 namespace Game.Hot
 {
+    // proto file : GameHot/Enum.proto (line:3)
+    public enum EPropertyType    {
+        /// <summary>
+        /// 手牌上限
+        /// </summary>
+        HandLimit = 0,
+        /// <summary>
+        /// 装备上限
+        /// </summary>
+        EquipLimit = 1,
+        /// <summary>
+        /// 当前血量
+        /// </summary>
+        CurHp = 2,
+        /// <summary>
+        /// 最大血量
+        /// </summary>
+        MaxHp = 3,
+        /// <summary>
+        /// 最大值
+        /// </summary>
+        Max = 4,
+    }
+
     // 广播 玩家加入房间
     // proto file : GameHot/Ntf.proto (line:4)
     [Serializable, ProtoContract(Name = @"SC_JoinRoomNtf")]
@@ -83,15 +107,21 @@ namespace Game.Hot
     public partial class SC_StartBattleNtf : SCPacketBase
     {
         public override int Id => 30005;
+        /// <summary>
+        /// 主视角玩家ID
+        /// </summary>
         [ProtoMember(1)]
+        public int mainPlayerId { get; set; }
+        [ProtoMember(2)]
         public List<DS_PlayerInitInfo> playerInitInfos { get; set; } = new List<DS_PlayerInitInfo>();
         public override void Clear()
         {
+            this.mainPlayerId = default;
             this.playerInitInfos.Clear();
         }
     }
 
-    // proto file : GameHot/Ntf.proto (line:37)
+    // proto file : GameHot/Ntf.proto (line:38)
     [Serializable, ProtoContract(Name = @"DS_PlayerInitInfo")]
     public partial class DS_PlayerInitInfo
     {
@@ -110,6 +140,27 @@ namespace Game.Hot
         /// </summary>
         [ProtoMember(3)]
         public int playerId { get; set; }
+        /// <summary>
+        /// 属性信息
+        /// </summary>
+        [ProtoMember(4)]
+        public List<DS_PropertyInfo> properties { get; set; } = new List<DS_PropertyInfo>();
+    }
+
+    // proto file : GameHot/Ntf.proto (line:46)
+    [Serializable, ProtoContract(Name = @"DS_PropertyInfo")]
+    public partial class DS_PropertyInfo
+    {
+        /// <summary>
+        /// 枚举
+        /// </summary>
+        [ProtoMember(1)]
+        public EPropertyType propertyType { get; set; }
+        /// <summary>
+        /// 值
+        /// </summary>
+        [ProtoMember(2)]
+        public int value { get; set; }
     }
 
     // 心跳

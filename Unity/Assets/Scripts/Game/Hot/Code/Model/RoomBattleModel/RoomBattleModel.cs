@@ -32,10 +32,10 @@ namespace Game.Hot
 
         public SelectHeroStage SelectHeroStage { get; private set; }
         
-        public void SC_BeginBattleNtf(SC_StartChooseHeroNtf msg)
+        public void StartChooseHeroNtf(SC_StartChooseHeroNtf msg)
         {
             SelectHeroStage = new(msg);
-            BattleStage = EBattleStage.SelectHero;
+            BattleStage = EBattleStage.ChooseHero;
         }
         
         public void ChangeRoomBattleLoadingStage(EBattleStage stage)

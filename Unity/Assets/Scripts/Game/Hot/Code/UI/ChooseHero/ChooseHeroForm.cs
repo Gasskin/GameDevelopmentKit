@@ -7,7 +7,7 @@ using UnityGameFramework.Runtime;
 
 namespace Game.Hot
 {
-    public partial class SelectHeroForm : AHotUIForm
+    public partial class ChooseHeroForm : AHotUIForm
     {
         private List<HeroCardElement> _heroList = new();
         private HeroCardElement _currentHero;
@@ -18,11 +18,11 @@ namespace Game.Hot
             base.OnOpen(userData);
             InitBind(gameObject.GetComponent<CSCodeBindMono>());
 
-            _currentHero = OpenUIElement<HeroCardElement>(HeroCardUIElement);
-            _progressBar = OpenUIElement<ProgressBarElement>(ProgressBarUIElement);
-            _heroList.Add(OpenUIElement<HeroCardElement>(HeroCard1UIElement));
-            _heroList.Add(OpenUIElement<HeroCardElement>(HeroCard2UIElement));
-            _heroList.Add(OpenUIElement<HeroCardElement>(HeroCard3UIElement));
+            _currentHero = AddUIElement<HeroCardElement>(HeroCardUIElement);
+            _progressBar = AddUIElement<ProgressBarElement>(ProgressBarUIElement);
+            _heroList.Add(AddUIElement<HeroCardElement>(HeroCard1UIElement));
+            _heroList.Add(AddUIElement<HeroCardElement>(HeroCard2UIElement));
+            _heroList.Add(AddUIElement<HeroCardElement>(HeroCard3UIElement));
             _currentHero.Visible = false;
 
             var stage = HotEntry.Model.RoomBattle.SelectHeroStage;

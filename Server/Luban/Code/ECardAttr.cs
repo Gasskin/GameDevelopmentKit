@@ -9,8 +9,7 @@
 
 
 
-namespace cfg
-{ 
+ 
     /// <summary>
     /// 卡牌属性
     /// </summary>
@@ -38,5 +37,5 @@ namespace cfg
         Tu = 4,
     }
 
-} 
+ 
 

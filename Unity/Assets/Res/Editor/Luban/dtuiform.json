@@ -19,9 +19,18 @@
   },
   {
     "Id": 1003,
-    "CSName": "SelectHeroForm",
+    "CSName": "ChooseHeroForm",
     "Desc": "",
-    "AssetName": "SelectHeroForm",
+    "AssetName": "ChooseHeroForm",
+    "UIGroupName": "Default",
+    "AllowMultiInstance": false,
+    "PauseCoveredUIForm": true
+  },
+  {
+    "Id": 1004,
+    "CSName": "BattleForm",
+    "Desc": "",
+    "AssetName": "BattleForm",
     "UIGroupName": "Default",
     "AllowMultiInstance": false,
     "PauseCoveredUIForm": true

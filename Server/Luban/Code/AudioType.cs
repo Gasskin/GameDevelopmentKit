@@ -9,8 +9,7 @@
 
 
 
-namespace cfg
-{ 
+ 
     public enum AudioType
     {
         UNKNOWN = 0,
@@ -18,5 +17,5 @@ namespace cfg
         AIFF = 2,
     }
 
-} 
+ 
 

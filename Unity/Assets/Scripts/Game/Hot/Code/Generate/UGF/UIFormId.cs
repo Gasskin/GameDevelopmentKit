@@ -22,7 +22,12 @@ namespace Game.Hot
         /// <summary>
         /// 
         /// </summary>
-        public const int SelectHeroForm = 1003;
+        public const int ChooseHeroForm = 1003;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const int BattleForm = 1004;
 
         /// <summary>
         /// 

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+enum EPropertyType
+{
+	HandLimit	= 0; // 手牌上限
+	EquipLimit	= 1; // 装备上限
+	CurHp		= 2; // 当前血量
+	MaxHp		= 3; // 最大血量
+	Max 		= 4; // 最大值
+}

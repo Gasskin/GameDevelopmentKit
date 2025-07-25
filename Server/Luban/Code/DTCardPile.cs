@@ -10,8 +10,7 @@
 using Luban;
 
 
-namespace cfg
-{
+
 public partial class DTCardPile
 {
     private readonly System.Collections.Generic.Dictionary<int, DRCardPile> _dataMap;
@@ -25,7 +24,7 @@ public partial class DTCardPile
         for(int n = _buf.ReadSize() ; n > 0 ; --n)
         {
             DRCardPile _v;
-            _v = global::cfg.DRCardPile.DeserializeDRCardPile(_buf);
+            _v = global::DRCardPile.DeserializeDRCardPile(_buf);
             _dataList.Add(_v);
             _dataMap.Add(_v.Id, _v);
         }
@@ -48,5 +47,5 @@ public partial class DTCardPile
 
 }
 
-}
+
 

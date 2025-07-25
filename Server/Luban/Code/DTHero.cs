@@ -10,8 +10,7 @@
 using Luban;
 
 
-namespace cfg
-{
+
 public partial class DTHero
 {
     private readonly System.Collections.Generic.Dictionary<int, DRHero> _dataMap;
@@ -25,7 +24,7 @@ public partial class DTHero
         for(int n = _buf.ReadSize() ; n > 0 ; --n)
         {
             DRHero _v;
-            _v = global::cfg.DRHero.DeserializeDRHero(_buf);
+            _v = global::DRHero.DeserializeDRHero(_buf);
             _dataList.Add(_v);
             _dataMap.Add(_v.Id, _v);
         }
@@ -48,5 +47,5 @@ public partial class DTHero
 
 }
 
-}
+
 

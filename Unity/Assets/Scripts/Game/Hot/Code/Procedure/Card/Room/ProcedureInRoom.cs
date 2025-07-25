@@ -18,8 +18,8 @@ namespace Game.Hot
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
             switch (HotEntry.Model.RoomBattle.BattleStage)
             {
-                case EBattleStage.SelectHero:
-                    ChangeState<ProcedureBattleSelectHero>(procedureOwner);
+                case EBattleStage.ChooseHero:
+                    ChangeState<ProcedureChooseHero>(procedureOwner);
                     break;
             }
         }

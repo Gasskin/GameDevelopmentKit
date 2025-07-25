@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using cfg;
 
 class Program
 {

@@ -51,20 +51,20 @@ namespace Game
             }
         }
 
-        public void Open(AUGuiForm owner)
+        public void Add(AUGuiForm owner)
         {
             m_OwnerForm = owner;
             Visible = true;
-            OnOpen();
+            OnAdd();
         }
 
-        public void Close()
+        public void Remove()
         {
-            OnClose();
+            OnRemove();
             m_OwnerForm = null;
         }
-        protected abstract void OnOpen();
-        protected abstract void OnClose();
+        protected abstract void OnAdd();
+        protected abstract void OnRemove();
         
         protected internal virtual void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {

@@ -76,6 +76,7 @@ namespace Game
         protected override void OnClose(bool isShutdown, object userData)
         {
             // m_UIWidgetContainer?.OnClose(isShutdown, userData);
+            m_UIElementContainer?.CloseAllUIElement(isShutdown);
             HideAllEntity();
             UnsubscribeAll();
             UnloadAllAssets();
@@ -83,7 +84,6 @@ namespace Game
             if (!isShutdown)
             {
                 // m_UIWidgetContainer?.RemoveAllUIWidget();
-                m_UIElementContainer?.CloseAllUIElement(isShutdown);
                 ClearUIForm();
             }
             base.OnClose(isShutdown, userData);
@@ -139,13 +139,13 @@ namespace Game
             return p as T;
         }
 
-        protected T OpenUIElement<T>(AUIElement e) where T : AUIElement
+        protected T AddUIElement<T>(AUIElement e) where T : AUIElement
         {
             if (m_UIElementContainer == null)
             {
                 m_UIElementContainer = UIElementContainer.Create(this);
             }
-            return m_UIElementContainer.OpenUIElement<T>(e);
+            return m_UIElementContainer.AddUIElement<T>(e);
         }
 
         // public void AddUIWidget(AUIWidget auiWidget, object userData = null)

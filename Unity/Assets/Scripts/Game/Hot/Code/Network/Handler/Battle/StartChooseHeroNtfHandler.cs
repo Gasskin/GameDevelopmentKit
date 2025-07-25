@@ -8,7 +8,8 @@ namespace Game.Hot
         
         protected override void DoHandle(object sender, Packet packet)
         {
-            HotEntry.Model.RoomBattle.SC_BeginBattleNtf((SC_StartChooseHeroNtf)packet);
+            HotEntry.Model.RoomBattle.StartChooseHeroNtf((SC_StartChooseHeroNtf)packet);
+            
         }
     }
 }

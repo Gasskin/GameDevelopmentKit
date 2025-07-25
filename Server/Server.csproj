@@ -10,4 +10,26 @@
       <Folder Include="Luban\Code\" />
       <Folder Include="Luban\Data\" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Include="..\Unity\Assets\Scripts\Game\Hot\Code\Model\RoomBattleModel\Common\BattleCard.cs">
+        <Link>Battle\Ref\Common\BattleCard.cs</Link>
+      </Compile>
+      <Compile Include="..\Unity\Assets\Scripts\Game\Hot\Code\Model\RoomBattleModel\Common\BattlePlayer.cs">
+        <Link>Battle\Ref\Common\BattlePlayer.cs</Link>
+      </Compile>
+      <Compile Include="..\Unity\Assets\Scripts\Game\Hot\Code\Model\RoomBattleModel\Common\BattleProperty.cs">
+        <Link>Battle\Ref\Common\BattleProperty.cs</Link>
+      </Compile>
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="..\Unity\Assets\Scripts\Game\Hot\Code\Model\RoomBattleModel\Common\BattleCard.cs.meta">
+        <Link>Battle\Ref\Common\BattleCard.cs.meta</Link>
+      </Content>
+      <Content Include="..\Unity\Assets\Scripts\Game\Hot\Code\Model\RoomBattleModel\Common\BattlePlayer.cs.meta">
+        <Link>Battle\Ref\Common\BattlePlayer.cs.meta</Link>
+      </Content>
+      <Content Include="..\Unity\Assets\Scripts\Game\Hot\Code\Model\RoomBattleModel\Common\BattleProperty.cs.meta">
+        <Link>Battle\Ref\Common\BattleProperty.cs.meta</Link>
+      </Content>
+    </ItemGroup>
 </Project>

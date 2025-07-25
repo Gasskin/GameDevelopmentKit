@@ -1,5 +1,6 @@
 ﻿using System;
 using CodeBind;
+using GameFramework;
 
 namespace Game.Hot
 {
@@ -8,8 +9,9 @@ namespace Game.Hot
         private bool _canClick;
         private Action<int> _onClick;
         private int _heroId;
+        private BattlePlayer _battlePlayer;
 
-        protected override void OnOpen()
+        protected override void OnAdd()
         {
             InitBind(gameObject.GetComponent<CSCodeBindMono>());
             HeroButton.onClick.AddListener((() =>
@@ -21,7 +23,7 @@ namespace Game.Hot
             }));
         }
 
-        protected override void OnClose()
+        protected override void OnRemove()
         {
             _heroId = 0;
             ClearBind();
@@ -36,6 +38,19 @@ namespace Game.Hot
                 HeroNameTMPText.text = drHero.Name;
                 HandCardTMPText.text = drHero.HandLimit.ToString();
                 HpTMPText.text = drHero.HpLimit.ToString();
+            }
+        }
+
+        public void SetBattlePlayerInfo(BattlePlayer p)
+        {
+            var drHero = HotEntry.Tables.DTHero.GetOrDefault(p.HeroId);
+            if (drHero != null)
+            {
+                _heroId = p.HeroId;
+                _battlePlayer = p;
+                HeroNameTMPText.text = drHero.Name;
+                HandCardTMPText.text = Utility.Text.Format("{0}/{1}", _battlePlayer.HandCards.Count, _battlePlayer.BattleProperty[EPropertyType.HandLimit]);
+                HpTMPText.text = Utility.Text.Format("{0}/{1}", _battlePlayer.BattleProperty[EPropertyType.CurHp], _battlePlayer.BattleProperty[EPropertyType.MaxHp]);
             }
         }
 

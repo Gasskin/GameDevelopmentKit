@@ -2,7 +2,7 @@
 
 namespace Game.Hot
 {
-    public partial class SelectHeroForm : CodeBind.ICSCodeBind
+    public partial class ChooseHeroForm : CodeBind.ICSCodeBind
     {
         public CodeBind.CSCodeBindMono Mono { get; private set; }
         public UnityEngine.Transform Transform { get; private set; }

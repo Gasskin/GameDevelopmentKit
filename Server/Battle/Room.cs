@@ -1,32 +1,33 @@
 ﻿using System.Net.Sockets;
-using cfg;
 using Game.Hot;
 
 public class Room
 {
     public static Room Instance { get; } = new();
 
-    private Dictionary<int, Socket> _playerToSocket = new();
+    private Dictionary<int, Socket> _idToSocket = new();
 
-    private Dictionary<Socket, int> _socketToPlayer = new();
+    private Dictionary<Socket, int> _socketToId = new();
 
-    private Dictionary<int, List<int>> _canChooseHeroId = new();
+    private Dictionary<int, List<int>> _idToCanChooseHeroId = new();
 
     private List<int> _roomPlayer = new();
-    
-    private Dictionary<int,int> _playerToChooseHeroId = new();
 
-    private List<DRCardPile> _cardPile;
-    
-    private Dictionary<int,BattlePlayer> _playerToBattlePlayer = new();
+    private Dictionary<int, int> _idToChooseHeroId = new();
+
+    private List<int> _cardPile = new();
+
+    private Dictionary<int, BattleCard> _idToBattleCard = new();
+
+    private Dictionary<int, BattlePlayer> _idToBattlePlayer = new();
 
     public void OnJoinRoomReq(Socket newClient, CS_JoinRoomReq msg)
     {
         Console.WriteLine($"[房间]{msg.accountId}加入房间");
-        _playerToSocket.Add(msg.accountId, newClient);
-        _socketToPlayer.Add(newClient, msg.accountId);
+        _idToSocket.Add(msg.accountId, newClient);
+        _socketToId.Add(newClient, msg.accountId);
 
-        foreach (var c in _playerToSocket.Values)
+        foreach (var c in _idToSocket.Values)
         {
             if (c == newClient)
                 continue;
@@ -47,46 +48,46 @@ public class Room
 
     public void OnBeginBattleNtf()
     {
-        _playerToChooseHeroId.Clear();
+        _idToChooseHeroId.Clear();
         var randomHero = RandomList(Tables.Instance.DTHero.DataList);
         var idx = 0;
-        _canChooseHeroId.Clear();
+        _idToCanChooseHeroId.Clear();
         foreach (var id in _roomPlayer)
         {
             var heroList = new List<int>();
             for (int i = idx; i < idx + 3; i++)
                 heroList.Add(randomHero[i].Id);
-            _canChooseHeroId.Add(id, heroList);
+            _idToCanChooseHeroId.Add(id, heroList);
             idx += 3;
         }
-        foreach (var pair in _playerToSocket)
+        foreach (var pair in _idToSocket)
         {
             Server.Instance.Send(pair.Value, new SC_StartChooseHeroNtf()
             {
-                canChooseHero = _canChooseHeroId[pair.Key],
+                canChooseHero = _idToCanChooseHeroId[pair.Key],
                 endTimestampMs = Program.ServerTimeMs + 20 * 1000,
                 totalTimeMs = 20 * 1000, // 30秒
             });
             idx += 3;
         }
     }
-    
-    
+
+
     public void OnChooseHeroReq(int account, CS_ChooseHeroReq msg)
     {
-        _playerToChooseHeroId.TryAdd(account, 0);
-        _playerToChooseHeroId[account]=msg.heroId;
+        _idToChooseHeroId.TryAdd(account, 0);
+        _idToChooseHeroId[account] = msg.heroId;
     }
 
     public bool CanChooseHero(int playerId, int heroId)
     {
-        return _canChooseHeroId.TryGetValue(playerId, out var heroList) && heroList.Contains(heroId);
+        return _idToCanChooseHeroId.TryGetValue(playerId, out var heroList) && heroList.Contains(heroId);
     }
 
     public void OnDisconnect(Socket client)
     {
         var player = 0;
-        foreach (var kv in _playerToSocket)
+        foreach (var kv in _idToSocket)
         {
             if (kv.Value == client)
             {
@@ -99,26 +100,30 @@ public class Room
         {
             Console.WriteLine($"[房间]{player}离开房间");
             _roomPlayer.Remove(player);
-            _playerToSocket.Remove(player);
-            _socketToPlayer.Remove(client);
+            _idToSocket.Remove(player);
+            _socketToId.Remove(client);
         }
     }
 
     public int SocketToAccount(Socket client)
     {
-        return _socketToPlayer.GetValueOrDefault(client, 0);
+        return _socketToId.GetValueOrDefault(client, 0);
     }
 
     public bool IsSelectHeroEnd()
     {
-        return _playerToChooseHeroId.Count == 2;
+        return _idToChooseHeroId.Count == 2;
     }
 
     public void StartBattle()
     {
-        _playerToBattlePlayer.Clear();
-        _cardPile = RandomList(Tables.Instance.DTCardPile.DataList);
-        foreach (var pair in _playerToChooseHeroId)
+        _idToBattlePlayer.Clear();
+        _cardPile.Clear();
+        _idToBattleCard.Clear();
+        var randomCardPile = RandomList(Tables.Instance.DTCardPile.DataList);
+        _cardPile.AddRange(randomCardPile.Select((drCardPile => drCardPile.Id)));
+
+        foreach (var pair in _idToChooseHeroId)
         {
             var bp = new BattlePlayer();
             bp.HeroId = pair.Value;
@@ -130,19 +135,20 @@ public class Room
                 bp.HandCards.Add(card);
                 _cardPile.RemoveAt(_cardPile.Count - 1);
             }
-            _playerToBattlePlayer.Add(pair.Key, bp);
+            _idToBattlePlayer.Add(pair.Key, bp);
         }
 
         var infoList = new List<DS_PlayerInitInfo>();
-        foreach (var pair in _playerToSocket)
+        foreach (var pair in _idToSocket)
         {
-            infoList.Add(_playerToBattlePlayer[pair.Key].ToPlayerInitInfo());
+            infoList.Add(_idToBattlePlayer[pair.Key].ToPlayerInitInfo());
         }
-        foreach (var pair in _playerToSocket)
+        foreach (var pair in _idToSocket)
         {
             Server.Instance.Send(pair.Value, new SC_StartBattleNtf()
             {
                 playerInitInfos = infoList,
+                mainPlayerId = pair.Key,
             });
         }
     }

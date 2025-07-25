@@ -9,8 +9,7 @@
 
 
 
-namespace cfg
-{ 
+ 
     public enum ESkill
     {
         /// <summary>
@@ -31,5 +30,5 @@ namespace cfg
         DanQiJiuZhu = 3,
     }
 
-} 
+ 
 

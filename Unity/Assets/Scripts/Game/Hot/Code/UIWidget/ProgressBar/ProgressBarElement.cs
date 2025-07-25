@@ -8,12 +8,12 @@ namespace Game.Hot
         private long _endTimestampMs;
         private int _totalLengthMs;
 
-        protected override void OnOpen()
+        protected override void OnAdd()
         {
             InitBind(gameObject.GetComponent<CSCodeBindMono>());
         }
 
-        protected override void OnClose()
+        protected override void OnRemove()
         {
             ClearBind();
         }
