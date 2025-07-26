@@ -58,6 +58,11 @@ namespace Game
         {
             return Utility.Text.Format("Assets/Res/UI/UIPrefab/{0}.prefab", assetName);
         }
+        
+        public static string GetUIElementAsset(string assetName)
+        {
+            return Utility.Text.Format("Assets/Res/UI/UIElement/{0}.prefab", assetName);
+        }
 
         public static string GetUISoundAsset(string assetName)
         {

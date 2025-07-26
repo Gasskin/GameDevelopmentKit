@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CodeBind;
+using UnityEngine;
 
 namespace Game
 {
@@ -9,7 +10,9 @@ namespace Game
         [CodeBindNameType]
         public static Dictionary<string, Type> BindNameTypeDict = new Dictionary<string, Type>()
         {
-            { "UIWidget", typeof(AUIWidget) },
+            // Unity
+            { "Rect", typeof(RectTransform) },
+            // UI
             { "UIElement", typeof(AUIElement) },
             // TMP
             { "TMPText", typeof(TMPro.TMP_Text) },

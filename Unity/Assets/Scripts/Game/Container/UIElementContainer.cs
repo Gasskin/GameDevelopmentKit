@@ -47,6 +47,12 @@ namespace Game
             }
         }
 
+        public void RemoveUIElement(AUIElement uiElement)
+        {
+            m_UIElement.Remove(uiElement);
+            uiElement.Remove();
+        }
+
         public void CloseAllUIElement(bool isShutdown)
         {
             if (m_UIElement.Count > 0)

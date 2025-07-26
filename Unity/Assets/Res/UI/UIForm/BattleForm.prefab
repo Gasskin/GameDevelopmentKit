@@ -1,5 +1,40 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &704191299532683590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3519108923548113344}
+  m_Layer: 5
+  m_Name: Pool_Rect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &3519108923548113344
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704191299532683590}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3034879360012223608}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3138499324378573011
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,6 +109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd0c07baa6014c69add5343925f7bea7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _battleCardUIElementAsset: {fileID: 8567574966133888892, guid: cbf7d91a4d0438940befcf3cd7df039a,
+    type: 3}
 --- !u!114 &572179794649076995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,12 +125,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BindComponents:
   - {fileID: 8694889017017515726}
+  - {fileID: 3372925738334418473}
   - {fileID: 8637641806374971495}
+  - {fileID: 3519108923548113344}
   m_SeparatorChar: 95
   m_BindScript: {fileID: 11500000, guid: dd0c07baa6014c69add5343925f7bea7, type: 3}
   m_BindComponentNames:
   - EnemyHeroCardUIElement
+  - HandCardRect
   - MyHeroCardUIElement
+  - PoolRect
 --- !u!1 &8177989897027040993
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,6 +167,8 @@ RectTransform:
   m_Children:
   - {fileID: 1247699107772706031}
   - {fileID: 2172377353132456518}
+  - {fileID: 3519108923548113344}
+  - {fileID: 3372925738334418473}
   m_Father: {fileID: 7966199596358650766}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -226,6 +269,41 @@ MonoBehaviour:
   m_FlipEdgeVertical: 5
   m_FlipFillCenter: 3
   m_FlipDirection: 3
+--- !u!1 &8250990474388945896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3372925738334418473}
+  m_Layer: 5
+  m_Name: HandCard_Rect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3372925738334418473
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8250990474388945896}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3034879360012223608}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -385.37}
+  m_SizeDelta: {x: 1200, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &4857318271693273147
 PrefabInstance:
   m_ObjectHideFlags: 0

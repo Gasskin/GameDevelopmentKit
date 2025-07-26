@@ -148,6 +148,15 @@ namespace Game
             return m_UIElementContainer.AddUIElement<T>(e);
         }
 
+        protected void RemoveUIElement(AUIElement e)
+        {
+            if (m_UIElementContainer == null)
+            {
+                throw new GameFrameworkException("UIElementContainer is null");
+            }
+            m_UIElementContainer.RemoveUIElement(e);
+        }
+
         // public void AddUIWidget(AUIWidget auiWidget, object userData = null)
         // {
         //     if (m_UIWidgetContainer == null)

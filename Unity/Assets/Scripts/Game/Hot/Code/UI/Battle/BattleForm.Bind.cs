@@ -8,7 +8,9 @@ namespace Game.Hot
         public UnityEngine.Transform Transform { get; private set; }
 
         public Game.AUIElement EnemyHeroCardUIElement { get; private set; }
+        public UnityEngine.RectTransform HandCardRect { get; private set; }
         public Game.AUIElement MyHeroCardUIElement { get; private set; }
+        public UnityEngine.RectTransform PoolRect { get; private set; }
 
 
         public void InitBind(CodeBind.CSCodeBindMono mono)
@@ -16,7 +18,9 @@ namespace Game.Hot
             Mono = mono;
             Transform = mono.transform;
             EnemyHeroCardUIElement = Mono.BindComponents[0] as Game.AUIElement;
-            MyHeroCardUIElement = Mono.BindComponents[1] as Game.AUIElement;
+            HandCardRect = Mono.BindComponents[1] as UnityEngine.RectTransform;
+            MyHeroCardUIElement = Mono.BindComponents[2] as Game.AUIElement;
+            PoolRect = Mono.BindComponents[3] as UnityEngine.RectTransform;
         }
 
         public void ClearBind()
@@ -24,7 +28,9 @@ namespace Game.Hot
             Mono = null;
             Transform = null;
             EnemyHeroCardUIElement = null;
+            HandCardRect = null;
             MyHeroCardUIElement = null;
+            PoolRect = null;
         }
     }
 }
